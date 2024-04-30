@@ -1,10 +1,9 @@
 class Mysql < Formula
   desc "Open source relational database management system"
-  homepage "https://dev.mysql.com/doc/refman/8.3/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-8.3/mysql-boost-8.3.0.tar.gz"
-  sha256 "f0a73556b8a417bc4dc6d2d78909080512beb891930cd93d0740d22207be285b"
+  homepage "https://dev.mysql.com/doc/refman/9.0/en/"
+  url "https://cdn.mysql.com/Downloads/MySQL-9.0/mysql-9.0.1.tar.gz"
+  sha256 "18fa65f1ea6aea71e418fe0548552d9a28de68e2b8bc3ba9536599eb459a6606"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
-  revision 1
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/?tpl=files&os=src"
@@ -25,17 +24,20 @@ class Mysql < Formula
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "icu4c"
-  depends_on "libevent"
   depends_on "libfido2"
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "protobuf@21" # percona-xtrabackup dependency conflict
-  depends_on "zlib" # Zlib 1.2.12+
+  depends_on "zlib" # Zlib 1.2.13+
   depends_on "zstd"
 
   uses_from_macos "curl"
   uses_from_macos "cyrus-sasl"
   uses_from_macos "libedit"
+
+  on_macos do
+    depends_on "llvm" if DevelopmentTools.clang_build_version <= 1400
+  end
 
   on_linux do
     depends_on "patchelf" => :build
@@ -45,14 +47,14 @@ class Mysql < Formula
   conflicts_with "mariadb", "percona-server",
     because: "mysql, mariadb, and percona install the same binaries"
 
-  fails_with gcc: "5" # for C++17
+  fails_with :clang do
+    build 1400
+    cause "Requires C++20"
+  end
 
-  # Patch out check for Homebrew `boost`.
-  # This should not be necessary when building inside `brew`.
-  # https://github.com/Homebrew/homebrew-test-bot/pull/820
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/bd61f2edc4c551856f894d307140b855edb2b4f5/mysql/boost-check.patch"
-    sha256 "b90c6f78fa347cec6388d2419ee4bc9a5dc9261771eff2800d99610e1c449244"
+  fails_with :gcc do
+    version "9"
+    cause "Requires C++20"
   end
 
   def datadir
@@ -68,6 +70,13 @@ class Mysql < Formula
 
       # Disable ABI checking
       inreplace "cmake/abi_check.cmake", "RUN_ABI_CHECK 1", "RUN_ABI_CHECK 0"
+    elsif DevelopmentTools.clang_build_version <= 1400
+      ENV.llvm_clang
+      # Work around failure mixing newer `llvm` headers with older Xcode's libc++:
+      # Undefined symbols for architecture arm64:
+      #   "std::exception_ptr::__from_native_exception_pointer(void*)", referenced from:
+      #       std::exception_ptr std::make_exception_ptr[abi:ne180100]<std::runtime_error>(std::runtime_error) ...
+      ENV.prepend_path "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib/"c++"
     end
 
     # -DINSTALL_* are relative to `CMAKE_INSTALL_PREFIX` (`prefix`)
@@ -106,10 +115,6 @@ class Mysql < Formula
 
     # Remove the tests directory
     rm_r(prefix/"mysql-test")
-
-    # Don't create databases inside of the prefix!
-    # See: https://github.com/Homebrew/homebrew/issues/4975
-    rm_r(prefix/"data")
 
     # Fix up the control script and link into bin.
     inreplace "#{prefix}/support-files/mysql.server",
