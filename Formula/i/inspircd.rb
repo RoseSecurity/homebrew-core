@@ -4,6 +4,7 @@ class Inspircd < Formula
   url "https://github.com/inspircd/inspircd/archive/refs/tags/v4.2.0.tar.gz"
   sha256 "4b07359c5528489cd312a6e1bd27a6e5161f839c62699f4d3113cb3cb50250bb"
   license "GPL-2.0-only"
+  revision 1
 
   livecheck do
     url :stable
