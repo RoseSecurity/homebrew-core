@@ -4,6 +4,7 @@ class Diesel < Formula
   url "https://github.com/diesel-rs/diesel/archive/refs/tags/v2.2.2.tar.gz"
   sha256 "322d38d41077d393877afcff02f7ee3078ec2ffbe284af8a8a807d015f6efa9d"
   license any_of: ["Apache-2.0", "MIT"]
+  revision 1
   head "https://github.com/diesel-rs/diesel.git", branch: "master"
 
   bottle do
@@ -18,7 +19,7 @@ class Diesel < Formula
 
   depends_on "rust" => [:build, :test]
   depends_on "libpq"
-  depends_on "mysql-client"
+  depends_on "mysql-client@8.4"
 
   uses_from_macos "sqlite"
 
