@@ -2,7 +2,7 @@ class Ntopng < Formula
   desc "Next generation version of the original ntop"
   homepage "https://www.ntop.org/products/traffic-analysis/ntop/"
   license "GPL-3.0-only"
-  revision 5
+  revision 6
 
   stable do
     url "https://github.com/ntop/ntopng/archive/refs/tags/5.2.1.tar.gz"
@@ -89,13 +89,13 @@ class Ntopng < Formula
     fork do
       exec redis_bin/"redis-server", "--port", redis_port.to_s
     end
-    sleep 3
+    sleep 10
 
     mkdir testpath/"ntopng"
     fork do
       exec bin/"ntopng", "-i", test_fixtures("test.pcap"), "-d", testpath/"ntopng", "-r", "localhost:#{redis_port}"
     end
-    sleep 15
+    sleep 30
 
     assert_match "list", shell_output("#{redis_bin}/redis-cli -p #{redis_port} TYPE ntopng.trace")
   end
