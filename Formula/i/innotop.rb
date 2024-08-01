@@ -4,7 +4,7 @@ class Innotop < Formula
   url "https://github.com/innotop/innotop/archive/refs/tags/v1.13.0.tar.gz"
   sha256 "6ec91568e32bda3126661523d9917c7fbbd4b9f85db79224c01b2a740727a65c"
   license any_of: ["GPL-2.0-only", "Artistic-1.0-Perl"]
-  revision 8
+  revision 9
   head "https://github.com/innotop/innotop.git"
 
   bottle do
@@ -31,13 +31,15 @@ class Innotop < Formula
   end
 
   resource "DBD::mysql" do
-    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.004.tar.gz"
-    sha256 "33a6bf1b685cc50c46eb1187a3eb259ae240917bc189d26b81418790aa6da5df"
+    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.008.tar.gz"
+    sha256 "a2324566883b6538823c263ec8d7849b326414482a108e7650edc0bed55bcd89"
   end
 
-  resource "TermReadKey" do
-    url "https://cpan.metacpan.org/authors/id/J/JS/JSTOWE/TermReadKey-2.38.tar.gz"
-    sha256 "5a645878dc570ac33661581fbb090ff24ebce17d43ea53fd22e105a856a47290"
+  resource "Term::ReadKey" do
+    on_linux do
+      url "https://cpan.metacpan.org/authors/id/J/JS/JSTOWE/TermReadKey-2.38.tar.gz"
+      sha256 "5a645878dc570ac33661581fbb090ff24ebce17d43ea53fd22e105a856a47290"
+    end
   end
 
   def install
@@ -45,11 +47,6 @@ class Innotop < Formula
     resources.each do |r|
       r.stage do
         system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}"
-        # Work around restriction on 10.15+ where .bundle files cannot be loaded
-        # from a relative path -- while in the middle of our build we need to
-        # refer to them by their full path.  Workaround adapted from:
-        #   https://github.com/fink/fink-distributions/issues/461#issuecomment-563331868
-        inreplace "Makefile", "blib/", "$(shell pwd)/blib/" if OS.mac? && r.name == "TermReadKey"
         system "make", "install"
       end
     end
