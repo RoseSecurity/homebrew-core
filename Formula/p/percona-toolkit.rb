@@ -27,14 +27,8 @@ class PerconaToolkit < Formula
 
   depends_on "go" => :build
   depends_on "mysql-client"
-  depends_on "openssl@3"
 
   uses_from_macos "perl"
-  uses_from_macos "zlib", since: :sonoma
-
-  on_intel do
-    depends_on "zstd"
-  end
 
   # Should be installed before DBD::mysql
   resource "Devel::CheckLib" do
@@ -69,8 +63,12 @@ class PerconaToolkit < Formula
         else
           libexec
         end
+
+        make_args = []
+        make_args << "OTHERLDFLAGS=-Wl,-dead_strip_dylibs" if r.name == "DBD::mysql" && OS.mac?
+
         system "perl", "Makefile.PL", "INSTALL_BASE=#{install_base}", "NO_PERLLOCAL=1", "NO_PACKLIST=1"
-        system "make", "install"
+        system "make", "install", *make_args
       end
     end
 
