@@ -14,6 +14,7 @@
   "gcc@13",
   "glibmm@2.66",
   "gnupg@1.4",
+  "icu4c@76",
   "libpeas@1",
   "libsigc++@2",
   "libxml++@3",
@@ -42,6 +43,5 @@
   "python-tk@3.12",
   "python-tk@3.13",
   "spidermonkey@91",
-  "spidermonkey@115",
-  "wxwidgets@3.0"
+  "spidermonkey@115"
 ]

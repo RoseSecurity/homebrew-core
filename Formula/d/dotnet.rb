@@ -3,29 +3,32 @@ class Dotnet < Formula
   homepage "https://dotnet.microsoft.com/"
   # Source-build tag announced at https://github.com/dotnet/source-build/discussions
   url "https://github.com/dotnet/dotnet.git",
-      tag:      "v8.0.8",
-      revision: "e78e8a64f20e61e1fea4f24afca66ad1dc56285f"
+      tag:      "v8.0.10",
+      revision: "8922fe64a1903ed4e35e24568efb056b3e0fad43"
   license "MIT"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "89f252e00a7ac506f5fbfc0efdbab5086159bd2a86ae4ab6a6707af88ea488de"
-    sha256 cellar: :any,                 arm64_sonoma:  "50abbee44b6927be4287f50c404184dfbb5237f55c49e2a8f06fdca141bd1316"
-    sha256 cellar: :any,                 arm64_ventura: "2ccdc26a62d0d87a1277650ad838e3adad997490cef5769c98bf1438e10dea86"
-    sha256 cellar: :any,                 sonoma:        "abe7c53c2604a406c78df963f5c6df453e854ca7c7e658884c12135618ac117a"
-    sha256 cellar: :any,                 ventura:       "d4b62b0c6a11732a7b227ec2fc5827e3cc8a00a0260b5fdd761f7713afc64c8c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "093c5bfbc0e6c9ac34104de80fb7b4b9c3123f796a20e0bdf9fe3b646c27e1b3"
+    sha256 cellar: :any,                 arm64_sequoia: "197cb068d41882513946c97853080a27b7c314ffd8f42296b663d2a6a19277c4"
+    sha256 cellar: :any,                 arm64_sonoma:  "ee8e38b1f895f854eb38256ce40ae985613b2c005881a64d58de86a7e0b9e24d"
+    sha256 cellar: :any,                 arm64_ventura: "474fd3ad1582cf4f406654ec9b015e975569705c451e7f55d1a609a35b2da9ad"
+    sha256 cellar: :any,                 sonoma:        "ef18da376e2734a3b327840e99aac667dd43b5c797e6b651aa875ed56644e2c4"
+    sha256 cellar: :any,                 ventura:       "75c23fb3c05ac68ec3a3c22203e6829a8f80f5a2f22a3453bce1a4eff83338ad"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e8bc8e2a21f664c9e49fba79e66c6e0fe53d8ad2eba046703ad536e47e5bb675"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
-  depends_on "icu4c@75"
+  depends_on "python@3.13" => :build
+  depends_on "icu4c@76"
   depends_on "openssl@3"
 
   uses_from_macos "llvm" => :build
   uses_from_macos "krb5"
   uses_from_macos "zlib"
+
+  on_sonoma do
+    depends_on xcode: :build if DevelopmentTools.clang_build_version == 1600
+  end
 
   on_linux do
     depends_on "libunwind"
@@ -35,6 +38,12 @@ class Dotnet < Formula
   # Upstream only directly supports and tests llvm/clang builds.
   # GCC builds have limited support via community.
   fails_with :gcc
+
+  # Backport fix for error loading BuildXL service index
+  patch do
+    url "https://github.com/dotnet/dotnet/commit/18b5c7e1b125468f483a697ba8809c0a2412a762.patch?full_index=1"
+    sha256 "76ede810166cf718fe430a8b155da07ca245ec9174b73b3471baf413bbd42460"
+  end
 
   # Backport fix to build with Xcode 16
   patch do

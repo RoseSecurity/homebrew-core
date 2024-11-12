@@ -2,26 +2,26 @@ class Filebeat < Formula
   desc "File harvester to ship log files to Elasticsearch or Logstash"
   homepage "https://www.elastic.co/products/beats/filebeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.2",
-      revision: "26daf71e4ec87172523af7f0e916cba9f79dc0d0"
+      tag:      "v8.16.0",
+      revision: "dd6212261c57e41e1bf42532809a14a00c9072a9"
   # Outside of the "x-pack" folder, source code in a given file is licensed
   # under the Apache License Version 2.0
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "21e3f32e03a69aa3695d2381ce0cb9f770ee639fdf822c9483d62cd91a2a901b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0c6d51f8e434af306485a829f1f9ba7fd55d995f335203183d91f2c614606244"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "b7afe70f110dacc393b4eea65f805b042197ff128f67b775e51e8929d17c0d25"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d07d5366cee2ae89dd4f124183cfd7da47aa958e0ff742200d3bdfb4dee02c7f"
-    sha256 cellar: :any_skip_relocation, ventura:       "27c184622e6f735b988b613095d36e4a5b432da42a661f62e02eca870f651556"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "15aa07382a6c8d5520b847c6b3ed1bb7da5bf61e132d95c226b384517d89d235"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "61492bdb3611f256d53ff7289c7afd84346e36f9d0335eed0afff88fd2116043"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bb3d9dd58e732bc15c7d7a5fa6f5bac8e40438cc59b5b6ed6cf218e370e92134"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "fe82c88f3406c47646534ff7cd1901a3d7a391288e2542e984706bfc0a5965e5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "bf9c7f2709da83656ed2e8520a0537e90eaccbbbce5f20382a5f6eec936b1cbc"
+    sha256 cellar: :any_skip_relocation, ventura:       "c144cad00bec4f43beeb4b944b21d307888f75b1569e77e9e072abea2c306dbd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1f5e60f927c411700349b41221fd782b70aad82300414a596d873fd78c417761"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
+  depends_on "python@3.12" => :build
 
-  uses_from_macos "python" => :build
   uses_from_macos "rsync" => :build
 
   def install
@@ -67,7 +67,7 @@ class Filebeat < Formula
     log_file = testpath/"test.log"
     touch log_file
 
-    (testpath/"filebeat.yml").write <<~EOS
+    (testpath/"filebeat.yml").write <<~YAML
       filebeat:
         inputs:
           -
@@ -77,7 +77,7 @@ class Filebeat < Formula
       output:
         file:
           path: #{testpath}
-    EOS
+    YAML
 
     (testpath/"log").mkpath
     (testpath/"data").mkpath

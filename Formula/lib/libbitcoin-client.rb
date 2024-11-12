@@ -19,7 +19,7 @@ class LibbitcoinClient < Formula
 
   # About 2 years since request for release with support for recent `boost`.
   # Ref: https://github.com/libbitcoin/libbitcoin-system/issues/1234
-  deprecate! date: "2023-12-14", because: "uses deprecated `boost@1.76`"
+  disable! date: "2024-12-14", because: "uses deprecated `boost@1.76`"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -45,7 +45,7 @@ class LibbitcoinClient < Formula
 
   test do
     boost = Formula["boost@1.76"]
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <bitcoin/client.hpp>
       class stream_fixture
         : public libbitcoin::client::stream
@@ -100,7 +100,7 @@ class LibbitcoinClient < Formula
         assert(to_string(capture.out[0]) == "blockchain.fetch_history3");
         assert(libbitcoin::encode_base16(capture.out[2]) == "f85beb6356d0813ddb0dbb14230a249fe931a13578563412");
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++11", "test.cpp", "-o", "test",
                     "-I#{boost.include}",
                     "-L#{Formula["libbitcoin"].opt_lib}", "-lbitcoin-system",

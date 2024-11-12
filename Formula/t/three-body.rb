@@ -1,20 +1,18 @@
 class ThreeBody < Formula
   desc "三体编程语言 Three Body Language written in Rust"
   homepage "https://github.com/rustq/3body-lang"
-  url "https://github.com/rustq/3body-lang/archive/refs/tags/0.6.1.tar.gz"
-  sha256 "ec8eda8a795608fcf187ac4ecbf3b7e6d8be80ca6cdefebf7c586837383694cb"
+  url "https://github.com/rustq/3body-lang/archive/refs/tags/0.6.5.tar.gz"
+  sha256 "e6c4c4039f868fce6c08adfe5852dfe15d2564ac8b9033e60bd0e098c5c5df5e"
   license "MIT"
   head "https://github.com/rustq/3body-lang.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "7668a5910ff064877716598c08eeff885f07eda34af6257793bb080edf3e6200"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a28c16d9aaac1bcfedd8613deae8c20bc991748040da8c7f4e92be1b7703c86e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "192469a2ec581db2fb21910005eb950e05ed7dd3ee8110e2546605c8fc7b8dc4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "49986a35eae81a6e43ca80e7a84bf5de313eac163332eb3007b85e558146df59"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f3c7c9e0852b7ac16d3a3bcf6befef1facf5440e27bb62c016e1b0d060306827"
-    sha256 cellar: :any_skip_relocation, ventura:        "626a0c17be6e761fd133245ea759b54e7398bb1051bd2b763b7ac94a29abc9d3"
-    sha256 cellar: :any_skip_relocation, monterey:       "5dd8aa04bb52acac4dca8e5fb321e626b9a744bb936eba575aa6175a461eb349"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a343096eaf0db518ad9d408e7e9be8686f6bb9a18f44597648f06b5601644237"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b14b79b6374be096bc29c9e9f25a429c9330d1bbf42bb7228a5df22b038ccce4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "17906f40f4a7908537f9c3a96653a588c31d0b420bb10c7c3f98ab1a0b2a3020"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "393d8bf1e63c5818b19ffc7fddc4ed4d19fc6f727852e14a7f3406c6a2b995b5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0ea9365c8fb00a4cc63a309c4316bfb1b5978ea35505e0e3dcc7e8f4e3b62e7b"
+    sha256 cellar: :any_skip_relocation, ventura:       "3a011425102efc7f388625413dcb9456fdb494ce9f9e19c3da548ef6637977fd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b8ed8e8bf645ee93eef6d9ea9566286f8ecd54d46ebae8f2b854574edda7721e"
   end
 
   depends_on "rust" => :build
@@ -46,6 +44,6 @@ class ThreeBody < Formula
       撞()'").strip
     assert_equal "\"半人马星系\"", shell_output("#{bin}/3body -c '给 三体世界坐标 以 \"半人马星系\"; 广播(三体世界坐标);'").strip
     assert_equal "", shell_output("#{bin}/3body -c '冬眠(1000); 二向箔清理(); 毁灭();'").strip
-    assert_equal "[builtin function]", shell_output("#{bin}/3body -c '智子工程'").strip
+    assert_equal "[builtin function]", shell_output("#{bin}/3body -c '程心'").strip
   end
 end

@@ -1,8 +1,8 @@
 class Redress < Formula
   desc "Tool for analyzing stripped Go binaries compiled with the Go compiler"
-  homepage "https://go-re.tk/redress/"
-  url "https://github.com/goretk/redress/archive/refs/tags/v1.2.0.tar.gz"
-  sha256 "60b8c6fcdeb4516c32ce5bab40bf345db995f3c2a80561662a190c37eb3284a9"
+  homepage "https://github.com/goretk/redress"
+  url "https://github.com/goretk/redress/archive/refs/tags/v1.2.5.tar.gz"
+  sha256 "6bc1ccaeb268df58f22b21808e0cd019feb9f1a53e6886079d2bd780cfb14ce1"
   license "AGPL-3.0-only"
   head "https://github.com/goretk/redress.git", branch: "develop"
 
@@ -12,14 +12,12 @@ class Redress < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "00fe6630633fe641a1a3309ba8c8e5d0e4af845d14bcf527553dc9c8d3084e36"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6eeea20a7dac4321e6d71aa3e99ca14974f3d6a2fbd1e11a0e373bd3710d052e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "49a41d2a3a7c67218a6e04d0d1ad1d160accf733d98f6a1c66cb65ff8eece781"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "48e6536d539e76370c1cedd96ac714570681ee6c2bc8bd300a1daf9a3cdf297a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "960ae46da4f2de776b2855c6d07331cad36917c7e62f315e7b63ef4430d32b72"
-    sha256 cellar: :any_skip_relocation, ventura:        "a065408fc5e32c52361429740f5e99120933b0e1211f5741bef3a596e62c924f"
-    sha256 cellar: :any_skip_relocation, monterey:       "2a1450857222012c2e93045aa4d651cb54213dec9db977e6e7a70fd9d7135cbf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aa43b152e48f9adb04fe164784898a34def73eb5d619d4c87b433404fa3e870a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d4cea360628fa56726e20e7537a860a75715e4a6def5971999de28300c4af013"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d4cea360628fa56726e20e7537a860a75715e4a6def5971999de28300c4af013"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d4cea360628fa56726e20e7537a860a75715e4a6def5971999de28300c4af013"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3b603bf39fbb1e505d7cffea4a997cf96d3668ed07f822f484270424be7a4715"
+    sha256 cellar: :any_skip_relocation, ventura:       "3b603bf39fbb1e505d7cffea4a997cf96d3668ed07f822f484270424be7a4715"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "740a8f7e503778b5aa32fb87b61817fb3ff5ebbceeee82b53f826ab2e6f3de6f"
   end
 
   depends_on "go" => :build

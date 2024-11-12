@@ -1,8 +1,8 @@
 class Teleport < Formula
   desc "Modern SSH server for teams managing distributed infrastructure"
   homepage "https://goteleport.com/"
-  url "https://github.com/gravitational/teleport/archive/refs/tags/v16.4.2.tar.gz"
-  sha256 "fad4e2d248417925498b05b9d2c52352f6580af95968c691bd2e2ddc129d73c2"
+  url "https://github.com/gravitational/teleport/archive/refs/tags/v16.4.7.tar.gz"
+  sha256 "34dc8ab9065563efef29ef2e9de65f2c15f063fb69f712db15bb7fc46fd4edfa"
   license all_of: ["AGPL-3.0-or-later", "Apache-2.0"]
   head "https://github.com/gravitational/teleport.git", branch: "master"
 
@@ -18,12 +18,12 @@ class Teleport < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e28b59dea0536a7a34a259b371221e63f6110af106d0a52d24345181fc4a47e3"
-    sha256 cellar: :any,                 arm64_sonoma:  "a9e155141bf6ae01f2d1957ba71e43f016527b88906c19fa98e884df1033f048"
-    sha256 cellar: :any,                 arm64_ventura: "3d7fb1861b3b1608902a1b73c8404ce75bb2d6d63d60360a7ffcce836bd82cb5"
-    sha256 cellar: :any,                 sonoma:        "cfe5435f3606343bb5532da629111a90532c766a2b9f5688c63bb434d55a0d0a"
-    sha256 cellar: :any,                 ventura:       "a75cdf8c3e27e8f7e5d96fcacc0b15b28e4eb1a6279335dc534f3da30d7f07fd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f651428efd417d822372aab204d4f4cbcba64793b45bf584f3d9a4b1f94df578"
+    sha256 cellar: :any,                 arm64_sequoia: "4e7f4e8b74ac634320853f794cc5265afb34868558b1899a5b656e10fdfd9a42"
+    sha256 cellar: :any,                 arm64_sonoma:  "6a4408ffbc5f206f421107b7384d2e8d18fd3d7266d1df6ec7f6dd7f7e9bb2e5"
+    sha256 cellar: :any,                 arm64_ventura: "f14ef6ef97ab5a6d6ff4721097a6d19eaa1e575b5ba425f0517f86470fc6fccc"
+    sha256 cellar: :any,                 sonoma:        "7df4288c8a0e73c95ac162cc87aa27d01dc67a807f0463360efe491c01b95ab0"
+    sha256 cellar: :any,                 ventura:       "851ff56dcb3809937089c0ab1d3c401121300b3a3d48f81c4772b06a07f48d26"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2dd4236aa926aae711c27fde357be865f4298492eda09d3ff8e446e9e0453b71"
   end
 
   # Use "go" again after https://github.com/gravitational/teleport/commit/e4010172501f0ed18bb260655c83606dfa872fbd
@@ -61,7 +61,7 @@ class Teleport < Formula
     assert_match version.to_s, shell_output("#{bin}/tctl version")
 
     mkdir testpath/"data"
-    (testpath/"config.yml").write <<~EOS
+    (testpath/"config.yml").write <<~YAML
       version: v2
       teleport:
         nodename: testhost
@@ -69,7 +69,7 @@ class Teleport < Formula
         log:
           output: stderr
           severity: WARN
-    EOS
+    YAML
 
     fork do
       exec "#{bin}/teleport start --roles=proxy,node,auth --config=#{testpath}/config.yml"

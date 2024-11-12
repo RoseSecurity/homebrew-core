@@ -22,7 +22,7 @@ class GrpcAT154 < Formula
 
   keg_only :versioned_formula
 
-  deprecate! date: "2024-02-25", because: :versioned_formula
+  disable! date: "2024-10-31", because: :versioned_formula
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -90,14 +90,14 @@ class GrpcAT154 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <grpc/grpc.h>
       int main() {
         grpc_init();
         grpc_shutdown();
         return GRPC_STATUS_OK;
       }
-    EOS
+    CPP
     ENV.prepend_path "PKG_CONFIG_PATH", lib/"pkgconfig"
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["protobuf@21"].opt_lib/"pkgconfig"
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@3"].opt_lib/"pkgconfig"

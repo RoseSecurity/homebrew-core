@@ -8,7 +8,7 @@ class Texlive < Formula
   mirror "https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2024/texlive-20240312-source.tar.xz"
   sha256 "7b6d87cf01661670fac45c93126bed97b9843139ed510f975d047ea938b6fe96"
   license :cannot_represent
-  revision 2
+  revision 3
   head "https://github.com/TeX-Live/texlive-source.git", branch: "trunk"
 
   livecheck do
@@ -34,12 +34,12 @@ class Texlive < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "8df2b87b3e5dd1e8cbcf411ba01087f44124a7c0798e2ea92b6f1ab539882bc5"
-    sha256 arm64_sonoma:  "789c9b7588798cba955bd5b4ed904f50cd96440cf249d9a6e4639faa925a471a"
-    sha256 arm64_ventura: "39e722eb05f849c70152f8017034402eabd4406b560f77a56dacfc9528f4ea4d"
-    sha256 sonoma:        "d36fab3f2d82a1874455c600b49b0257fa36bbde33b0307c9f9b249961cf5eed"
-    sha256 ventura:       "75a57de98c2735f315d51dedb9c0102d39fda3ab0dcea3a37ae666619849eac0"
-    sha256 x86_64_linux:  "109a5919769a185f04fd1c1c34a462fbc07371e68fd25da3eb3d0dd7585e5a24"
+    sha256 arm64_sequoia: "d48b45c0eec8b09a66346f83935bec59db4fffc386189e990101fef3698f967c"
+    sha256 arm64_sonoma:  "8da78aea8a3984ee945484459267bde9a981ec3aea1ddaf65486c009e21014b4"
+    sha256 arm64_ventura: "c377511a9a069e926864b84da29ec1b947e4f9d55fcb0e32732d2222f344e023"
+    sha256 sonoma:        "d3a6f5fc610f32ee5438a836a248e5b72cefdf09cc6d7a7b514ef019ba07cc79"
+    sha256 ventura:       "fa109f6a8813e1cf08dedefd4a66f3204f427b57cb25ca6f0f0ad1784c2b7bc4"
+    sha256 x86_64_linux:  "75296912aab28aad7c0669d9f9f37a95dfc14b826d10c3b6e96af92d904781bb"
   end
 
   depends_on "pkg-config" => :build
@@ -52,7 +52,7 @@ class Texlive < Formula
   depends_on "gmp"
   depends_on "graphite2"
   depends_on "harfbuzz"
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "libx11"
@@ -411,9 +411,14 @@ class Texlive < Formula
               "selfautoparent:texmf", "selfautodir:share/texmf"
 
     # icu4c 75+ needs C++17
+    # TODO: Remove in 2025 release
     ENV.append "CXXFLAGS", "-std=gnu++17"
 
-    args = std_configure_args + [
+    # Work around build failure on Intel Sonoma after updating to Xcode 16
+    # sh: line 1: 27478 Segmentation fault: 11  luajittex -ini -jobname=luajittex -progname=luajittex luatex.ini ...
+    ENV.O1 if DevelopmentTools.clang_build_version == 1600 && Hardware::CPU.intel?
+
+    args = [
       "--disable-dvisvgm", # needs its own formula
       "--disable-missing",
       "--disable-native-texlive-build", # needed when doing a distro build
@@ -424,7 +429,6 @@ class Texlive < Formula
       "--enable-build-in-source-tree",
       "--enable-shared",
       "--enable-compiler-warnings=yes",
-      "--with-banner-add=/#{tap.user}",
       "--with-system-clisp-runtime=system",
       "--with-system-cairo",
       "--with-system-freetype2",
@@ -440,6 +444,7 @@ class Texlive < Formula
       "--with-system-potrace",
       "--with-system-zlib",
     ]
+    args << "--with-banner-add=/#{tap.user}" if tap
 
     args << if OS.mac?
       "--without-x"
@@ -448,7 +453,7 @@ class Texlive < Formula
       "--with-xdvi-x-toolkit=xaw"
     end
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
     system "make", "texlinks"
@@ -466,9 +471,21 @@ class Texlive < Formula
     # Create tlmgr config file.  This file limits the actions that the user
     # can perform in 'system' mode, which would write to the cellar.  'tlmgr' should
     # be used with --usermode whenever possible.
-    (share/"texmf-config/tlmgr/config").write <<~EOS
-      allowed-actions=candidates,check,dump-tlpdb,help,info,list,print-platform,print-platform-info,search,show,version,init-usertree
-    EOS
+    actions = %w[
+      candidates
+      check
+      dump-tlpdb
+      help
+      info
+      init-usertree
+      list
+      print-platform
+      print-platform-info
+      search
+      show
+      version
+    ]
+    (share/"texmf-config/tlmgr/config").write "allowed-actions=#{actions.join(",")}\n"
 
     # Delete some Perl scripts that are provided by existing formulae as newer versions.
     rm bin/"latexindent" # provided by latexindent formula
@@ -561,7 +578,7 @@ class Texlive < Formula
     assert_match "revision", shell_output("#{bin}/tlmgr --version")
     assert_match "AMS mathematical facilities for LaTeX", shell_output("#{bin}/tlmgr info amsmath")
 
-    (testpath/"test.latex").write <<~EOS
+    (testpath/"test.latex").write <<~LATEX
       \\documentclass[12pt]{article}
       \\usepackage[utf8]{inputenc}
       \\usepackage{amsmath}
@@ -587,7 +604,7 @@ class Texlive < Formula
       \\lipsum[5]
 
       \\end{document}
-    EOS
+    LATEX
 
     assert_match "Output written on test.dvi", shell_output("#{bin}/latex #{testpath}/test.latex")
     assert_predicate testpath/"test.dvi", :exist?

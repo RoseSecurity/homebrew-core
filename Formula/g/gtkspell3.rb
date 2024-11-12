@@ -47,22 +47,20 @@ class Gtkspell3 < Formula
   end
 
   def install
-    ENV.prepend_path "PERL5LIB", Formula["perl-xml-parser"].libexec/"lib/perl5" unless OS.mac?
-
     system "autoreconf", "--force", "--install", "--verbose"
-    system "./configure", "--enable-vala", *std_configure_args.reject { |s| s["--disable-debug"] }
+    system "./configure", "--enable-vala", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtkspell/gtkspell.h>
 
       int main(int argc, char *argv[]) {
         GList *list = gtk_spell_checker_get_language_list();
         return 0;
       }
-    EOS
+    C
 
     pkg_config_flags = shell_output("pkg-config --cflags --libs gtkspell3-3.0").chomp.split
     system ENV.cc, "test.c", "-o", "test", *pkg_config_flags

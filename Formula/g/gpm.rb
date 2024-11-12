@@ -12,7 +12,7 @@ class Gpm < Formula
   end
 
   # https://tip.golang.org/doc/go1.22
-  disable! date: "2024-08-03", because: "go get is no longer supported outside of a module"
+  disable! date: "2024-08-03", because: "runs `go get` outside of a module, which is no longer supported"
 
   depends_on "go"
 
@@ -26,11 +26,11 @@ class Gpm < Formula
     ENV["GO111MODULE"] = "auto"
     (testpath/"Godeps").write("github.com/pote/gpm-testing-package v6.1")
     system bin/"gpm", "install"
-    (testpath/"go_code.go").write <<~EOS
+    (testpath/"go_code.go").write <<~GO
       package main
       import ("fmt"; "github.com/pote/gpm-testing-package")
       func main() { fmt.Print(gpm_testing_package.Version()) }
-    EOS
+    GO
     assert_equal "v6.1", shell_output("go run go_code.go")
   end
 end

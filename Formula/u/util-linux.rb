@@ -37,7 +37,7 @@ class UtilLinux < Formula
 
   keg_only :shadowed_by_macos, "macOS provides the uuid.h header"
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   uses_from_macos "libxcrypt"
   uses_from_macos "ncurses"
@@ -138,7 +138,7 @@ class UtilLinux < Formula
 
     flags = ["x", "w", "r"] * 3
     perms = flags.each_with_index.reduce("") do |sum, (flag, index)|
-      sum.insert 0, ((stat.mode & (2 ** index)).zero? ? "-" : flag)
+      sum.insert 0, (stat.mode.nobits?(2 ** index) ? "-" : flag)
     end
 
     out = shell_output("#{bin}/namei -lx /usr").split("\n").last.split

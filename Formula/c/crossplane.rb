@@ -1,18 +1,18 @@
 class Crossplane < Formula
   desc "Build control planes without needing to write code"
   homepage "https://github.com/crossplane/crossplane"
-  url "https://github.com/crossplane/crossplane/archive/refs/tags/v1.17.1.tar.gz"
-  sha256 "44e8c94ffa41174f12e25ff60a9c7fd30cfd404b07b2332ec04070a27c2d2e74"
+  url "https://github.com/crossplane/crossplane/archive/refs/tags/v1.18.0.tar.gz"
+  sha256 "fb39ade93436e2c9903ef433f60efd53ca4fb2bf6662ea5e91488a2881960da1"
   license "Apache-2.0"
   head "https://github.com/crossplane/crossplane.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6986bafd2c9653962342cbd28f15fabc876a4c44f680626545b179d2cbecd851"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6986bafd2c9653962342cbd28f15fabc876a4c44f680626545b179d2cbecd851"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6986bafd2c9653962342cbd28f15fabc876a4c44f680626545b179d2cbecd851"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1302d3d8bb8bf50e976566d1f2c3a63d41a352a19bd5cc102a87af6e7c9a5b48"
-    sha256 cellar: :any_skip_relocation, ventura:       "1302d3d8bb8bf50e976566d1f2c3a63d41a352a19bd5cc102a87af6e7c9a5b48"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "69a166f60397cbd351bef8014a863d4f1529ee444dcce8b3359a24a3b8ca09c9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ccafab16f0e33a904641744f1bf5b8a5dc2d5b2b4f380472ea9a9b562ee625f2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ccafab16f0e33a904641744f1bf5b8a5dc2d5b2b4f380472ea9a9b562ee625f2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ccafab16f0e33a904641744f1bf5b8a5dc2d5b2b4f380472ea9a9b562ee625f2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e063b008c37354efe8fbf4265a54c662a1afaaaeeaca0c1f34c8863ea2d594eb"
+    sha256 cellar: :any_skip_relocation, ventura:       "e063b008c37354efe8fbf4265a54c662a1afaaaeeaca0c1f34c8863ea2d594eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d9014ee6b3519ba8e1ffe8e0973a9aa838f65310368b69c4e86d1753d7abd146"
   end
 
   depends_on "go" => :build
@@ -24,7 +24,7 @@ class Crossplane < Formula
   test do
     assert_match "Client Version: v#{version}", shell_output("#{bin}/crossplane version --client")
 
-    (testpath/"controllerconfig.yaml").write <<~EOS
+    (testpath/"controllerconfig.yaml").write <<~YAML
       apiVersion: pkg.crossplane.io/v1alpha1
       kind: ControllerConfig
       metadata:
@@ -32,8 +32,8 @@ class Crossplane < Formula
       spec:
        args:
          - --enable-external-secret-stores
-    EOS
-    expected_output = <<~EOS
+    YAML
+    expected_output = <<~YAML
       apiVersion: pkg.crossplane.io/v1beta1
       kind: DeploymentRuntimeConfig
       metadata:
@@ -51,7 +51,7 @@ class Crossplane < Formula
                   - --enable-external-secret-stores
                   name: package-runtime
                   resources: {}
-    EOS
+    YAML
     system bin/"crossplane", "beta", "convert", "deployment-runtime", "controllerconfig.yaml", "-o",
 "deploymentruntimeconfig.yaml"
     inreplace "deploymentruntimeconfig.yaml", /^\s+creationTimestamp.+$\n/, ""

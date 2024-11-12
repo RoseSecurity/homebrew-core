@@ -1,17 +1,17 @@
 class Opensearch < Formula
   desc "Open source distributed and RESTful search engine"
   homepage "https://github.com/opensearch-project/OpenSearch"
-  url "https://github.com/opensearch-project/OpenSearch/archive/refs/tags/2.17.0.tar.gz"
-  sha256 "6af45ea416cf72e08680726ef59f0379fcbfa889845fd2626c86d9ae8ebbd9c4"
+  url "https://github.com/opensearch-project/OpenSearch/archive/refs/tags/2.18.0.tar.gz"
+  sha256 "bc17283263784b7aa92e1e8ccdf98d3fd325e017b9a0d69b259194aab2ce7dee"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ed3ec14eb26e1330288b9187999e92fd24bb57ca197bb04d9f36c24cdd3fc54e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "489f45c48258b6a4e2892c4bc11dbcf740b4a82490e70ee42bd1c209a96b1378"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6369e4b29a325a4c2dad440bd281c1bbdc08c6e0838a6dc0c92f99a495e74df0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "54d09deadd49d3ac1988c3ae596c0f84b4d086b1420aa69c6cddf27bbcbddc8e"
-    sha256 cellar: :any_skip_relocation, ventura:       "d9edc7bcec7b521ce01003b7c7925ce656c2a2fe7492b87dac18041c5695dc6c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1b66d042f32c6604bcf1ec127b79fe3bc26d4028c9733e62c66ff74acc4250d0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "23cd08da6e2b18eb13f115a1e8ddea8cf02613a9ca82a04977f0d09033126a1b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "89272d2b0704762a2af0ea402f5b82e2ac185483afe3993bd3398f8bdff53023"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "55c754c3427e113d356822c4a4b45ff97ea5771daea0e17e1e1a771e3c215cb2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d1c511c44ede2aef7f8a30c2144deb0eb449693b422c7128df53c30af28bd7ca"
+    sha256 cellar: :any_skip_relocation, ventura:       "50326ad36fc28fff5a327c3f4604ae604a2b00e9574114970adeccae82bf8f07"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4985b7a0fd45609f70ef27295fc1f6126ca1d5a63f50e055d7bc4a2c3b54fce1"
   end
 
   depends_on "gradle" => :build

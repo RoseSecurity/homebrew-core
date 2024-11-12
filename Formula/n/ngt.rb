@@ -1,8 +1,8 @@
 class Ngt < Formula
   desc "Neighborhood graph and tree for indexing high-dimensional data"
   homepage "https://github.com/yahoojapan/NGT"
-  url "https://github.com/yahoojapan/NGT/archive/refs/tags/v2.2.4.tar.gz"
-  sha256 "7351e5af288fc84a28d3f4612115ca76bf220d0465ae53f6e4b5ecc8111983c5"
+  url "https://github.com/yahoojapan/NGT/archive/refs/tags/v2.3.4.tar.gz"
+  sha256 "b6c75a32c68571e00ca73c4f7c5ba94ac405c4e6c1ef79850eb2aff0ebf144ad"
   license "Apache-2.0"
 
   livecheck do
@@ -11,14 +11,12 @@ class Ngt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "e3b77b6b8d23120f243b5d23eefd462086352fcbc89065fc3c37d978db711062"
-    sha256 cellar: :any,                 arm64_sonoma:   "89ccaa1704cea90187aabc187a23e3e8a0ed9f0fd9b3e1f1dac4145b4ff1cfde"
-    sha256 cellar: :any,                 arm64_ventura:  "b455dbfb223891bb0e97df7b293ec04fc7c6a0341b074e34fd6ad77cae79c044"
-    sha256 cellar: :any,                 arm64_monterey: "b81cb9b4fe0613817012fd8682e67d5b16019d627616a37df4932744a7d29119"
-    sha256 cellar: :any,                 sonoma:         "5694b567228f6d35bee96f4c9c64ad556989074aeb98eb121ff909fae3753d94"
-    sha256 cellar: :any,                 ventura:        "5e87a237c3b9cbf453cab7891b62429da4a6443a5bdb333d7ecf910a2ecbe719"
-    sha256 cellar: :any,                 monterey:       "467be31ee3485b2546ce4d39242373ceaa55f044526a0ea95c43cf790b816dd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "488acf984cf15c06962aaaaf8c050a3177a7b2fe56d00f0e266253968736a716"
+    sha256 cellar: :any,                 arm64_sequoia: "de4fa2affe294c49e080b6a65e61d92f44b826ce0c9705ff84b2bbb297040b51"
+    sha256 cellar: :any,                 arm64_sonoma:  "0a94facfeb0636534083e62e00b26ee1dda32d7e8a11b4a7f19b34176ba7171e"
+    sha256 cellar: :any,                 arm64_ventura: "2dc0742325a9c226a4b41d13cf603e91bcff24a98d4d2166a487f3462e0100e7"
+    sha256 cellar: :any,                 sonoma:        "5a50304773cd0a186d86945808bcd09d105861b1506d3b1d427bd5549dbf4192"
+    sha256 cellar: :any,                 ventura:       "880dd3ca00416a71de902a3173232dacce792a0c20b55a2a9d4f2a77c6f476c9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5861de33ff5be056ca6cf00a8e16b3ae47697b23781dfecd8c310e95b98f3bd4"
   end
 
   depends_on "cmake" => :build

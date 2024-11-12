@@ -8,15 +8,13 @@ class Fontforge < Formula
   head "https://github.com/fontforge/fontforge.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 arm64_sequoia:  "a5675fc33c08cbc88b41a07f99cf4caee9b43b49f7c17cd7f032af64c94df349"
-    sha256 arm64_sonoma:   "c469b0719fd1508209c51f63b9b6ec7cbcec1e1a5ccef291b7f3cce07fc29eb1"
-    sha256 arm64_ventura:  "74a6767564dce1cff1d76a09205f8e3ad898e102de8f6cdfbc175c1574c9adc0"
-    sha256 arm64_monterey: "3c7e39a9784914c5a11bd9950913494d2da29d85ea3a46b7c0fd2c11d438302a"
-    sha256 sonoma:         "920a7a9f4c5e6da5107e718a4d6b81b9a120baf8dcc8c5c26d22b8b9310cd761"
-    sha256 ventura:        "25e4c95dffa16736af0f10dbe502512c3def848dc6ab3d30e4f7c850298d1e08"
-    sha256 monterey:       "c063d659309fb9232cc6cbd3fcad9cc8866592cbd586fa0bfb06459eed56df96"
-    sha256 x86_64_linux:   "0e9d06b7cede17c0c86db0d9b8ef929afae412fa8f84ad12363a387db304fe20"
+    rebuild 4
+    sha256 arm64_sequoia: "f3efe932a2d7e72caf599601b82ee40144cb2ea3a1bef0afd5698b20ab11ff94"
+    sha256 arm64_sonoma:  "0d843c5837f6634f8f3c2c2c2862f427f651d24670383e1a470a3e933e6065b4"
+    sha256 arm64_ventura: "a6c3b3307443666523cc29b8bec912c6b1f933fe96580f061478b257ad0a992f"
+    sha256 sonoma:        "174995c9c06977e05958d535f7065c443ecbd9b1a64f97c232f83296852866b9"
+    sha256 ventura:       "ca33c447dc43b3f8d73bd42eb933b1fe1882794898cf387e4f22714d20ee6420"
+    sha256 x86_64_linux:  "91cc737d5d5ff50542c7737cfe8f8f693d64a103b07839d7047a21cb9149e1ee"
   end
 
   depends_on "cmake" => :build
@@ -36,7 +34,7 @@ class Fontforge < Formula
   depends_on "libtool"
   depends_on "libuninameslist"
   depends_on "pango"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "readline"
   depends_on "woff2"
 
@@ -55,13 +53,16 @@ class Fontforge < Formula
     sha256 "e784c4c0fcf28e5e6c5b099d7540f53436d1be2969898ebacd25654d315c0072"
   end
 
-  # Replace distutils for python 3.12+: https://github.com/fontforge/fontforge/pull/5423
-  patch :DATA
+  def python3
+    "python3.13"
+  end
 
   def install
-    args = %w[
+    args = %W[
       -DENABLE_GUI=OFF
       -DENABLE_FONTFORGE_EXTRAS=ON
+      -DPython3_EXECUTABLE=#{which(python3)}
+      -DPYHOOK_INSTALL_DIR=#{Language::Python.site_packages(python3)}
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
@@ -71,7 +72,7 @@ class Fontforge < Formula
 
   def caveats
     on_macos do
-      <<~EOS
+      <<~TEXT
         This formula only installs the command line utilities.
 
         FontForge.app can be downloaded directly from the website:
@@ -79,7 +80,7 @@ class Fontforge < Formula
 
         Alternatively, install with Homebrew Cask:
           brew install --cask fontforge
-      EOS
+      TEXT
     end
   end
 
@@ -89,10 +90,9 @@ class Fontforge < Formula
       sha256 "6a22acf6be4ab9e5c5a3373dc878030b4b8dc4652323395388abe43679ceba81"
     end
 
-    python = Formula["python@3.12"].opt_bin/"python3.12"
     system bin/"fontforge", "-version"
     system bin/"fontforge", "-lang=py", "-c", "import fontforge; fontforge.font()"
-    system python, "-c", "import fontforge; fontforge.font()"
+    system python3, "-c", "import fontforge; fontforge.font()"
 
     resource("homebrew-testdata").stage do
       ffscript = "fontforge.open('Ambrosia.sfd').generate('#{testpath}/Ambrosia.woff2')"
@@ -104,22 +104,3 @@ class Fontforge < Formula
     assert_match "Web Open Font Format (Version 2)", fileres
   end
 end
-
-__END__
-diff --git a/pyhook/CMakeLists.txt b/pyhook/CMakeLists.txt
-index dd48054..53708f1 100644
---- a/pyhook/CMakeLists.txt
-+++ b/pyhook/CMakeLists.txt
-@@ -20,8 +20,11 @@ target_link_libraries(psMat_pyhook PRIVATE Python3::Module)
- # FindPython3 provides Python3_SITEARCH, but this is an absolute path
- # So do it ourselves, getting the prefix-relative path instead
- if(NOT DEFINED PYHOOK_INSTALL_DIR)
-+  if(APPLE)
-+    set(_PYHOOK_SYSCONFIG_PREFIX " 'posix_prefix',")
-+  endif()
-   execute_process(
--    COMMAND "${Python3_EXECUTABLE}" -c "import distutils.sysconfig as sc; print(sc.get_python_lib(prefix='', plat_specific=True,standard_lib=False))"
-+    COMMAND "${Python3_EXECUTABLE}" -c "import sysconfig as sc; print(sc.get_path('platlib',${_PYHOOK_SYSCONFIG_PREFIX} vars={'platbase': '.'}))"
-     RESULT_VARIABLE _pyhook_install_dir_result
-     OUTPUT_VARIABLE PYHOOK_INSTALL_DIR
-     OUTPUT_STRIP_TRAILING_WHITESPACE)

@@ -3,12 +3,30 @@ class Curl < Formula
   homepage "https://curl.se"
   # Don't forget to update both instances of the version in the GitHub mirror URL.
   # `url` goes below this comment when the `stable` block is removed.
-  url "https://curl.se/download/curl-8.10.1.tar.bz2"
-  mirror "https://github.com/curl/curl/releases/download/curl-8_10_1/curl-8.10.1.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/curl-8.10.1.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/legacy/curl-8.10.1.tar.bz2"
-  sha256 "3763cd97aae41dcf41950d23e87ae23b2edb2ce3a5b0cf678af058c391b6ae31"
   license "curl"
+  revision 1
+
+  stable do
+    url "https://curl.se/download/curl-8.11.0.tar.bz2"
+    mirror "https://github.com/curl/curl/releases/download/curl-8_11_0/curl-8.11.0.tar.bz2"
+    mirror "http://fresh-center.net/linux/www/curl-8.11.0.tar.bz2"
+    mirror "http://fresh-center.net/linux/www/legacy/curl-8.11.0.tar.bz2"
+    sha256 "c95d5a1368803729345a632ce42cceeefd5f09c3b4d9582f858f6779f4b8b254"
+
+    # Remove the following patches with `stable` block on next release.
+    # Fix netrc parsing that affects git.
+    # https://github.com/curl/curl/issues/15496
+    patch do
+      url "https://github.com/curl/curl/commit/f5c616930b5cf148b1b2632da4f5963ff48bdf88.patch?full_index=1"
+      sha256 "fa1991cab62d62ef97a86aae215330e9df3d54d60dcf8338fdd98e758b87cc62"
+    end
+    # Fix support for larger netrc file or longer lines/tokens in it
+    # https://github.com/curl/curl/issues/15513
+    patch do
+      url "https://github.com/curl/curl/commit/0cdde0fdfbeb8c35420f6d03fa4b77ed73497694.patch?full_index=1"
+      sha256 "e1d10cb2327b4aa6b90eb153dce8b06fb4c683936edb9353fb2c9a4341cababd"
+    end
+  end
 
   livecheck do
     url "https://curl.se/download/"
@@ -16,12 +34,13 @@ class Curl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "100108ddf12c4b3a9e7877e3f8c18bdfe4a0a51b273ffe74ea7545d0308450af"
-    sha256 cellar: :any,                 arm64_sonoma:  "91ba6f1d338eb2eb2b833efa332f43a4f9a562e120ed85661632e7dd20c3ed2a"
-    sha256 cellar: :any,                 arm64_ventura: "6526f3319a007cb30ec844458dfa4a6c9979d8ffb7ef810b6183998ce4c43d04"
-    sha256 cellar: :any,                 sonoma:        "c9e0fde442aef9d270c54eda97b16b9e1dfc946b0fe99d945839e654fc4de84e"
-    sha256 cellar: :any,                 ventura:       "f4ed8d096a11e53f8741cda841783fa0e904b5a862f6062be1ed1703444a4b44"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4284c064a03c57efbcac375ce3c2df8718653eebbedbf54a7957d94a223dc9ad"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "0e473c47dbd796d60e564c40f6447f406bc325aae2d0c5085074a60e2466b257"
+    sha256 cellar: :any,                 arm64_sonoma:  "47b31a69fda0558adedb16bdac0d4003a3efd902a0f28a6615734dbf3c1042d1"
+    sha256 cellar: :any,                 arm64_ventura: "fa50c33145ed41a6de273ce0ea9af5491f975bb34c4c1f11dfb598bc899e0c77"
+    sha256 cellar: :any,                 sonoma:        "7dadb384a5a42e7a4b5607791b5e43209d825df771172aca4aea549bb8f09c8a"
+    sha256 cellar: :any,                 ventura:       "e92eb6ae945a5ff54db7e4564df57b98cf02b958a7b0efbf7872103076ffabf2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "48c94b796c1615b3695ebea3b95b8f40168697e80122ca4f1266e410d3eca91c"
   end
 
   head do
@@ -34,7 +53,7 @@ class Curl < Formula
 
   keg_only :provided_by_macos
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "brotli"
   depends_on "libnghttp2"
   depends_on "libssh2"

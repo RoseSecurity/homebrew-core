@@ -9,18 +9,12 @@ class Gprof2dot < Formula
   head "https://github.com/jrfonseca/gprof2dot.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "3c844e39ef4287548064b0a50495b69e932bb8da99e1433885fffbf53f9b6e19"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a0e000bb5783e8ebe2ae2ed71435424043ccc58a7100b11778e9fe9dfc33f556"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a0e000bb5783e8ebe2ae2ed71435424043ccc58a7100b11778e9fe9dfc33f556"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a0e000bb5783e8ebe2ae2ed71435424043ccc58a7100b11778e9fe9dfc33f556"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a0e000bb5783e8ebe2ae2ed71435424043ccc58a7100b11778e9fe9dfc33f556"
-    sha256 cellar: :any_skip_relocation, ventura:        "a0e000bb5783e8ebe2ae2ed71435424043ccc58a7100b11778e9fe9dfc33f556"
-    sha256 cellar: :any_skip_relocation, monterey:       "a0e000bb5783e8ebe2ae2ed71435424043ccc58a7100b11778e9fe9dfc33f556"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "193194c610bdace3071a0923b19dc61d64d27442dcf085d404ebbc17e95cbde1"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, all: "d184e68d282b694cdae5bebaed6a501705f2576974de0991823a506296db1c67"
   end
 
   depends_on "graphviz"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_linux do
     depends_on "libx11"
@@ -31,7 +25,7 @@ class Gprof2dot < Formula
   end
 
   test do
-    (testpath/"gprof.output").write <<~EOS
+    (testpath/"gprof.prof").write <<~PROF
       Flat profile:
 
       Each sample counts as 0.01 seconds.
@@ -186,8 +180,8 @@ class Gprof2dot < Formula
 
          [1] manager                 [5] project2                [3] worker2
          [4] project1                [2] worker1
-    EOS
-    system bin/"gprof2dot", testpath/"gprof.output", "-o", testpath/"call_graph.dot"
-    assert_predicate testpath/"call_graph.dot", :exist?
+    PROF
+    system bin/"gprof2dot", testpath/"gprof.prof", "-o", testpath/"call_graph.dot"
+    assert_path_exists testpath/"call_graph.dot"
   end
 end

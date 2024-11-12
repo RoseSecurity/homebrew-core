@@ -1,20 +1,18 @@
 class Ocm < Formula
   desc "CLI for the Red Hat OpenShift Cluster Manager"
   homepage "https://www.openshift.com/"
-  url "https://github.com/openshift-online/ocm-cli/archive/refs/tags/v0.1.75.tar.gz"
-  sha256 "3255b18494539bc9b7c1e17c34a98588b60f50ace8393c567f356a7eeac2d6c0"
+  url "https://github.com/openshift-online/ocm-cli/archive/refs/tags/v1.0.2.tar.gz"
+  sha256 "b384b4d8a24d98672739722ac112d0fe839239c0c14dc1dc9a9f0d127eea0327"
   license "Apache-2.0"
   head "https://github.com/openshift-online/ocm-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "84bfcfb8739032572e12630bfd68024185d39d2a49dbd7295477d8e959b2fd3b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a50b8fa07a0dc73812573bb89ca92f9aa2ea9f688ca78dc03d95164a16b524ee"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "176ffdf87a92e0826776419a7efdd240e70d0d27141652e3e11e1bbb1d562810"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ff979f73abf651138c96e1488878648fd1e637a79e5420bb0efcaeb027bb4f9e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2f6a6a738c1abce44c55cba84a3f7d1903c96181832f6972f9b196ac29d69294"
-    sha256 cellar: :any_skip_relocation, ventura:        "c25d3b074c27dfe1053b852c45ce4b3b64d944d769d0d7e980846bf5d0708c67"
-    sha256 cellar: :any_skip_relocation, monterey:       "d8f9f6707a7167931c04426e5f95d0df4577e2c7341f5a88f44054526da39494"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0edd3ee12ed2d62e687bd037e504eb9aa7a97db153b833ea98a38500b6ec0ce0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e457574b0de81faf20b259665898bf81adb725c1da5683308260b35ca3ed434c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3dfbd0c835cddf6d97f16c1ab97709edcb948cffb997cc8b9495315bb5705caf"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cd3f0c21e12274504c3eda5fc03f394e311acafe7d85d3c606d65fea85a3f73d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f3956432a29dcf5f2c7f2662c7b36dcd3d9d0c6a65801e7799ef6faf6b0d824f"
+    sha256 cellar: :any_skip_relocation, ventura:       "3911d380da5535d2ee55b56078ca57406a486ff702ac4ef61c600470100a155c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9e44d1b187cef89d7d099e593c9ed05a71f1fc55dfaaaa028607b15e7ee79138"
   end
 
   depends_on "go" => :build

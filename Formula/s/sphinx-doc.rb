@@ -3,17 +3,17 @@ class SphinxDoc < Formula
 
   desc "Tool to create intelligent and beautiful documentation"
   homepage "https://www.sphinx-doc.org/"
-  url "https://files.pythonhosted.org/packages/9d/f3/e3c6fb6d015d6b0c5215d1a6e45276aa89b6685fc63a1b7ac230bcebcb4f/sphinx-8.1.0.tar.gz"
-  sha256 "109454425dbf4c78ecfdd481e56f078376d077edbda29804dba05c5161c8de06"
+  url "https://files.pythonhosted.org/packages/6f/6d/be0b61178fe2cdcb67e2a92fc9ebb488e3c51c4f74a36a7824c0adf23425/sphinx-8.1.3.tar.gz"
+  sha256 "43c1911eecb0d3e161ad78611bc905d1ad0e523e4ddc202a58a821773dc4c927"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c73002d063db254757c4e2b318241ea338ff6ce7206696cdccad80d471ad72e3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4de52f3277273dba1682dfa9ae2cab16be724b33021e4f2ba5692507566b6323"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "58b00892bf2dfebf958b13bf2aa3f20258d7682b431d7811ae0cac529341c314"
-    sha256 cellar: :any_skip_relocation, sonoma:        "83427d313435c1e6532a001f62c5ecdf3e2189d0b0b4665b001e87d5c099e86b"
-    sha256 cellar: :any_skip_relocation, ventura:       "b11beb80f647efe7fdff0d822a9e485e4cb4a4b9356fafd2ae98229aa90f9bf8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "02ca8e84834eac5a01423051a5b322e17d1c8bcfa046da4494186ade5332eb45"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7e0ff06a34a74b13cc0291812a7e45157888e2cc5c547d3c4307dee5d52e4f17"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ab27c408493584094f40b2b5f0e3ef66096b28fb8c17d3cb1e0504e205049039"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f5e6b4345bd268e098eaaf635821948f1041bc2c5a78c6d9bf9cbaad3c92d004"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9ceedef9319dd5b552b8dd9d48d8969446594c4124caef9482916fa89eb8606e"
+    sha256 cellar: :any_skip_relocation, ventura:       "17389f948acc688d6d962144c01970ce6882885bffc948817fca1fc1eb787514"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6b15555c672c5e92de778122554a39b645d0e1b3d6f7df36c92dd8b46828296b"
   end
 
   keg_only <<~EOS
@@ -22,7 +22,7 @@ class SphinxDoc < Formula
   EOS
 
   depends_on "certifi"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "alabaster" do
     url "https://files.pythonhosted.org/packages/a6/f8/d9c74d0daf3f742840fd818d69cfae176fa332022fd44e3469487d5a9420/alabaster-1.0.0.tar.gz"

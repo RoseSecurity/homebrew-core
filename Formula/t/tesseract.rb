@@ -1,10 +1,9 @@
 class Tesseract < Formula
   desc "OCR (Optical Character Recognition) engine"
   homepage "https://github.com/tesseract-ocr/"
-  url "https://github.com/tesseract-ocr/tesseract/archive/refs/tags/5.4.1.tar.gz"
-  sha256 "c4bc2a81c12a472f445b7c2fb4705a08bd643ef467f51ec84f0e148bd368051b"
+  url "https://github.com/tesseract-ocr/tesseract/archive/refs/tags/5.5.0.tar.gz"
+  sha256 "f2fb34ca035b6d087a42875a35a7a5c4155fa9979c6132365b1e5a28ebc3fc11"
   license "Apache-2.0"
-  revision 1
   head "https://github.com/tesseract-ocr/tesseract.git", branch: "main"
 
   livecheck do
@@ -13,12 +12,12 @@ class Tesseract < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "edca8dcd15c9c5575a9e8a5a8da6a2bb70df96dea283dfda381ef71196313a3a"
-    sha256 cellar: :any,                 arm64_sonoma:  "354ea4bc743c86f3118336a955ca4a8e61f5d37b8b7978c375ee437eea1b9832"
-    sha256 cellar: :any,                 arm64_ventura: "96ffde5ffcf48dc26eb59e74f23d7efcb762210c4771b8d900127af6afaaaf46"
-    sha256 cellar: :any,                 sonoma:        "4db1a4fcedd3ac176b364126777589a7281bfb09f1052462c32725f20959f390"
-    sha256 cellar: :any,                 ventura:       "96ef10fc82ec5da8b9b8221901050af0dd7ab894a4444625ec336e405e6557af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b05ff7b2127a045256885e991636d061c9efe4980c817bdffbb034e77c230cbc"
+    sha256 cellar: :any,                 arm64_sequoia: "5caba25c2552970a19808a6b2e1e937d58f1eda75f81236da444f79d099f3bcd"
+    sha256 cellar: :any,                 arm64_sonoma:  "5bb5c51c61356a74a7493d4ba09287f27ec83a7a9b5aaf114f908e3135c45087"
+    sha256 cellar: :any,                 arm64_ventura: "3226ebc3987937dbad65be4aa2ed1a7abcb12c780d2044f453b52c3f80263096"
+    sha256 cellar: :any,                 sonoma:        "1a39073c1bca10140bb67b3a1fcb73ecf426fa82c69b657e528f9f90f7e9e168"
+    sha256 cellar: :any,                 ventura:       "4d722e7c79d135c1a5abe6ae7512027f1fd394866106f69b73bad5ccedd3370b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "76d71758dd00d54af51a346d9364707a98f28f2aa1c7bd6046952997611321f7"
   end
 
   depends_on "autoconf" => :build
@@ -29,7 +28,7 @@ class Tesseract < Formula
   depends_on "fontconfig"
   depends_on "glib"
   depends_on "harfbuzz"
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "leptonica"
   depends_on "libarchive"
   depends_on "pango"

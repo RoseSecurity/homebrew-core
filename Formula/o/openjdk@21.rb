@@ -1,8 +1,8 @@
 class OpenjdkAT21 < Formula
   desc "Development kit for the Java programming language"
   homepage "https://openjdk.java.net/"
-  url "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.4-ga.tar.gz"
-  sha256 "9223a0f1db1b7ee0ca480e010d6473a8be72eaae93d883fd31ef9ba6dcc41014"
+  url "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.5-ga.tar.gz"
+  sha256 "1dcf54fe0d4263a0fb95290a77dac9e4ff81761ed234daadfbab781f1779bf0b"
   license "GPL-2.0-only" => { with: "Classpath-exception-2.0" }
 
   livecheck do
@@ -11,13 +11,12 @@ class OpenjdkAT21 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_sequoia: "ff9be059a2b547f3cfdddb1b792d685364bc16de5eaa9f5ae8445427406c2c42"
-    sha256 cellar: :any, arm64_sonoma:  "662eb304057aca4c0cc576ae5d8a6c758cca8c74a1b4fccae1c907e230f058e5"
-    sha256 cellar: :any, arm64_ventura: "ba67b3a2342fca6c59979ccb74635c93e5175a403f48c5f45e86ad2c31e3d2a1"
-    sha256 cellar: :any, sonoma:        "fda375d3c9a697bdb4ae19828119c70197df8a66c8016cb77bc964abbbf48f19"
-    sha256 cellar: :any, ventura:       "ef7bda0b95553f2bc976a96737c950a2cecfd44b14543924edde5e1373a4da99"
-    sha256               x86_64_linux:  "6af28eff1edd803ef9893b52897854a9a09c97993133fb5850a8410cc0b67a98"
+    sha256 cellar: :any, arm64_sequoia: "39d28c673b18915e808e38559a9bcfc272c947c475a2f9b36d3064d1b00833b3"
+    sha256 cellar: :any, arm64_sonoma:  "0d39ee370b9230c65078039b9541c230aa86b0edc0f8c1bb564bc1fdf322ec11"
+    sha256 cellar: :any, arm64_ventura: "48154af73a12195490174518372f7782d37634d7a16959d74f5802655372473b"
+    sha256 cellar: :any, sonoma:        "1f6b28a4ce616c847f4b6360ccc4632a3862ca8e6bca32032a5daa7b50708a7e"
+    sha256 cellar: :any, ventura:       "9631253796a0f5660e9685c96081b60ac7bcf6865df52dd6a3bd8596e7cb6359"
+    sha256               x86_64_linux:  "63897ad3699f4111e6706068268e3088b38b14c574bd604d1d3176d7878adf9b"
   end
 
   keg_only :versioned_formula
@@ -37,19 +36,6 @@ class OpenjdkAT21 < Formula
   uses_from_macos "unzip"
   uses_from_macos "zip"
   uses_from_macos "zlib"
-
-  on_macos do
-    if DevelopmentTools.clang_build_version == 1600
-      depends_on "llvm" => :build
-
-      fails_with :clang do
-        cause <<~EOS
-          Error: Unable to initialize main class build.tools.jigsaw.AddPackagesAttribute
-          Caused by: java.lang.ClassFormatError: StackMapTable format error: access beyond the end of attribute
-        EOS
-      end
-    end
-  end
 
   on_linux do
     depends_on "alsa-lib"
@@ -90,12 +76,6 @@ class OpenjdkAT21 < Formula
   end
 
   def install
-    if DevelopmentTools.clang_build_version == 1600
-      ENV.llvm_clang
-      # Prevent linkage with LLVM libunwind.
-      ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib
-    end
-
     boot_jdk = buildpath/"boot-jdk"
     resource("boot-jdk").stage boot_jdk
     boot_jdk /= "Contents/Home" if OS.mac?
@@ -148,6 +128,10 @@ class OpenjdkAT21 < Formula
     end
     args << "--with-extra-ldflags=#{ldflags.join(" ")}"
 
+    if DevelopmentTools.clang_build_version == 1600
+      args << "--with-extra-cflags=-mllvm -enable-constraint-elimination=0"
+    end
+
     system "bash", "configure", *args
 
     ENV["MAKEFLAGS"] = "JOBS=#{ENV.make_jobs}"
@@ -177,13 +161,13 @@ class OpenjdkAT21 < Formula
   end
 
   test do
-    (testpath/"HelloWorld.java").write <<~EOS
+    (testpath/"HelloWorld.java").write <<~JAVA
       class HelloWorld {
         public static void main(String args[]) {
           System.out.println("Hello, world!");
         }
       }
-    EOS
+    JAVA
 
     system bin/"javac", "HelloWorld.java"
 

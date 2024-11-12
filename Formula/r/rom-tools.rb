@@ -1,9 +1,9 @@
 class RomTools < Formula
   desc "Tools for Multiple Arcade Machine Emulator"
   homepage "https://mamedev.org/"
-  url "https://github.com/mamedev/mame/archive/refs/tags/mame0270.tar.gz"
-  version "0.270"
-  sha256 "0364b670478883902c2bc618908192b0590235b47fbe073fcac2d13b82541437"
+  url "https://github.com/mamedev/mame/archive/refs/tags/mame0271.tar.gz"
+  version "0.271"
+  sha256 "79960f4c57715b2d08c3eba12933d04dd91ad1d95b0c1059306a75bf07fd6027"
   license "GPL-2.0-or-later"
   head "https://github.com/mamedev/mame.git", branch: "master"
 
@@ -12,12 +12,12 @@ class RomTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d3c131988a1a999ace5c61b1ae456f8bd4fd42261f08a521ab436203ce5e7946"
-    sha256 cellar: :any,                 arm64_sonoma:  "356b3c69bc6b1d2b722dc12041c1f8a0ce472e5d7b30141f3b313129af9a344c"
-    sha256 cellar: :any,                 arm64_ventura: "cebecc43762c872e7eeb26bbb24f2f631b32fa2589fac1c6879aea5b0752fbd7"
-    sha256 cellar: :any,                 sonoma:        "509ee2be0acd7255782f4a5c1c4477cdf822133a242d6696c1230cee7639bf75"
-    sha256 cellar: :any,                 ventura:       "748eedafaaa06acfd708992ad9132233efee5fa0333bb29f9f56186c256191f0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa472ee8fab69add222aaa02d6d9b4aa923d5ca9536e4343a6fba2f2bdf38d17"
+    sha256 cellar: :any,                 arm64_sequoia: "b2eb83be31464686651a0bb20ef4972c0bd3dbf078398e80d34dd523c8e794f8"
+    sha256 cellar: :any,                 arm64_sonoma:  "f71cb382e8b12163ec8b6a11fda3144965f030fa73694fe7a58b743ed638b016"
+    sha256 cellar: :any,                 arm64_ventura: "4a1315f0d240806caf1893eb498eeb5e20552cb42dc826ed3b0e4636e96fa7e6"
+    sha256 cellar: :any,                 sonoma:        "ef52bb5e686b66e57b6add49d1bf6b2a2beaa9cb372cce6161dc2a6fb68d41bb"
+    sha256 cellar: :any,                 ventura:       "e41c45ccbc9339a555166f6a71c9e9d67478c950a9dc486adccee53798d5912d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e7b69f68717b8f183d79fed2730becdd2a4564aa91ffaceed8613f373e3f1936"
   end
 
   depends_on "asio" => :build
@@ -29,7 +29,7 @@ class RomTools < Formula
   depends_on "utf8proc"
   depends_on "zstd"
 
-  uses_from_macos "python" => :build
+  uses_from_macos "python" => :build, since: :catalina
   uses_from_macos "expat"
   uses_from_macos "zlib"
 
@@ -37,14 +37,13 @@ class RomTools < Formula
     depends_on "portaudio" => :build
     depends_on "portmidi" => :build
     depends_on "pulseaudio" => :build
-    depends_on "qt@5" => :build
+    depends_on "qt" => :build
     depends_on "sdl2_ttf" => :build
   end
 
-  fails_with gcc: "5" # for C++17
-  fails_with gcc: "6"
-
   def install
+    ENV["QT_HOME"] = Formula["qt"].opt_prefix if OS.linux?
+
     # Cut sdl2-config's invalid option.
     inreplace "scripts/src/osd/sdl.lua", "--static", ""
 

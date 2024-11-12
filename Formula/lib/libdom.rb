@@ -5,6 +5,11 @@ class Libdom < Formula
   sha256 "d05e45af16547014c2b0a3aecf3670fa13d419f505b3f5fc7ac8a1491fc30f3c"
   license "MIT"
 
+  livecheck do
+    url "https://download.netsurf-browser.org/libs/releases/"
+    regex(/href=.*?libdom[._-]v?(\d+(?:\.\d+)+)[._-]src\.t/i)
+  end
+
   bottle do
     sha256 cellar: :any,                 arm64_sequoia: "5305da928bb33e1c7fe5b85b44e644d17237c0e368fcc0bf159d82dd42626485"
     sha256 cellar: :any,                 arm64_sonoma:  "496e88188a61218223af1157766d192764aeb9c36ef5bfb2e057fc403e7d2793"
@@ -30,7 +35,7 @@ class Libdom < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <dom/dom.h>
       #include <stdint.h>
 
@@ -40,7 +45,7 @@ class Libdom < Formula
         dom_exception ex = dom_string_create(data, 4, &str);
         return ex == DOM_NO_ERR ? 0 : 1;
       }
-    EOS
+    C
 
     pkg_config_flags = shell_output("pkg-config --cflags --libs libdom").chomp.split
     system ENV.cc, "test.c", "-o", "test", *pkg_config_flags

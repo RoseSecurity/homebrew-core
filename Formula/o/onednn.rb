@@ -1,8 +1,8 @@
 class Onednn < Formula
   desc "Basic building blocks for deep learning applications"
   homepage "https://www.oneapi.io/open-source/"
-  url "https://github.com/oneapi-src/oneDNN/archive/refs/tags/v3.5.3.tar.gz"
-  sha256 "ddbc26c75978c5e864050f699dbefbf5bff9c0b8d2af827845708e1376471f17"
+  url "https://github.com/oneapi-src/oneDNN/archive/refs/tags/v3.6.1.tar.gz"
+  sha256 "a370e7f25dbf05c9c151878c53556f27d0cbe7a4f909747db6e4b2d245f533cb"
   license "Apache-2.0"
   head "https://github.com/oneapi-src/onednn.git", branch: "master"
 
@@ -12,14 +12,12 @@ class Onednn < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "f761e3c1833d6bc77a0eabea1c0cf1c4a8b6dfcfe7a64c1ea26e22bdcfe7ee32"
-    sha256 cellar: :any,                 arm64_sonoma:   "8b62f040afa960e4efbe8893f066aecb5898d16f04871747ac44f15054219089"
-    sha256 cellar: :any,                 arm64_ventura:  "a5b3155297d8e59ee361c9818420a09171a36d57afb86e2277a4840baee5df3b"
-    sha256 cellar: :any,                 arm64_monterey: "3fbd5c8cd2c995d1aba81dab78f643b4104859331e5632838dde943f53222dd2"
-    sha256 cellar: :any,                 sonoma:         "454aa728dd13c5984c1abbf8e0ec2050e767982ff0899df89f37bc54038f7db7"
-    sha256 cellar: :any,                 ventura:        "87ef1fe3ae6948662daefc2aee0cd1393a17f0d230ab69f2495f258ab106f37a"
-    sha256 cellar: :any,                 monterey:       "986af6311eb00492062ed5bef9c85727c6f012ae3200e819c344c2645ac7c00d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e5069655b504607e07453313f1947520676ad195642f13c021229f521da9b4d7"
+    sha256 cellar: :any,                 arm64_sequoia: "d71f88776981176f6634276f99369fd30ff814edcc858aa06a4be6fe2221ebf7"
+    sha256 cellar: :any,                 arm64_sonoma:  "ba9cce091b4f962fef833e56bfd1a42a6e74120e7aafbb5e85abadaf84224551"
+    sha256 cellar: :any,                 arm64_ventura: "22bd1bb22e9cede78d35d8a0a9e0131253b86904c6b4028791b6168815f1f96c"
+    sha256 cellar: :any,                 sonoma:        "d39e8769e0a1238a0c6a4aba7d8e9c8f34661edcfbc299877f41896355803955"
+    sha256 cellar: :any,                 ventura:       "24e279a47b585fcede217f15a7dfca2d6211c9066ad8d5eaa016317954b910c8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c7be5e465fa54c9024aab70640b1faf612f716c34cf098c4075fab9790b392be"
   end
 
   depends_on "cmake" => :build
@@ -33,14 +31,14 @@ class Onednn < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <oneapi/dnnl/dnnl.h>
       int main() {
         dnnl_engine_t engine;
         dnnl_status_t status = dnnl_engine_create(&engine, dnnl_cpu, 0);
         return !(status == dnnl_success);
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-ldnnl", "-o", "test"
     system "./test"
   end

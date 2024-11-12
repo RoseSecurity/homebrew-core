@@ -2,8 +2,8 @@ class Grpc < Formula
   desc "Next generation open source RPC library and framework"
   homepage "https://grpc.io/"
   url "https://github.com/grpc/grpc.git",
-      tag:      "v1.67.0",
-      revision: "74f245857247b4b3e28a753d85d06ae2d5a55434"
+      tag:      "v1.67.1",
+      revision: "d3286610f703a339149c3f9be69f0d7d0abb130a"
   license "Apache-2.0"
   head "https://github.com/grpc/grpc.git", branch: "master"
 
@@ -19,12 +19,12 @@ class Grpc < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9a2befc0e055ef52310b902bc2c32731e271c2cbce224a1759e1ca25fed46197"
-    sha256 cellar: :any,                 arm64_sonoma:  "07c17f36b0f20ea8c2e21378c355d082bc91a21c46122edbdc36e72613c54795"
-    sha256 cellar: :any,                 arm64_ventura: "a379f15d86b7fd7071143bbbe76b1a2768d49a0b67b15a6e0f78db7f79390b3e"
-    sha256 cellar: :any,                 sonoma:        "8e319ccd012c18bfd50b6184e1517d14e59e61c2dfbc5676c007a2945422eb2c"
-    sha256 cellar: :any,                 ventura:       "1eb5cdb98b3b01be59ed336acd7d56a1a3423aeef3d5e8a0935511ec4518cf85"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "536ea1a7ccede90eed09f649466bc4f59ea73cdc2f6f4891ea1bbffdaf47a326"
+    sha256 cellar: :any,                 arm64_sequoia: "f3c5a64a26aec5ae8e34ca4aceb851c6543eabc64a902f2c778c1161ef77c37c"
+    sha256 cellar: :any,                 arm64_sonoma:  "50f9a9b1efc1bdeb3fb1d92780a726e298f0d8d012b1368cad9406c90e4fc5d5"
+    sha256 cellar: :any,                 arm64_ventura: "4975a8bf7ad4fc958c2cb6ae6588706b9dcbe1f5a01b3c33a5ad30e5b7a8ee3b"
+    sha256 cellar: :any,                 sonoma:        "aab07f6c3d6750dec250f0b3938ed6982840abbedd793825b88b8234b2f3772e"
+    sha256 cellar: :any,                 ventura:       "b7b8a5d1e3b6e2d7a8c06ce60910e144ec6fd399a1b99677e01712dec16c82e8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4ab0f1d8828d338b3b76f6636765d37fa3b4e1316b3996d6270aa3a696d98905"
   end
 
   depends_on "autoconf" => :build
@@ -96,14 +96,14 @@ class Grpc < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <grpc/grpc.h>
       int main() {
         grpc_init();
         grpc_shutdown();
         return GRPC_STATUS_OK;
       }
-    EOS
+    CPP
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@3"].opt_lib/"pkgconfig"
     pkg_config_flags = shell_output("pkg-config --cflags --libs libcares protobuf re2 grpc++").chomp.split
     system ENV.cc, "test.cpp", "-L#{Formula["abseil"].opt_lib}", *pkg_config_flags, "-o", "test"

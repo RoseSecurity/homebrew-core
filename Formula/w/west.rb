@@ -3,25 +3,22 @@ class West < Formula
 
   desc "Zephyr meta-tool"
   homepage "https://github.com/zephyrproject-rtos/west"
-  url "https://files.pythonhosted.org/packages/ee/7a/4c69c6a1054b319421d5acf028564bb1303ea9da42032a2000021d6495ee/west-1.2.0.tar.gz"
-  sha256 "b41e51ac90393944f9c01f7be27000d4b329615b7ed074fb0ef693b464681297"
+  url "https://files.pythonhosted.org/packages/d1/aa/288fc09dee13631538ad040d1b8e09f78594cdf3b53ff869c283d245bf20/west-1.3.0.tar.gz"
+  sha256 "89320034be87099d16e75f4760ac0d1ed67e8978928e468ab993e3fba0cfe92f"
   license "Apache-2.0"
-  revision 3
   head "https://github.com/zephyrproject-rtos/west.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "0ee9cb30a99d6400d595767032d2bab05268cd74e10e0b0a20177f9a3249fe1a"
-    sha256 cellar: :any,                 arm64_sonoma:   "2e4ff86ef37011283a87f21226a8da341348607d0771d91c46e1450837dc9a7c"
-    sha256 cellar: :any,                 arm64_ventura:  "6f29b5b06c9469e0fd98d303478ab9dff32d1e3692ad8c3b174f3c89c0fb6431"
-    sha256 cellar: :any,                 arm64_monterey: "3832e5f1e7fcf9415603ad62a3bf811baca14a68cb41563c519f3abfeea2d568"
-    sha256 cellar: :any,                 sonoma:         "10d1bf47c45d85e0d7081a4173b0bb04ebfe969da320de32f5972654d6b3a962"
-    sha256 cellar: :any,                 ventura:        "256901cc06869eab475a73b85b396a72142e67a62b7896c30640da7422979c80"
-    sha256 cellar: :any,                 monterey:       "e6657b24e2ee81805fe75db501c914c06d799368923db2bd6093ba1c8641755a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b72a89fa9810937008b3a9d5ec116920b5842c2619eaa4a52716ddf7ff7e4c1d"
+    sha256 cellar: :any,                 arm64_sequoia: "a7e90cf09480586a0c371b073e2b38891366736eecaeebe9f3e91759a7fb3fb8"
+    sha256 cellar: :any,                 arm64_sonoma:  "7aadc8d72a06988cd62a46a31451342a85d6742f25a6cc67dc4a6206b39c85f9"
+    sha256 cellar: :any,                 arm64_ventura: "1b1959d3f049e5066f2d4684e2809737f6ab6fb3024721dfc119677ab77b5c13"
+    sha256 cellar: :any,                 sonoma:        "34fb4e2475d78f26ff2e85963ed28f684ef08506c25ff9e9e77862b274f8aa22"
+    sha256 cellar: :any,                 ventura:       "67d947b4729195aa8c691a0f95e98ac5c460a8e0f3e5784d45942431c56bcb3f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "927b092bb4e31b4acf172eec7e236d4b99179575683d604eca51229fc92ed9af"
   end
 
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "colorama" do
     url "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz"
@@ -49,8 +46,8 @@ class West < Formula
   end
 
   resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
-    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+    url "https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz"
+    sha256 "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
   end
 
   resource "ruamel-yaml" do
@@ -58,14 +55,9 @@ class West < Formula
     sha256 "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
   end
 
-  resource "ruamel-yaml-clib" do
-    url "https://files.pythonhosted.org/packages/46/ab/bab9eb1566cd16f060b54055dd39cf6a34bfa0240c53a7218c43e974295b/ruamel.yaml.clib-0.2.8.tar.gz"
-    sha256 "beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512"
-  end
-
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/65/d8/10a70e86f6c28ae59f101a9de6d77bf70f147180fbf40c3af0f64080adc3/setuptools-70.3.0.tar.gz"
-    sha256 "f171bab1dfbc86b132997f26a119f6056a57950d058587841a0082e8830f9dc5"
+    url "https://files.pythonhosted.org/packages/ed/22/a438e0caa4576f8c383fa4d35f1cc01655a46c75be358960d815bfbb12bd/setuptools-75.3.0.tar.gz"
+    sha256 "fba5dd4d766e97be1b1681d98712680ae8f2f26d7881245f2ce9e40714f1a686"
   end
 
   resource "six" do
@@ -74,21 +66,17 @@ class West < Formula
   end
 
   def install
-    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
-    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
-    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
-
     virtualenv_install_with_resources
   end
 
   test do
     mkdir testpath/"west" do
       mkdir "test-project"
-      (testpath/"west/test-project/west.yml").write <<~EOS
+      (testpath/"west/test-project/west.yml").write <<~YAML
         manifest:
           self:
             path: test-project
-      EOS
+      YAML
       system bin/"west", "init", "-l", testpath/"west/test-project"
       assert_predicate testpath/"west/.west", :exist?
     end

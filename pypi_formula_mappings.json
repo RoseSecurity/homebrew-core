@@ -6,7 +6,8 @@
     "exclude_packages": ["certifi"]
   },
   "alot": {
-    "exclude_packages": ["notmuch2"]
+    "exclude_packages": ["notmuch2"],
+    "extra_packages": ["standard-mailcap"]
   },
   "animdl": {
     "exclude_packages": ["certifi"]
@@ -35,7 +36,6 @@
     "exclude_packages": ["certifi", "cffi", "pycparser", "pyyaml", "six"]
   },
   "ansible@8": {
-    "exclude_packages": ["certifi", "cryptography"],
     "extra_packages": [
       "apache-libcloud", "boto3", "dnspython", "docker",
       "junos-eznc", "jxmlease", "kerberos", "ntc-templates", "openshift",
@@ -116,7 +116,6 @@
     "extra_packages": ["msgpack", "packaging"]
   },
   "borgmatic": {
-    "extra_packages": ["ruamel-yaml-clib"],
     "exclude_packages": ["certifi"]
   },
   "bpython": {
@@ -221,8 +220,7 @@
     "exclude_packages": ["certifi"]
   },
   "cryptography": {
-    "exclude_packages": ["cffi", "pycparser"],
-    "extra_packages": ["maturin", "setuptools-rust"]
+    "exclude_packages": ["cffi", "pycparser"]
   },
   "cycode": {
     "exclude_packages": ["certifi"]
@@ -618,7 +616,6 @@
   "pwntools": {
     "exclude_packages": ["capstone", "certifi", "cryptography"]
   },
-  "pydocstyle": "pydocstyle[toml]",
   "pygit2": {
     "exclude_packages": ["cffi", "pycparser"]
   },
@@ -897,6 +894,7 @@
     "exclude_packages": ["certifi"]
   },
   "yt-dlp": {
+    "package_name": "yt-dlp[default]",
     "exclude_packages": ["certifi"]
   },
   "zabbix-cli": {

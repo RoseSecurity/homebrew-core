@@ -1,31 +1,18 @@
 class Librespot < Formula
   desc "Open Source Spotify client library"
   homepage "https://github.com/librespot-org/librespot"
+  url "https://github.com/librespot-org/librespot/archive/refs/tags/v0.6.0.tar.gz"
+  sha256 "9ec881edb11e37d31a2b41dd30d56a3413445eedb720e1b0d278567dccfca8fc"
   license "MIT"
   head "https://github.com/librespot-org/librespot.git", branch: "dev"
 
-  stable do
-    url "https://github.com/librespot-org/librespot/archive/refs/tags/v0.4.2.tar.gz"
-    sha256 "cc8cb81bdbaa5abf366170dec5e6b8c0ecf570a7cb68f04483e9f7eed338ca61"
-
-    # Use `llvm@15` to work around build failure with LLVM Clang 16 (Apple Clang 15)
-    # described in https://github.com/rust-lang/rust-bindgen/issues/2312.
-    # TODO: Remove in the next release
-    depends_on "llvm@15" => :build if DevelopmentTools.clang_build_version >= 1500
-  end
-
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bdf1c044110646a9b99b887b96f927202929dbcb77f47359e3c4c31cf2820b92"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "569548eaf0db6750a015fad03d89b14e62f5e1d2abd60f6c0f9b5435d7fc2d0e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dfe8d20853c7a525d7949e0f4715df8e02a0a313c5f93c8de37d0bb7b8ce863c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a417c3c1a0d53820b5c5a5a3f652d7a20521c2a4891fb1763815e4c7a0dfca10"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c1154ef2c059ef08c469a75266323d344b8d16376d8309f719cf375d88b0e5f2"
-    sha256 cellar: :any_skip_relocation, ventura:        "b1cb3bb5049f14ca3e95ea59c88e969f2d4ae8057dde82c73526333e84124b2e"
-    sha256 cellar: :any_skip_relocation, monterey:       "eb26f63f537836cc723fd7642f4c7eea6d0458e6deb77beb21525020304ec5da"
-    sha256 cellar: :any_skip_relocation, big_sur:        "849ad406f701285061e2c7915e7b0b291646930debae31b169445c5bb2739bc3"
-    sha256 cellar: :any_skip_relocation, catalina:       "90121b3f08f02b90f34d16459deaedffebfc9db59521d4987c31c3d3027c71e8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bf3fdf062b16b87f8232c28e02deea3376546f22422b077d65683c1cba8591af"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d5a2cafcfec99611b21e631568c66d6f48fb44fe253082d3fe4243ffb5ff4735"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ee2f9df22c5a0ea8db290f7bc39e14312023c478b740a1b78d6553dd195ad0be"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e157e7a2cc3a41cb25808eacbc7baaa78af346439c3ed6b0f8b15863e275adec"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b377d7559eb6deab957dee9efbf6c8d0b855142619a798e1b2b0a9b61700db6e"
+    sha256 cellar: :any_skip_relocation, ventura:       "451ba2f00bf2198de8ba55476b7bd6f63a59aabf6d1e344dcd8dea7caaf391c6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6561e113b24cb1d2d6e3a5850090e3bfa2a82950388c5fe7fb698dc3b6a333f2"
   end
 
   depends_on "rust" => :build
@@ -37,9 +24,6 @@ class Librespot < Formula
   end
 
   def install
-    odie "Check if `llvm@15` dependency can be removed!" if build.stable? && version > "0.4.2"
-    ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm@15"].opt_lib
-
     ENV["COREAUDIO_SDK_PATH"] = MacOS.sdk_path.to_s if OS.mac?
     system "cargo", "install", "--no-default-features", "--features", "rodio-backend,with-dns-sd", *std_cargo_args
   end

@@ -1,19 +1,18 @@
 class Inko < Formula
   desc "Safe and concurrent object-oriented programming language"
   homepage "https://inko-lang.org/"
-  url "https://releases.inko-lang.org/0.16.0.tar.gz"
-  sha256 "7850dc9b0f6e544977a6eb3854022131f30e49e43b99f47cc5aefb77e0b97c32"
+  url "https://releases.inko-lang.org/0.17.1.tar.gz"
+  sha256 "752c1881b7029f76f7a900ace23fbc5b81e1ceebea214c7f998c03284fd92dba"
   license "MPL-2.0"
-  revision 1
   head "https://github.com/inko-lang/inko.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "dfe49ede4263ebeb9337104cc3c70e97d2348a4c9dadc57b6595f0b066f02000"
-    sha256 cellar: :any,                 arm64_sonoma:  "ebbc0a383ee4e2bcbb0c0628a89bfd08338296935327e129eb3d34e53e68ca94"
-    sha256 cellar: :any,                 arm64_ventura: "be38b32949b5f9e0f291c910cfa193604b93056f1498004723f1d16af038da02"
-    sha256 cellar: :any,                 sonoma:        "b4fd1b5448f2284f943a7c3fcd0c01df2d81341e6f10e253b08acb22a62f013c"
-    sha256 cellar: :any,                 ventura:       "90f90e0d1d5719c6fbd26502f4b3d0c87e08f1f857c4af151971fd061fc8fb8d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "10cacd5af2ce222ed3f5610f52f59516f0b9847d8b10d0761d60e4f00d7037fc"
+    sha256 cellar: :any,                 arm64_sequoia: "a6a054979919629af9dc5b93c3caa53863e8035085c9d0f4816d0ceaead78133"
+    sha256 cellar: :any,                 arm64_sonoma:  "17e298645d17fc2f4b0aaa29d622be52b5ef2c467e65fa044eec038cc726749b"
+    sha256 cellar: :any,                 arm64_ventura: "4f19eba4d1fd8a58ed8b21b56c1b8dd8912f6768e62d6d617bd1cf2d9de5a2fb"
+    sha256 cellar: :any,                 sonoma:        "cb722f459dc312af8b58b861afb37d4cbcfb3bd506ed3ddca32c0bfd8acc15eb"
+    sha256 cellar: :any,                 ventura:       "84c3dc1eb5b4e187055055c654f523d8c6be3d59f992857aa3dd4433013cad70"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "afedc35fa2c235553e564dba014a3840e38de0dee25b271f67c83208da1cacb6"
   end
 
   depends_on "coreutils" => :build
@@ -38,11 +37,11 @@ class Inko < Formula
 
   test do
     (testpath/"hello.inko").write <<~EOS
-      import std.stdio (STDOUT)
+      import std.stdio (Stdout)
 
       class async Main {
         fn async main {
-          STDOUT.new.print('Hello, world!')
+          Stdout.new.print('Hello, world!')
         }
       }
     EOS

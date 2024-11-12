@@ -1,19 +1,17 @@
 class Noir < Formula
   desc "Attack surface detector that identifies endpoints by static analysis"
   homepage "https://github.com/owasp-noir/noir"
-  url "https://github.com/owasp-noir/noir/archive/refs/tags/v0.17.0.tar.gz"
-  sha256 "16d82dfd3e7891cbc60eb5282b8e1086c97a09baf0a4af73ba4263776d7c5b39"
+  url "https://github.com/owasp-noir/noir/archive/refs/tags/v0.18.2.tar.gz"
+  sha256 "1ecd5ae543df771fa67bbb41a7c8cb416861f55988d120371a992a95f11dc27b"
   license "MIT"
 
   bottle do
-    sha256 arm64_sequoia:  "de831b2e2eb096f136a1732de4194781c16ade6ba964a596dd089e62230d324b"
-    sha256 arm64_sonoma:   "b7e5a97d3f175cab54cfd3769324a609f9f2f58503bce1e80a506fd9834e5330"
-    sha256 arm64_ventura:  "23b8c73886ecf49b0c3dd90120b17650c01dea53be6abe38382690e58dd13abe"
-    sha256 arm64_monterey: "a12305a19874fc221ddb315e5c51291abff970f8109d2c0f6524935a2b311e29"
-    sha256 sonoma:         "a961806c811709ef492e0a72b430211c7fcdd0eb53d67f0187ea3ebb3b556e0f"
-    sha256 ventura:        "c659361f9ec8751ddca8da8abcc4893e9b75baa7c559c725f69222cbe1f24e49"
-    sha256 monterey:       "904138d87a29f98a71150b1995da3ca70be66b95aa4a5ba4dcf33b676b3903b1"
-    sha256 x86_64_linux:   "b8cf1677ac6ebcaf7c8a6d45027163472c04de27dd7772d6f9c5bcd6caa09f62"
+    sha256 arm64_sequoia: "6a1974fbd1a4ecf439f5ae9591c9ccc52147d1ad34034c123eb68f635801402f"
+    sha256 arm64_sonoma:  "dd82332d2f630e54dc04c9e42b1cbb52dd9c80fefeb1fac9ee58ea75f2dc044a"
+    sha256 arm64_ventura: "691ca34d216d72d7f82688b29aedc6009314387cb22b2e6f5d870489d21e69bb"
+    sha256 sonoma:        "157dfc631a275691db9a46fae6b259282ef5c0c04df02e90c5a774072e650179"
+    sha256 ventura:       "77da359171406f6dde5b3b92dab63cac765dc70ec44e96dcd5c043c3ede663a6"
+    sha256 x86_64_linux:  "1831940a88915457848b554fb440622612cee26e526dc3ab75d635c4a733349e"
   end
 
   depends_on "bdw-gc"
@@ -29,6 +27,9 @@ class Noir < Formula
     system "shards", "install"
     system "shards", "build", "--release", "--no-debug"
     bin.install "bin/noir"
+
+    generate_completions_from_executable(bin/"noir", shell_parameter_format: "--generate-completion=",
+                                                     shells:                 [:bash, :zsh, :fish])
   end
 
   test do

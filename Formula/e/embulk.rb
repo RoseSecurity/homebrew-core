@@ -1,37 +1,32 @@
 class Embulk < Formula
   desc "Data transfer between various databases, file formats and services"
   homepage "https://www.embulk.org/"
-  url "https://github.com/embulk/embulk/releases/download/v0.11.4/embulk-0.11.4.jar"
-  sha256 "5e8131a6ff199ad16129504cc6ff164ccdfde0a32e9cf38bdfd5eeb2417e404e"
+  url "https://github.com/embulk/embulk/releases/download/v0.11.5/embulk-0.11.5.jar"
+  sha256 "e2f298db60c2fe1cc17c377edf7215c7005b5d106d151b1a4278a508e4a32e47"
   license "Apache-2.0"
   version_scheme 1
 
   livecheck do
-    url :homepage
-    regex(%r{(?<!un)Stable.+?href=.*?/tag/v?(\d+(?:\.\d+)+)["' >]}im)
+    url :stable
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "64f6f68e909288834b86045fcec216d4cbeca9ca6a6576d354dbe5086cdf1f32"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "fc718acf04dd0ffd6e04dc816490ba13bc8af9b0de9d45b169cc6b55a9e936f7"
   end
 
   # From https://www.embulk.org,
   # > Embulk v0.11 officially supports only Java 8, but expected to work somehow with Java 11, 17, and 21.
   #
   # Since `openjdk@8` does not support ARM macOS, we need to use newer version.
-  # We keep `openjdk@8` otherwise as upstream claims some plugins may not be compatible.
-  # See: https://github.com/embulk/embulk/issues/1595#issuecomment-1595677127
-  on_arm do
-    depends_on "openjdk@21"
-  end
-  on_intel do
-    depends_on "openjdk@8"
-  end
+  # The same OpenJDK version must be used on all platforms due to a brew bug relocating `:all` bottles.
+  # See: https://github.com/Homebrew/brew/issues/18695
+  depends_on "openjdk@21"
 
   def install
-    java_version = Hardware::CPU.intel? ? "1.8" : "21"
     libexec.install "embulk-#{version}.jar"
-    bin.write_jar_script libexec/"embulk-#{version}.jar", "embulk", java_version:
+    bin.write_jar_script libexec/"embulk-#{version}.jar", "embulk", java_version: "21"
   end
 
   test do
@@ -44,7 +39,7 @@ class Embulk < Formula
     testpath.install resource("jruby-complete")
     jruby = "jruby=file://#{testpath}/jruby-complete-#{resource("jruby-complete").version}.jar"
 
-    (testpath/"config.yml").write <<~EOS
+    (testpath/"config.yml").write <<~YAML
       in:
         type: http
         url: https://formulae.brew.sh/api/analytics/brew-command-run/30d.json
@@ -59,7 +54,7 @@ class Embulk < Formula
             - {name: percent, type: double}
       out:
         type: stdout
-    EOS
+    YAML
 
     ENV["GEM_HOME"] = testpath/"gems"
     system bin/"embulk", "-X", jruby, "gem", "install", "embulk", "--version", version.to_s

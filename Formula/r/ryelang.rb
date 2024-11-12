@@ -1,18 +1,23 @@
 class Ryelang < Formula
   desc "Rye is a homoiconic programming language focused on fluid expressions"
   homepage "https://ryelang.org/"
-  url "https://github.com/refaktor/rye/archive/refs/tags/v0.0.25.tar.gz"
-  sha256 "7c0e1ca1d1cfb93490dedf4e5aa8c4d16bb6ee88a2db1269802b2657dc6fba83"
+  url "https://github.com/refaktor/rye/archive/refs/tags/v0.0.30.tar.gz"
+  sha256 "24b86a2feae9fb5887f3179de7891a5015ff142c64a08644ab9f0fd7251beca9"
   license "Apache-2.0"
   head "https://github.com/refaktor/rye.git", branch: "main"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3230b9f0f0f31157db7acc03a9c6628691830667333e0a1c84ba1e53ac4d058a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5af550f7887cdd71b3be62dcc806bf33959f677224c538ba33642b416ae4be18"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "0ee7a626d912268c6695c8f74470eaa1b5b6ada25bc90e808f9d7da0d5666c5c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "228cca683e2a7212e2d755a1dfc617415daa46d50b9d04c8bdd1f546a82b6e0f"
-    sha256 cellar: :any_skip_relocation, ventura:       "536cb26f2aa775d90ee519780be32c7c84248d85445a2751ff1fe2e5fbce684f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "75321650d43bb28083e9d56b5b849aa5a5e964ae4188d5640d9ca68c5a0d27ad"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c2477d5dcafb3172d7f58fc5bf992749d77ad0adf88610f47a1767613032309c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "97b1cf0d156b44cd88194509fc362e38cf9bfe8a7577be78c58d7dd11714cb1b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "48c4066784b2366f094c607790c0e032520f6941b0b0f6513761db487220e31c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c77c58e9fdd86c531511735313d08e98f1ec64add656b30d71deed9f4816d7d6"
+    sha256 cellar: :any_skip_relocation, ventura:       "7d4096af96527d4e69f14694344df55a7a90ea221cbca0b32a009f368c5a0c99"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0a2cf56f6ed477bc3f78eb663e3cfc2afb7a0bdb391efe70f0ccaae9ebb0248c"
   end
 
   depends_on "go" => :build

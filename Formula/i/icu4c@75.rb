@@ -5,29 +5,30 @@ class Icu4cAT75 < Formula
   version "75.1"
   sha256 "cb968df3e4d2e87e8b11c49a5d01c787bd13b9545280fc6642f826527618caef"
   license "ICU"
+  revision 1
 
   livecheck do
     url :stable
-    regex(/^release[._-]v?(\d+(?:[.-]\d+)+)$/i)
+    regex(/^release[._-]v?(75(?:[.-]\d+)+)$/i)
     strategy :git do |tags, regex|
       tags.filter_map { |tag| tag[regex, 1]&.tr("-", ".") }
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a7e245c13a6a784dbdfc1b0e52abab9f159d684f8ae6d9293c585bd21b441e75"
-    sha256 cellar: :any,                 arm64_sonoma:  "3da9b88cf2f84e5f37d964400a7a8e1a2042d3dda33acf7eb9c2d81e785e0532"
-    sha256 cellar: :any,                 arm64_ventura: "760542f48a7cc4e7aff89d5a9c3030fe549e51753a5f7167d838f48fa9a8df38"
-    sha256 cellar: :any,                 sonoma:        "b8d525ce3c6f163981641f69920b6ed92cf4bfef7dab84979dc8f49777d7ea3b"
-    sha256 cellar: :any,                 ventura:       "e040d0d6cb994165a20ce9fdcc691ea15043b1c583c9af9a18e7a2ac63aaabcf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ab60784f7aee6a4a7827bbff1cf524c1c357a76be2898fdbf144ffa1df145eff"
+    sha256 cellar: :any,                 arm64_sequoia: "4f07c25ad9219c64a89315c92926a4ed100abee56ca8239697f4d4ed96fc8c4e"
+    sha256 cellar: :any,                 arm64_sonoma:  "992749cb6ae752008a3ae031fdc6972833f7ccece25557990797abedb65cdc34"
+    sha256 cellar: :any,                 arm64_ventura: "bc6e3f3b55834a9d8ed02b27160c5fad0fc51083d3d75a5241ac7fb6396ac2d0"
+    sha256 cellar: :any,                 sonoma:        "db53be7588fef20af9fd3b8c065119fddc412c40715784cc92329d22c01c655b"
+    sha256 cellar: :any,                 ventura:       "9f3b96254d2b5ddddff97938832693cadf666c2ea7d9d6085eb8e04358f54b2a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f9ba262410561b5fcd350ddadb7b0704ccabca5d2556817caf5e3ab31560ef25"
   end
 
-  # TODO: Switch keg_only reason after renaming `icu4c` formula to `icu4c@74` and updating alias to `icu4c@75`
-  # keg_only :provided_by_macos, "macOS provides libicucore.dylib (but nothing else)"
   keg_only :versioned_formula
 
   def install
+    odie "Major version bumps need a new formula!" if version.major.to_s != name[/@(\d+)$/, 1]
+
     args = %w[
       --disable-samples
       --disable-tests

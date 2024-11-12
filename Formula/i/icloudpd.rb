@@ -5,23 +5,21 @@ class Icloudpd < Formula
   homepage "https://github.com/icloud-photos-downloader/icloud_photos_downloader"
   # We use a git checkout as scripts/patch_version runs git commands to update SHA
   url "https://github.com/icloud-photos-downloader/icloud_photos_downloader.git",
-      tag:      "v1.23.4",
-      revision: "6e9c6c69996a39d0e7f77c9fd4f9b160b4b8bcdd"
+      tag:      "v1.24.3",
+      revision: "1aec515f07ceb5876b15a95abcaaf3522c05e96c"
   license "MIT"
   head "https://github.com/icloud-photos-downloader/icloud_photos_downloader.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "cfc84701b4d11324a7acdb9487ddc61e61f99a99024e5606381819cc7b5c1736"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "75bca52db6cc9ce7257ab5c617f82fe329ec87187a652331add4d40903711fc4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "30c3a36c8233f1906e03e51d6f10216d15b5b860e87946a32ffe25e7fe08071a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a3ff85682f06bffc8b225e779df95b5360110efd3f3a9df075b20ef1f1591ac4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "03aa950b22125359d93ca6b0eba7d7452970309c61c26acb499612f339c5184a"
-    sha256 cellar: :any_skip_relocation, ventura:        "e7fcffe1ee76ac6899c1d6253b709ce45b885e59cafee78ef80a1f1be0a6b289"
-    sha256 cellar: :any_skip_relocation, monterey:       "932fd0308f570ef06466c8592109864686bdf61771acfa31120aead0f887626f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f35f0053a2ebc7829b0f4fc9b3cd6ed3040ed07979a9979f5f15d8e390f6bfe"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0786a634dc6e0cb92c05d1926a595dbcf0dd4bcd7fd701ab2c20b80e6e8ee417"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e2e98c4f3eced139bfe7ea9786fc6f1ed533d7cbfd4a9543ffd68dc2f2907709"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "b374cf5b5df656dd09dfb8971e7bf81ad8a25b394124b674343d3968ff90766d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1a6c71899492329866ecda1cff4c0d3debee62d0c0833a557ad9730d0edabee4"
+    sha256 cellar: :any_skip_relocation, ventura:       "d9beda6105f2dedf09ed6027dc4bc8347b9f7bec342b51beac2736f29fe7a8b7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4380ce7458acae73d07df11c38715d5aa8e77bccc99400dbc6c6729dda132cca"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_macos do
     depends_on "gnu-sed" => :build
@@ -38,8 +36,8 @@ class Icloudpd < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
-    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
+    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
   end
 
   resource "click" do
@@ -58,8 +56,8 @@ class Icloudpd < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/e8/ac/e349c5e6d4543326c6883ee9491e3921e0d07b55fdf3cce184b40d63e72a/idna-3.8.tar.gz"
-    sha256 "d838c2c0ed6fced7693d5e8ab8e734d5f8fda53a039c0164afb0b82e771e3603"
+    url "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz"
+    sha256 "12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9"
   end
 
   resource "itsdangerous" do
@@ -78,8 +76,8 @@ class Icloudpd < Formula
   end
 
   resource "jaraco-functools" do
-    url "https://files.pythonhosted.org/packages/03/b1/6ca3c2052e584e9908a2c146f00378939b3c51b839304ab8ef4de067f042/jaraco_functools-4.0.2.tar.gz"
-    sha256 "3460c74cd0d32bf82b9576bbb3527c4364d5b27a21f5158a62aed6c4b42e23f5"
+    url "https://files.pythonhosted.org/packages/ab/23/9894b3df5d0a6eb44611c36aec777823fc2e07740dabbd0b810e19594013/jaraco_functools-4.1.0.tar.gz"
+    sha256 "70f7e0e2ae076498e212562325e805204fc092d7b4c17e0e86c959e249701a9d"
   end
 
   resource "jinja2" do
@@ -98,13 +96,13 @@ class Icloudpd < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   resource "more-itertools" do
-    url "https://files.pythonhosted.org/packages/92/0d/ad6a82320cb8eba710fd0dceb0f678d5a1b58d67d03ae5be14874baa39e0/more-itertools-10.4.0.tar.gz"
-    sha256 "fe0e63c4ab068eac62410ab05cccca2dc71ec44ba8ef29916a0090df061cf923"
+    url "https://files.pythonhosted.org/packages/51/78/65922308c4248e0eb08ebcbe67c95d48615cc6f27854b6f2e57143e9178f/more-itertools-10.5.0.tar.gz"
+    sha256 "5482bfef7849c25dc3c6dd53a6173ae4795da2a41a80faea6700d9f5846c5da6"
   end
 
   resource "piexif" do
@@ -132,6 +130,11 @@ class Icloudpd < Formula
     sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
+  resource "srp" do
+    url "https://files.pythonhosted.org/packages/8d/fb/9210875dd162d3977580407b1c5ce6e779e770b8197a0de76819144a9755/srp-1.0.22.tar.gz"
+    sha256 "f330d0ec7387e2ac8577487b164963155d4a031bca6e2024f1b0930eb92baa5d"
+  end
+
   resource "tqdm" do
     url "https://files.pythonhosted.org/packages/5a/c0/b7599d6e13fe0844b0cda01b9aaef9a0e87dbb10b06e4ee255d3fa1c79a2/tqdm-4.66.4.tar.gz"
     sha256 "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
@@ -157,10 +160,13 @@ class Icloudpd < Formula
     sha256 "005da479b04134cdd9dd602d1ee7c49d79de0537610d653674cc6cbde222b8a1"
   end
 
-  resource "werkzeug" do
-    url "https://files.pythonhosted.org/packages/0f/e2/6dbcaab07560909ff8f654d3a2e5a60552d937c909455211b1b36d7101dc/werkzeug-3.0.4.tar.gz"
-    sha256 "34f2371506b250df4d4f84bfe7b0921e4762525762bbd936614909fe25cd7306"
+  resource "Werkzeug" do
+    url "https://files.pythonhosted.org/packages/32/af/d4502dc713b4ccea7175d764718d5183caf8d0867a4f0190d5d4a45cea49/werkzeug-3.1.1.tar.gz"
+    sha256 "8cd39dfbdfc1e051965f156163e2974e52c210f130810e9ad36858f0fd3edad4"
   end
+
+  # support python 3.13
+  patch :DATA
 
   def install
     ENV.prepend_path "PATH", Formula["gnu-sed"].libexec/"gnubin" if OS.mac?
@@ -177,3 +183,18 @@ class Icloudpd < Formula
     assert_match "Authenticating...", output
   end
 end
+
+__END__
+diff --git a/pyproject.toml b/pyproject.toml
+index 5e60ee9..fb85dac 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -10,7 +10,7 @@ version="1.23.4"
+ name = "icloudpd"
+ description = "icloudpd is a command-line tool to download photos and videos from iCloud."
+ readme = "README_PYPI.md"
+-requires-python = ">=3.8,<3.13"
++requires-python = ">=3.8,<3.14"
+ keywords = ["icloud", "photo"]
+ license = {file="LICENSE.md"}
+ authors=[

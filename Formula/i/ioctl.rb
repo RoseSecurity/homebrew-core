@@ -1,8 +1,8 @@
 class Ioctl < Formula
   desc "Command-line interface for interacting with the IoTeX blockchain"
   homepage "https://docs.iotex.io/"
-  url "https://github.com/iotexproject/iotex-core/archive/refs/tags/v2.0.4.tar.gz"
-  sha256 "0c54f558fd6883fb5e3bfe501a49d6076308e5b36f4bde93dc7a38b7cf09dd6f"
+  url "https://github.com/iotexproject/iotex-core/archive/refs/tags/v2.0.6.tar.gz"
+  sha256 "e3b331ca1420521c32a7e263a9c25f0bace351260bdce91df3ef91c99149d254"
   license "Apache-2.0"
 
   livecheck do
@@ -11,14 +11,12 @@ class Ioctl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9724e9148c74b8334e64b07d29cd6b6b6b09ba651e9db855fd8bf3cd01e74996"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e5ee8327047f2104cdb93e70d08499f37fdfc5143b6aa32ca0c910855ff0a911"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0bc512a0b33922ce5bd1092debc7e8c8cede5565e0cd066b7c17e6afbc71c40f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0f1def9b230382b6f21ede92b192a7ad1a482b5fb5e7cdd53dd2c8945094bc0a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "058f45352509e266f7d48361227bc5109c770e835ba0f3f846e395c3599235a1"
-    sha256 cellar: :any_skip_relocation, ventura:        "ca22f7e3686d0aa542157ba3900fb2300826e031bbcfe34b552a565dfaadedf0"
-    sha256 cellar: :any_skip_relocation, monterey:       "bf071ac2b9bb988dcc04693e8b3cf711c90c9b4ab132a111bcfa85e3528422de"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fc9a749655c9f1c27ed242bcf016dff84afdd88e9a828a065d48acb43209c5bc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5bbace2eec7303cb8b224a37d395cd5acad9f11ed807c4ca49025d14726ec150"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e3f6bfa399d5c692f15074036b45d6312c926784ff0ddda9a7e3a4ea52bbfeb5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d7178b224531c70aa89fcc7053f502b457786973233edeb53fe266f3ea09d5eb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ddd806b695b8c46f0a8b0100d3887dd0e55a95d65ad497c58915cfd02b3068e7"
+    sha256 cellar: :any_skip_relocation, ventura:       "6a1d5fdefd7edf2b9dad821d6474d19f6a07c4783b1830fe034266a861db5a96"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f4152362e68415a10c69cf56b531dc0bf13c973462e6dd3d4b019b309b1bffba"
   end
 
   depends_on "go" => :build

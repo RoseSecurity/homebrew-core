@@ -1,18 +1,18 @@
 class Ruff < Formula
   desc "Extremely fast Python linter, written in Rust"
   homepage "https://docs.astral.sh/ruff/"
-  url "https://github.com/astral-sh/ruff/archive/refs/tags/0.6.9.tar.gz"
-  sha256 "502811ee2607cb09e3e05f4c3d60ed164a5e5a24aeb87fe00200b8d508a0b0c4"
+  url "https://github.com/astral-sh/ruff/archive/refs/tags/0.7.3.tar.gz"
+  sha256 "6b2aa675bb50124f636bda2c671f3394a8cfc7bf32d2fce63f852f7d43ce4810"
   license "MIT"
   head "https://github.com/astral-sh/ruff.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d48abdaf8d2d8e2e118b2fa473b2defb9c4ff060dd5201f94f7428ca8f921d6d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f4d8011a1b4536a3509481dee7da53552a30f81f12a67c072bc596a331f1128d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f67896eb86a9ba81b11bca9b42783c34b80d67935a72a948c8b8ff6aa95b0deb"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b11d1aa4fffa0290463d128683410477386d6f988cd484925e3c6a5954bfffba"
-    sha256 cellar: :any_skip_relocation, ventura:       "864d5468d003d4097707cae69e9287fd05aedd2108c652bd7ceff92395e37a4c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "825849c52109653ca8cc063c9f940d20d1c52ac631e5b6eabbf0486e3a1e5eaa"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "31e3d1faeb5a76295592506e8ccc5afdf9dd6e3877e1d93e21ae8ba2169b48dd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f7dce309eb9f381e4b197b1a1bbe574057c46271d3ec76c74a1fba18c4d0652c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "669fa75573372d5c7b83d7a54b67ddae80bdba65fccb3af010331907ff232066"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5d9580787108a3936822bdd6ec0ba65a73715d2c95dc4a3059443f2e8d36078b"
+    sha256 cellar: :any_skip_relocation, ventura:       "ce0cef1750f597dfc7788495fba7a713f142a37b055b0ea590b1f3ca8f4b61ed"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a06a5798975c0a5f98f862f4e72f64017ddf3b1581fa5cd2f586b09d3e37070b"
   end
 
   depends_on "rust" => :build
@@ -23,9 +23,9 @@ class Ruff < Formula
   end
 
   test do
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       import os
-    EOS
+    PYTHON
 
     assert_match "`os` imported but unused", shell_output("#{bin}/ruff check #{testpath}/test.py", 1)
   end

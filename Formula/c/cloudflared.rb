@@ -1,18 +1,18 @@
 class Cloudflared < Formula
   desc "Cloudflare Tunnel client (formerly Argo Tunnel)"
   homepage "https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide"
-  url "https://github.com/cloudflare/cloudflared/archive/refs/tags/2024.10.0.tar.gz"
-  sha256 "4e9a86e1ead708cd48a00d3739483b60cb77879c3e0b6cc6d89ee6ea9be4d7a0"
+  url "https://github.com/cloudflare/cloudflared/archive/refs/tags/2024.11.0.tar.gz"
+  sha256 "bef01251bebfc2ddf146388c5b771bb41cc13a29f79dd7dfc504e47a2f161b63"
   license "Apache-2.0"
   head "https://github.com/cloudflare/cloudflared.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f644d93f8451b54abf627ab0585d11073c6f10992d8b14c1b33e52d5d4f9f5dd"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d091d33aa14cd5172fc69fc818a4ce7c936390c8b31bd10ddac0364aee5a9abc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "3ff64e3a250e4d6eb01320eba08f59b2eb260fc6eb8bf506f4c31e2051973789"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0c02de00ceceb57a88c41ec6f47fd52284c75628babdfeb2680cb9dfedf7b84d"
-    sha256 cellar: :any_skip_relocation, ventura:       "4b479f89189b44beb337a9376ac6f9339c411f07eb41bc407782817cc4bb2e83"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c92c6c7c9f8d747c61c8ec50510dbb7c79815215385f9648f0a945cc43029f67"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0ecd402f4ed52c392f3031a5881b5a974ab9084fc098bba46d305bdb561cf858"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d562fce61f8cc939dbc30ff20386bf6dbca8edeb11a69bf5b008a02919643120"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "33b923e16bcc933d7012bfb86f1768be75ef2032de9afdd9ae1fb40ddd9be7f1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "be69a275abd6eef1345c7af8054a3afdd677878caa12a54e30aeed4547d6e6e7"
+    sha256 cellar: :any_skip_relocation, ventura:       "201768af97086e62c1ebabc83f82cd9ca4059821812d824296e2337f95584821"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3da54a90782311b0ecca084c444f8304db5130864fa839f9f559b1024414b834"
   end
 
   depends_on "go" => :build

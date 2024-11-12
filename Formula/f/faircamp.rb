@@ -1,16 +1,16 @@
 class Faircamp < Formula
   desc "Static site generator for audio producers"
   homepage "https://codeberg.org/simonrepp/faircamp"
-  url "https://codeberg.org/simonrepp/faircamp/archive/0.17.0.tar.gz"
-  sha256 "026d4a0dcb16f0db145a100b97bfc52f1544ce632c42a198517ab3fbdb89d029"
+  url "https://codeberg.org/simonrepp/faircamp/archive/0.19.0.tar.gz"
+  sha256 "828aa9a069e71fb5613785f7cd0995c568e0f6dd0933f1510e6ae46a20bf0a03"
   license "AGPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "06580cb9b3d343e110622a93914e4f2a8c9d47b22ccf6966d46f7585e94489bd"
-    sha256 cellar: :any, arm64_sonoma:  "fa1d0e656307b20379bc97afb07349f68b43ae72a9a1e79235555033cb9d8f49"
-    sha256 cellar: :any, arm64_ventura: "954335417008aaf18224faad47f18e47c8fb4f30a7f16d623d78d8f11f328c17"
-    sha256 cellar: :any, sonoma:        "72950863ec090ab26aab6ae2f918ae37544d1aede33b84e94565517fa1306a04"
-    sha256 cellar: :any, ventura:       "59e99923ca047386bfcf73526fa639da3d2bffa8bd7124ecde663d25ffed9972"
+    sha256 cellar: :any, arm64_sequoia: "bca8dba578ae518a763db1ee7f16a700d5bc1fea99ba7fe3f2cfba57c9603530"
+    sha256 cellar: :any, arm64_sonoma:  "66cfdfca710af89746097abbe864fa7e213b9c7b7c06361f40fcb6a2e8d9122e"
+    sha256 cellar: :any, arm64_ventura: "299f14748e29823b721e0cf3c5325db74e32c3a42d23f744beb6e20f0ad1a741"
+    sha256 cellar: :any, sonoma:        "049174f5239bf2b51fe23e20fe5e4c247282eece48e87449ff7f5165cd19135e"
+    sha256 cellar: :any, ventura:       "f4033029030264bc5241e63324d339b6b7cae75ad547b800ab42750f0734afe8"
   end
 
   depends_on "opus" => :build

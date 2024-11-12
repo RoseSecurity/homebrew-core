@@ -1,19 +1,17 @@
 class Shadowenv < Formula
   desc "Reversible directory-local environment variable manipulations"
   homepage "https://shopify.github.io/shadowenv/"
-  url "https://github.com/Shopify/shadowenv/archive/refs/tags/2.1.2.tar.gz"
-  sha256 "545995663f754d742749fbfb0d949be0f03fc9992a4518f0f06b45593940faf5"
+  url "https://github.com/Shopify/shadowenv/archive/refs/tags/3.0.3.tar.gz"
+  sha256 "ad04e1d5ae88e358f0ee6ec987bd88b7f8c489409fafc6286690aeacb074ddea"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ef47a7fc35e2237552519f2c962586288fa8e2f797a028a41ed0ee079ef29781"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1b488bee260253a43d92f439d4e303c8940451622a9f2d3c3c3b13eb37d16209"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c0783ccae890c38c58f22ebd20090a58c4918c5e22c5e7d52cb281a7e6cbed0d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "af967d51f98c69a2b402d8da33b363675168298752ad5dff824daffc811c55b9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f2c1809129f77ed3dcd097e4aaa3f2587f0bb2f9a8e0dfd9d89ebef85aedf3ad"
-    sha256 cellar: :any_skip_relocation, ventura:        "0219bcc301dff154c67496d88ee2b8cf8cf0a57e320bb96b3ac54ab3df07e5ca"
-    sha256 cellar: :any_skip_relocation, monterey:       "82ddf47962cd1131319642d172ef613ea406472e98a32a54e96bce0c5d7c569f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0788e0776ecb8146c9c4e89d14861cd2dc7e5e2ec7701f6c06b89d8bf358b80d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "93a3aa92e6d4f3d71f2096def300b3d503b06af579212990958fb29a5cf53dac"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "926abc552d85283e6507cd2668bdf5af33ce5d2b0a3515fc14ab3a9250d8c6d3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "801c925456a0220534c28009729ddb366a5925a61857c3ea053d39d6b44982b9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a584d3fa65f210eb2ea6dffd8d50b59b6cab767f11b7e97cf9bb2dde03fa2f2e"
+    sha256 cellar: :any_skip_relocation, ventura:       "50f747135333edf3cc9f6252e6e4abc86ee20523c285af87a0d6411b843ae0d1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4209ba91154dc46bc9254f7117cc25f46a7bc9ee0ce160321cc91d3a1bc81380"
   end
 
   depends_on "rust" => :build

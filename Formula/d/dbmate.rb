@@ -1,18 +1,18 @@
 class Dbmate < Formula
   desc "Lightweight, framework-agnostic database migration tool"
   homepage "https://github.com/amacneil/dbmate"
-  url "https://github.com/amacneil/dbmate/archive/refs/tags/v2.21.0.tar.gz"
-  sha256 "bf11b55f4bb1bc11cc9a26f08a336f7ca111807586a14a4582a5883d03fc9639"
+  url "https://github.com/amacneil/dbmate/archive/refs/tags/v2.23.0.tar.gz"
+  sha256 "7f252e0a1f2e4ce8e88fed9e5a0c258167733e72dca1c6f1db41f635470ab3c0"
   license "MIT"
   head "https://github.com/amacneil/dbmate.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "77bac1d73c73b7d42c43f23425b1ccbff795c95b66262e6140cd6fce61b46e24"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "863095b4569931cb55aa658edd6d99748b50e8d500c085d747c4792d940b530c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "88c5c60f3db5a08dcd3c2ecfabb371bfcbdc9b676135112c13a12df9d45a5be3"
-    sha256 cellar: :any_skip_relocation, sonoma:        "62f0d7c47ea702365d440165f248fb7b4a021c1296edeaf3b145928c0f436c6d"
-    sha256 cellar: :any_skip_relocation, ventura:       "b4d43d2d32f231ca84f5c93f7b2c78abc8bafc8581307e6adb968cb6076eb019"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "563ac4dec2c12df391929196e78b6d02d40c4dbc474e543893791997886b1daf"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "aa47e133ac95c2462aa844cbccaac213c9046d19219060956bd469753b2be0f0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3697000a255531e7d8d8e17c8f20b620484768811a20b3126f25e0d8ccec49ed"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "703730ccf386316822b408447935441132ff632a059f4cb6aa4f3cc759b62b71"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b4f800dafd862e9c6285b3c6e6de81a9c89026bc4dbf1206695d3b537b4911e9"
+    sha256 cellar: :any_skip_relocation, ventura:       "84a741d8b8f9658e465bbf1f5c3777445ee90f9e5eb5c8553f07d630ed673f96"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5a8f569a26a36564b7377ec1a463d9eba1fe3aaf166c0f17d23249891332f7d3"
   end
 
   depends_on "go" => :build

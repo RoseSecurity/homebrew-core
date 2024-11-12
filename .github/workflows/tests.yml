@@ -145,6 +145,8 @@ jobs:
       test-bot-dependents-args: ${{ steps.check-labels.outputs.test-bot-dependents-args }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check for CI labels
         id: check-labels
@@ -259,6 +261,8 @@ jobs:
       test-bot-dependents-args: ${{ steps.check-labels.outputs.test-bot-dependents-args }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check for CI labels
         id: check-labels
@@ -370,8 +374,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check `tests` result
+        env:
+          TESTS_RESULT: ${{ needs.tests.result }}
+          DEPS_TESTS_RESULT: ${{ needs.test_deps.result }}
+          RUNNERS_PRESENT: ${{ needs.setup_runners.outputs.runners_present }}
+          SYNTAX_ONLY: ${{ needs.setup_tests.outputs.syntax-only }}
         run: |
-          result='${{ needs.tests.result }}'
+          result="${TESTS_RESULT}"
           # Silence lint error about backtick usage inside single quotes.
           # shellcheck disable=SC2016
           printf '::notice ::`tests` job status: %s\n' "$result"
@@ -384,7 +393,7 @@ jobs:
             # shellcheck disable=SC2016
             printf '::error ::`tests` job %s.\n' "$result"
 
-            deps_result='${{ needs.test_deps.result }}'
+            deps_result="${DEPS_TESTS_RESULT}"
             if [[ "$deps_result" = "skipped" ]]
             then
               # Silence lint error about backtick usage inside single quotes.
@@ -395,8 +404,8 @@ jobs:
             exit 1
           fi
 
-          runners_present='${{ needs.setup_runners.outputs.runners_present }}'
-          syntax_only='${{ needs.setup_tests.outputs.syntax-only }}'
+          runners_present="${RUNNERS_PRESENT-}"
+          syntax_only="${SYNTAX_ONLY-}"
 
           # The tests job can be skipped only if the PR is syntax-only
           # or no runners were assigned.

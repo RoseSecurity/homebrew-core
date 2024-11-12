@@ -146,6 +146,7 @@ jobs:
               path: Formula/.+@.+
               except:
                 - Formula/b/bash-completion@2.rb
+                - Formula/i/icu4c@76.rb
                 - Formula/lib/libxml++@5.rb
                 - Formula/o/openssl@3.rb
                 - Formula/p/postgresql@17.rb
@@ -299,6 +300,7 @@ jobs:
                 imath|\
                 jasper|\
                 jpeg-turbo|\
+                libcap|\
                 libgcrypt|\
                 libgpg-error|\
                 libidn2|\
@@ -343,7 +345,7 @@ jobs:
               keep_if_no_match: true
 
             - label: CI-linux-self-hosted
-              path: Formula/.+/(dart-sdk|envoy|qt(@5)?|texlive).rb
+              path: Formula/.+/(dart-sdk|dotnet|envoy|qt(@5)?|texlive).rb
               keep_if_no_match: true
               allow_any_match: true
 
@@ -355,6 +357,7 @@ jobs:
                 libxml2|\
                 python@3.12|\
                 systemd|\
+                wayland-protocols|\
                 zlib|\
                 ).rb"
               keep_if_no_match: true

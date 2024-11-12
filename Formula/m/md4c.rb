@@ -26,14 +26,14 @@ class Md4c < Formula
 
   test do
     # test md2html
-    (testpath/"test_md.md").write <<~EOS
+    (testpath/"test_md.md").write <<~MARKDOWN
       # Title
       some text
-    EOS
+    MARKDOWN
     system bin/"md2html", "./test_md.md"
 
     # test libmd4c
-    (testpath/"test_program.c").write <<~EOS
+    (testpath/"test_program.c").write <<~C
       #include <stddef.h>
       #include <md4c.h>
 
@@ -53,7 +53,7 @@ class Md4c < Formula
         int result = md_parse(text, sizeof(text), &parser, NULL);
         return result;
       }
-    EOS
+    C
     system ENV.cc, "test_program.c", "-L#{lib}", "-lmd4c", "-o", "test_program"
     system "./test_program"
   end

@@ -33,7 +33,7 @@ class Cpptoml < Formula
   end
 
   test do
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include "cpptoml.h"
       #include <iostream>
 
@@ -48,11 +48,11 @@ class Cpptoml < Formula
 
         return 1;
       }
-    EOS
+    CPP
 
-    (testpath/"brew.toml").write <<~EOS
+    (testpath/"brew.toml").write <<~TOML
       str = "Hello, Homebrew."
-    EOS
+    TOML
 
     system ENV.cxx, "-std=c++11", "-I#{include}", "test.cc", "-o", "test"
     assert_equal "Hello, Homebrew.", shell_output("./test").strip

@@ -2,9 +2,9 @@ class PhpAT82 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.2.24.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.2.24.tar.xz"
-  sha256 "80a5225746a9eb484475b312d4c626c63a88a037d8e56d214f30205e1ba1411a"
+  url "https://www.php.net/distributions/php-8.2.25.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.25.tar.xz"
+  sha256 "330b54876ea1d05ade12ee9726167332058bccd58dffa1d4e12117f6b4f616b9"
   license "PHP-3.01"
   revision 1
 
@@ -14,12 +14,12 @@ class PhpAT82 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "3c6a83104193081c192959748f627b31d0ab07f80c4450d93f8f8427d7f476f5"
-    sha256 arm64_sonoma:  "26840d376aeb10ccf1e343572f63a0b98e72a24c6c26196d526f766e278f2ca4"
-    sha256 arm64_ventura: "07e09ca7226060abe42ea07012cf595a8877bcbf3292ff1dcd5d50c3325dfa2e"
-    sha256 sonoma:        "52cc2f48216f6ac3c06dfec4b9718b6e34eb34177fcdab29c59d1dd577933600"
-    sha256 ventura:       "6396e6ba27ee8fdc6a3f53f4dcec4c169144a849d03abe4ba6d071e1384b87a7"
-    sha256 x86_64_linux:  "aeaa83ed5f1510c3b8991fd894e8db051b87cf16b860a31a42443309f80e7a9d"
+    sha256 arm64_sequoia: "985b0a59b77a0f58e4217c3c4cf437503e2896e78c69bacc164547e0db0b76b5"
+    sha256 arm64_sonoma:  "585ee19c8b59254795218369cd8e56aaf947a8f329a921c54aab9a318e2955a7"
+    sha256 arm64_ventura: "33acfb38f382dd3a5ac0827fb4556f548d9da978c2c329d2ff0d8c47dc561356"
+    sha256 sonoma:        "e7be34ae53129a8cfc6ba41474c4503a7042f7122a2926aee9b386961e4370ab"
+    sha256 ventura:       "e568b9df29e5266c51a782be222c0689f7247038caddd3993e8122062a160d85"
+    sha256 x86_64_linux:  "e392af5d4b0cb602c37c5e5c33df02da7526e627121e96cda00b96fce71eecf3"
   end
 
   keg_only :versioned_formula
@@ -40,7 +40,7 @@ class PhpAT82 < Formula
   depends_on "gd"
   depends_on "gettext"
   depends_on "gmp"
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "krb5"
   depends_on "libpq"
   depends_on "libsodium"
@@ -350,11 +350,11 @@ class PhpAT82 < Formula
       port_fpm = free_port
 
       expected_output = /^Hello world!$/
-      (testpath/"index.php").write <<~EOS
+      (testpath/"index.php").write <<~PHP
         <?php
         echo 'Hello world!' . PHP_EOL;
         var_dump(ldap_connect());
-      EOS
+      PHP
       main_config = <<~EOS
         Listen #{port}
         ServerName localhost:#{port}

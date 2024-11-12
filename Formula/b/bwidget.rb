@@ -1,9 +1,10 @@
 class Bwidget < Formula
   desc "Tcl/Tk script-only set of megawidgets to provide the developer additional tools"
   homepage "https://core.tcl-lang.org/bwidget/home"
-  url "https://downloads.sourceforge.net/project/tcllib/BWidget/1.9.16/bwidget-1.9.16.tar.gz"
-  sha256 "bfe0036374b84293d23620a7f6dda86571813d0c7adfed983c1f337e5ce81ae0"
+  url "https://downloads.sourceforge.net/project/tcllib/BWidget/1.10.1/bwidget-1.10.1.tar.gz"
+  sha256 "4aea02f38cf92fa4aa44732d4ed98648df839e6537d6f0417c3fe18e1a34f880"
   license "TCL"
+  revision 1
 
   livecheck do
     url "https://sourceforge.net/projects/tcllib/rss?path=/BWidget"
@@ -11,8 +12,7 @@ class Bwidget < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, all: "2387ff5ce82cacdd42cd8f172b38abde95b856256861c572a9ff1e14eda03415"
+    sha256 cellar: :any_skip_relocation, all: "d524a18515be797d08ad291537351a3688c6ec100c38663f4729f50c938204af"
   end
 
   depends_on "tcl-tk"

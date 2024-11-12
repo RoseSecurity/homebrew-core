@@ -1,19 +1,17 @@
 class Bandicoot < Formula
   desc "C++ library for GPU accelerated linear algebra"
   homepage "https://coot.sourceforge.io/"
-  url "https://gitlab.com/bandicoot-lib/bandicoot-code/-/archive/1.15.0/bandicoot-code-1.15.0.tar.bz2"
-  sha256 "cfe935a8eb23ae03e9db9f817040268b5d9e8d4a370c792f0476438379bf7b96"
+  url "https://gitlab.com/bandicoot-lib/bandicoot-code/-/archive/1.16.0/bandicoot-code-1.16.0.tar.bz2"
+  sha256 "d3049c8caed7ea527565bf96030d190282d0d9cf5f2a33b5a2dd393a60f01e8f"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "3ac4edc2d604981788ac093d8577689a6ef9c2544eb94dcc7f5913172934da6c"
-    sha256 cellar: :any,                 arm64_sonoma:   "514515d6a43c9cabb86877d0a0f94983dfcd8ffbec74cb282406c79da5e0068f"
-    sha256 cellar: :any,                 arm64_ventura:  "713cae9be9a4bd2124224dcb7d2618e940d80d56361bc31b596caa73cb2f0c40"
-    sha256 cellar: :any,                 arm64_monterey: "2c389b73c8ac099b14432861726285d68789d1a626a12f550a45c121df2287a8"
-    sha256 cellar: :any,                 sonoma:         "70c6cdf08f6a1702545a7d4a3e8fa0220672c5c6da54b12124b7941d5a42b42e"
-    sha256 cellar: :any,                 ventura:        "79871e12ffc4d1c6b0e38ee40c8a4feb73adae00d558eb6cb7ffe43a54a7c196"
-    sha256 cellar: :any,                 monterey:       "918e5c4b75156d156e0acac3dda3fc7569c8596a68908f93dbb040176dda0c93"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d609502f3a22751f9aa62a026789ac3bb7157702945f84d5f269f69cbf0b8136"
+    sha256 cellar: :any,                 arm64_sequoia: "fe872e9c9d278c330ab54f9645ef503189f938176a943198d93cc866cc499a14"
+    sha256 cellar: :any,                 arm64_sonoma:  "672ec9569c42fd5d97be9fc81c9721c0eb3c016b632badbfb38176a8de97afd3"
+    sha256 cellar: :any,                 arm64_ventura: "eda4ccd849b8aa82a14e9eb520512ae55dbac19f98f868b9cc9dc4ac392d6e37"
+    sha256 cellar: :any,                 sonoma:        "deeddc134d35ee37dabc3daa8ae6c544f3c152ad16ffa3af00cd09b437efca24"
+    sha256 cellar: :any,                 ventura:       "3fb92dd99616ec54cca47bae78706daa6a6bdb529c0978506d95d6a1a3534744"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3f3faa04cbe15d7ec9a39a2e120268ea06413d17d6154ec5894c0fbe9e646565"
   end
 
   depends_on "cmake" => :build
@@ -46,14 +44,14 @@ class Bandicoot < Formula
 
   test do
     # Create a test script that compiles a program
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <bandicoot>
 
       int main(int argc, char** argv) {
         std::cout << coot::coot_version::as_string() << std::endl;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++11", "test.cpp", "-I#{include}", "-L#{lib}", "-lbandicoot", "-o", "test"
 
     # Check that the coot version matches with the formula version

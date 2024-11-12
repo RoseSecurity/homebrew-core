@@ -1,20 +1,18 @@
 class Dependabot < Formula
   desc "Tool for testing and debugging Dependabot update jobs"
   homepage "https://github.com/dependabot/cli"
-  url "https://github.com/dependabot/cli/archive/refs/tags/v1.54.0.tar.gz"
-  sha256 "ae496c65e4f947cca1251c9f786fbcc1e5e1a079af7fee08b893265e69d39295"
+  url "https://github.com/dependabot/cli/archive/refs/tags/v1.57.0.tar.gz"
+  sha256 "71cf1048899dd050134dc5ac817ec5f86852de8396fd367b63a51f8577ab8178"
   license "MIT"
   head "https://github.com/dependabot/cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4add3d15ddece3726d1bb617becce4e7f2fe5485da07a8de1b1e9636b4f76227"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd7e038445aeda191a9a83a923c2e9f9c6c3293e70b99d9ed80cd2b289cb69b5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8310ed4fa7c2e8f346832a29f517b0197bd3d723d1f8f1c4d7b76d0469ad7988"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "facbad6559366226753da4aab32209cdfe010a2c937095a1c3e40dfe4c17f34b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b9172315452a179f36a0004ae3efe55b6186f2b4ca71641af105254cbb4883d9"
-    sha256 cellar: :any_skip_relocation, ventura:        "3b3a3b88843ee47759a7f4b9d342443125ad9d6c47db4c584fbfddc9ded46ed9"
-    sha256 cellar: :any_skip_relocation, monterey:       "a16e641c625d0fffbfaac267226ad5d7781f8c463393d04c52862f29d9bb98dc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "279f57639446189df0c1a2d44c0a935cca45d28e523786a45558f75fa8fe3245"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8aa7def2aa38f70ee9c5a7b9bc9415bdbd36a334396d451824d61158119e85fb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8aa7def2aa38f70ee9c5a7b9bc9415bdbd36a334396d451824d61158119e85fb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8aa7def2aa38f70ee9c5a7b9bc9415bdbd36a334396d451824d61158119e85fb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4ff554ec563b70b7d3e50837b6ef36fde6024839638212cf061e5f683a10357f"
+    sha256 cellar: :any_skip_relocation, ventura:       "4ff554ec563b70b7d3e50837b6ef36fde6024839638212cf061e5f683a10357f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0d74e9b82e68fa4fd6d3b268633a296035cab1ce83932ee7fdd2537d906f58ec"
   end
 
   depends_on "go" => :build

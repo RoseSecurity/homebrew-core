@@ -1,30 +1,28 @@
 class Tbb < Formula
   desc "Rich and complete approach to parallelism in C++"
   homepage "https://github.com/oneapi-src/oneTBB"
-  url "https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2021.13.0.tar.gz"
-  sha256 "3ad5dd08954b39d113dc5b3f8a8dc6dc1fd5250032b7c491eb07aed5c94133e1"
+  url "https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2022.0.0.tar.gz"
+  sha256 "e8e89c9c345415b17b30a2db3095ba9d47647611662073f7fbf54ad48b7f3c2a"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "a48d6e0d893bff7968187a07a7e953017f1bcda0741550ad6f6162083f01cb11"
-    sha256 cellar: :any,                 arm64_sonoma:   "8e9ed982a18c3dac9d8db3d64fd2a8c0b157adb846103c0a9315d1f67eef25cd"
-    sha256 cellar: :any,                 arm64_ventura:  "fcae42945dc2c556b9dabcc9645646fcb36a7ceb48c07dd0029e840d3bcb1b48"
-    sha256 cellar: :any,                 arm64_monterey: "b5837d8c9c05831661606c47e210dfb2889a72e26b5d88b51ef081694410c76f"
-    sha256 cellar: :any,                 sonoma:         "1c368b6566070dc6c527d82484d2f18a1fee5dd296ae05c67888bf7a080dc14e"
-    sha256 cellar: :any,                 ventura:        "992efbcc88b69ab097794e969439994a90c5fd39af45023b2953dc53f7d05699"
-    sha256 cellar: :any,                 monterey:       "ed6b5b509b170c2a0003a63fae7c9d364195963bcb0f3a9788448d3ebc834622"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5798f4862bf605ae914e0116e8cd9baaf65102279a553c9f588e32004cae2bb1"
+    sha256 cellar: :any,                 arm64_sequoia: "38fdf780cbe726dfd23dc3f44a8404e493dd15a25f789192eb07078c424315b8"
+    sha256 cellar: :any,                 arm64_sonoma:  "395ce725fdf9f2729a6dfc987bfbd6593252c3052e93ec739d8b2f28b257214b"
+    sha256 cellar: :any,                 arm64_ventura: "c2d23d00a088900e6d6ec91a75ec2f3b972740790ef4156ac28cbbf4d187f3a4"
+    sha256 cellar: :any,                 sonoma:        "a273e031b766bc13c5203afd089a92a97147bd6ffe9eccc8c4b11b58e69b4d8e"
+    sha256 cellar: :any,                 ventura:       "fed7b2e7350ce93f50338acaa44258efd637800f97eae90af0fad84533d848fa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "92e0fbee4d1f60809fb238ccaf5bd89a9b97c08afc93378f083dace474521ef4"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
-  depends_on "python@3.12" => [:build, :test]
+  depends_on "python@3.13" => [:build, :test]
   depends_on "swig" => :build
   depends_on "hwloc"
 
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install
@@ -65,7 +63,7 @@ class Tbb < Formula
     assert_path_exists lib/"libtbb.a"
     assert_path_exists lib/"libtbbmalloc.a"
 
-    (testpath/"cores-types.cpp").write <<~EOS
+    (testpath/"cores-types.cpp").write <<~CPP
       #include <cstdlib>
       #include <tbb/task_arena.h>
 
@@ -75,13 +73,13 @@ class Tbb < Formula
           const auto type = numa_nodes.front();
           return size != 1 || type != tbb::task_arena::automatic ? EXIT_SUCCESS : EXIT_FAILURE;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "cores-types.cpp", "--std=c++14", "-DTBB_PREVIEW_TASK_ARENA_CONSTRAINTS_EXTENSION=1",
                                       "-L#{lib}", "-ltbb", "-o", "core-types"
     system "./core-types"
 
-    (testpath/"sum1-100.cpp").write <<~EOS
+    (testpath/"sum1-100.cpp").write <<~CPP
       #include <iostream>
       #include <tbb/blocked_range.h>
       #include <tbb/parallel_reduce.h>
@@ -104,7 +102,7 @@ class Tbb < Formula
         std::cout << total << std::endl;
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "sum1-100.cpp", "--std=c++14", "-L#{lib}", "-ltbb", "-o", "sum1-100"
     assert_equal "5050", shell_output("./sum1-100").chomp

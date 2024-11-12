@@ -52,7 +52,8 @@ class Shaderc < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.12" => :build
+
+  uses_from_macos "python" => :build
 
   # patch to fix `target "SPIRV-Tools-opt" that is not in any export set`
   # upstream bug report, https://github.com/google/shaderc/issues/1413
@@ -76,7 +77,7 @@ class Shaderc < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <shaderc/shaderc.h>
       int main() {
         int version;
@@ -85,7 +86,7 @@ class Shaderc < Formula
           return 1;
         return (profile == shaderc_profile_core) ? 0 : 1;
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "test.c", "-I#{include}",
                    "-L#{lib}", "-lshaderc_shared"
     system "./test"

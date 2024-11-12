@@ -1,19 +1,17 @@
 class Kubevpn < Formula
   desc "Offers a Cloud-Native Dev Environment that connects to your K8s cluster network"
   homepage "https://www.kubevpn.cn"
-  url "https://github.com/kubenetworks/kubevpn/archive/refs/tags/v2.2.18.tar.gz"
-  sha256 "bb5c2f19d5dc256794d118a36d9ff2ac7382c38fb7b8ac376e037ea50d99a7c0"
+  url "https://github.com/kubenetworks/kubevpn/archive/refs/tags/v2.2.22.tar.gz"
+  sha256 "a3e5e07cbe21d328858d2ea6256000f82ab59241943a2368d366c0e8d1628a91"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "a4ed5fe18276664830115f5891bdd77da89e1c75d0f289c1c71c3e211d03b271"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f1e534b5f7ec7240900cf60b714078437b8605f195da81f64060cb0c84041730"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "95f72ab88ce032cd83ff1866f3024119163d4d61b771a5aa3ab33d741bac6f67"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "84f63a07bf9ccfcdf03df6e3c6092bd2d838c0aff2d8e15eea766aca1916a145"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4d286cb7124bb1de1e4a9a1dd5546d659e20148d4417a69431e0d36bbcb37808"
-    sha256 cellar: :any_skip_relocation, ventura:        "6009f099391d1c56310390899e65b1cbf1c57a6a09748a64827d7daf6e3074a6"
-    sha256 cellar: :any_skip_relocation, monterey:       "ea9905751ef5c016879af60ccb55f77f94989e9efe09267493a866bc78eb431a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2729148906821b485fbc6a70ebff8d97b907e2970edd2a7c15598740a3006017"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9256c8352d51cb68ea996cbbf592ac700ccd9c1a4057032fd190162a7c997b51"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bd3b90736c39f83db80d6770d5006eaf5965efeaebe7acd80477567f145a0502"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "28f18a3a700e6659391c51d79931ead2b02c536dca73bd3abb008b72c21b443e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ab97ca75b32a64ff87d75343b9cbbebde11b38567150e3234284b41081f0cc03"
+    sha256 cellar: :any_skip_relocation, ventura:       "b2c9f250bed1fa0bb8dc76b270d0ca0c9ffc3c18fb5889f4b7dc11f414304f71"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1d6fd9c9ac22da5574661a5e7c51ab6f122d7ef9503146a6e0d08b00a069ee47"
   end
 
   depends_on "go" => :build

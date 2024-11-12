@@ -3,8 +3,8 @@ class Mesa < Formula
 
   desc "Graphics Library"
   homepage "https://www.mesa3d.org/"
-  url "https://mesa.freedesktop.org/archive/mesa-24.2.4.tar.xz"
-  sha256 "5ea42a8bb6d58aec9754c9f553b1e413f67c09403741f8e2786c3f9e63d3461a"
+  url "https://mesa.freedesktop.org/archive/mesa-24.2.6.tar.xz"
+  sha256 "2b68c4a6f204c1999815a457299f81c41ba7bf48c4674b0b2d1d8864f41f3709"
   license all_of: [
     "MIT",
     "Apache-2.0", # include/{EGL,GLES*,vk_video,vulkan}, src/egl/generate/egl.xml, src/mapi/glapi/registry/gl.xml
@@ -23,12 +23,12 @@ class Mesa < Formula
   head "https://gitlab.freedesktop.org/mesa/mesa.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia: "f1c332decb7635b8c1752b2875cf58330f2b1606ec2f2b791a7fb650987acbd9"
-    sha256 arm64_sonoma:  "8b941cdd66accc8191f786f022d4a8b935cc8a2e49021c130db01d91462ea402"
-    sha256 arm64_ventura: "12afa87cff60326dd949206fe5013acfa2070fde09f7d5a62735b02b8c7e2830"
-    sha256 sonoma:        "313f8a90ccbc2c57cd741d8e2c26e7b065c934e0d1a5a5ce72bf2f016872804d"
-    sha256 ventura:       "fcda36b7ea6f129a2124baf2d639b1853d19301a814965496169b6737d802429"
-    sha256 x86_64_linux:  "c00dc57cc4e8947c926e214a7180d019862aacbc7a906abee44b3977f2dcf679"
+    sha256 arm64_sequoia: "f1708458428ecc0f73b87d79dde84c81df35d9374191d25c30064e660a6c705a"
+    sha256 arm64_sonoma:  "78c6a7c5dfc251efbf218a3e946736f0610dee83045219ce720ed33930fb2b4f"
+    sha256 arm64_ventura: "d746888600473abc46619a9d06f0bb89aa6fcf821802386aad1f447fc2d95959"
+    sha256 sonoma:        "7a24e3c85b09d0eda512940991424860548f22eae20bcb4cd5a0e63d7fd3f36d"
+    sha256 ventura:       "81c7c9fa471b25600fc6e48d8d49a586e76ad9ac10e9b8d4b1cf8f31209756d6"
+    sha256 x86_64_linux:  "65d97bb0b716ff6ee542c7802af2f40935091d37d01acc3b561fc8d8c2e82b73"
   end
 
   depends_on "bison" => :build # can't use from macOS, needs '> 2.3'
@@ -36,7 +36,7 @@ class Mesa < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "xorgproto" => :build
 
   depends_on "expat"
@@ -73,13 +73,13 @@ class Mesa < Formula
   fails_with gcc: "5"
 
   resource "mako" do
-    url "https://files.pythonhosted.org/packages/67/03/fb5ba97ff65ce64f6d35b582aacffc26b693a98053fa831ab43a437cbddb/Mako-1.3.5.tar.gz"
-    sha256 "48dbc20568c1d276a2698b36d968fa76161bf127194907ea6fc594fa81f943bc"
+    url "https://files.pythonhosted.org/packages/fa/0b/29bc5a230948bf209d3ed3165006d257e547c02c3c2a96f6286320dfe8dc/mako-1.3.6.tar.gz"
+    sha256 "9ec3a1583713479fae654f83ed9fa8c9a4c16b7bb0daba0e6bbebff50c0d983d"
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   resource "packaging" do
@@ -98,7 +98,7 @@ class Mesa < Formula
   end
 
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install

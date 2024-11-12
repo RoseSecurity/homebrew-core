@@ -74,12 +74,12 @@ class IncludeWhatYouUse < Formula
     (testpath/"indirect.h").write <<~EOS
       #include "direct.h"
     EOS
-    (testpath/"main.c").write <<~EOS
+    (testpath/"main.c").write <<~C
       #include "indirect.h"
       int main() {
         return (int)function();
       }
-    EOS
+    C
     expected_output = <<~EOS
       main.c should add these lines:
       #include "direct.h"  // for function
@@ -94,13 +94,13 @@ class IncludeWhatYouUse < Formula
     assert_match expected_output,
       shell_output("#{bin}/include-what-you-use main.c 2>&1")
 
-    (testpath/"main.cc").write <<~EOS
+    (testpath/"main.cc").write <<~CPP
       #include <iostream>
       int main() {
         std::cout << "Hello, world!" << std::endl;
         return 0;
       }
-    EOS
+    CPP
     expected_output = <<~EOS
       (main.cc has correct #includes/fwd-decls)
     EOS

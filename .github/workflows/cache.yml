@@ -77,8 +77,8 @@ jobs:
       - name: Get cache key
         id: cache-key
         run: |
-          cache_key_prefix="${{ runner.os }}"
-          if [ "${{ runner.os }}" = macOS ]
+          cache_key_prefix="${RUNNER_OS}"
+          if [ "${RUNNER_OS}" = macOS ]
           then
             macos_version="$(sw_vers -productVersion)"
             cache_key_prefix="${macos_version%%.*}-$(uname -m)"

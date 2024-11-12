@@ -4,7 +4,7 @@ class OrTools < Formula
   url "https://github.com/google/or-tools/archive/refs/tags/v9.11.tar.gz"
   sha256 "f6a0bd5b9f3058aa1a814b798db5d393c31ec9cbb6103486728997b49ab127bc"
   license "Apache-2.0"
-  revision 1
+  revision 3
   head "https://github.com/google/or-tools.git", branch: "stable"
 
   livecheck do
@@ -13,12 +13,12 @@ class OrTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d96a2474dcec3e479e493f9a2feea94fdba14d1142c3a03fd955a2ebe8ccabf0"
-    sha256 cellar: :any,                 arm64_sonoma:  "b334335e402ba2def5df45083b409feee658658fb144f91125f12c82846327fb"
-    sha256 cellar: :any,                 arm64_ventura: "944b2e33feaf16cbc65b85c389dc7c51b24c49cca9ff174a356cf7af617b7726"
-    sha256 cellar: :any,                 sonoma:        "e9a11426f2c10f3f084bbcfcac027b9c888b7b73be0d7db45bf16f6ca7530d35"
-    sha256 cellar: :any,                 ventura:       "bca479d83dbef1eef8370315db6e2258ab265fb23850a9404d5fd1c63b55b1b1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "813619753bab47c09c9eadea6d600301d90699ad56cb490104650b4663266586"
+    sha256 cellar: :any,                 arm64_sequoia: "1cea563e971f3d1f6d6ef1cd6d5040ac790f09fc4410e787f8db6be04346fdb0"
+    sha256 cellar: :any,                 arm64_sonoma:  "3d6b7688c52ad19bccf2e5e60d93f5786d0f6e1a54994bc72fe10179679971be"
+    sha256 cellar: :any,                 arm64_ventura: "9bf11a122369630b1858628a95f43da14ca5606cc2901ef659ce6c8708a069b3"
+    sha256 cellar: :any,                 sonoma:        "266bba375931e1c0e568eb5f5b895d6f004b621225ac3e8dbf7bf63f03128178"
+    sha256 cellar: :any,                 ventura:       "bc24305335cebcf88b10de9ecd39f02db71cc8eb4f94a9367acdde13dd5cb55d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "540b068bd165298b89a004b11a82c0cd18744ec87fd8bf23a7712ceb90edc48e"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -63,14 +63,14 @@ class OrTools < Formula
 
   test do
     # Linear Solver & Glop Solver
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.14)
       project(test LANGUAGES CXX)
       find_package(ortools CONFIG REQUIRED)
       add_executable(simple_lp_program #{pkgshare}/simple_lp_program.cc)
       target_compile_features(simple_lp_program PUBLIC cxx_std_17)
       target_link_libraries(simple_lp_program PRIVATE ortools::ortools)
-    EOS
+    CMAKE
     cmake_args = []
     build_env = {}
     if OS.mac?

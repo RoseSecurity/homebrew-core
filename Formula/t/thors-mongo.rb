@@ -2,17 +2,17 @@ class ThorsMongo < Formula
   desc "Mongo API and Serialization library"
   homepage "https://github.com/Loki-Astari/ThorsMongo"
   url "https://github.com/Loki-Astari/ThorsMongo.git",
-      tag:      "4.3.00",
-      revision: "37f11c9e9426b21136d1337cd4e6c5d0c5b71967"
+      tag:      "6.0.00",
+      revision: "627623d90976cf06a8ff4d4907128efa5d94a751"
   license "GPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e9017ccb37ea3c2ed2aea98ab47c83b9e38d6efb413ada227a02246746762c53"
-    sha256 cellar: :any,                 arm64_sonoma:  "70888b3bfaada2dd06eeb32d3dcdc8603d5b3b8858f73e3b486a84e7edc99f8f"
-    sha256 cellar: :any,                 arm64_ventura: "6c4f2697e44f5688393517170b08bcec639e7ac42619fd5e3f8d2837cb41147c"
-    sha256 cellar: :any,                 sonoma:        "5ff46bb6d3b72f7cf9f8f4676c365264e552302b49af66072b865fb98a218b9d"
-    sha256 cellar: :any,                 ventura:       "185909cf9dcbe3ea3294eef15ee49e44d8677844233156fa037e46028e4b4707"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f24213994777a8e8e64e149b789e55bfc8e24fcd028c0a9c0d0eb510b7198000"
+    sha256 cellar: :any,                 arm64_sequoia: "5e5703ca4466f257fe4df1e87bf5ed931e9b5cf46dbc11e52b57179bb3910ed9"
+    sha256 cellar: :any,                 arm64_sonoma:  "69bf675579a5c2979e8f9ec37398f49b2b050a33eb33ee87eb4ee13b713110c8"
+    sha256 cellar: :any,                 arm64_ventura: "fa6c6425715f67de5ba77abdc591942750f99b28aed44eedd2d1d8ab551a6ee5"
+    sha256 cellar: :any,                 sonoma:        "34c6e8697544a32cea1e57afc0f7775c954f83b520185dfc27e66df9e1ea74c1"
+    sha256 cellar: :any,                 ventura:       "7ffeca0a285f66cecedb1e77ad4072bb50d95e71393d85904e7685564b781df3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3f842be64e74a323ee4c0116a84c54a1976fe38c221fe556d001b0c4b42d43d7"
   end
 
   depends_on "libyaml"
@@ -40,7 +40,7 @@ class ThorsMongo < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "ThorSerialize/JsonThor.h"
       #include "ThorSerialize/SerUtil.h"
       #include <sstream>
@@ -71,7 +71,7 @@ class ThorsMongo < Formula
           std::cerr << "OK";
           return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++20", "test.cpp", "-o", "test",
            "-I#{include}", "-L#{lib}", "-lThorSerialize", "-lThorsLogging", "-ldl"
     system "./test"

@@ -21,7 +21,7 @@ class Jsonschema < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "d5d9adbaab5f963722b4da057ae1524bb48c5c7d5f4f1cf2a214c969d6160598"
   end
 
-  disable! date: "2024-01-21", because: "cli is deprecated, and will be removed"
+  disable! date: "2024-01-21", because: "is deprecated as a CLI and succeeded by `check-jsonschema`"
 
   depends_on "python@3.11"
 
@@ -40,14 +40,14 @@ class Jsonschema < Formula
   end
 
   test do
-    (testpath/"test.json").write <<~EOS
+    (testpath/"test.json").write <<~JSON
       {
       	"name" : "Eggs",
       	"price" : 34.99
       }
-    EOS
+    JSON
 
-    (testpath/"test.schema").write <<~EOS
+    (testpath/"test.schema").write <<~JSON
       {
         "type": "object",
         "properties": {
@@ -55,7 +55,7 @@ class Jsonschema < Formula
             "name": {"type": "string"}
         }
       }
-    EOS
+    JSON
 
     out = shell_output("#{bin}/jsonschema --output pretty --instance #{testpath}/test.json #{testpath}/test.schema")
     assert_match "SUCCESS", out

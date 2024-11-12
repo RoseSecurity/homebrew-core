@@ -18,8 +18,7 @@ class AdaUrl < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.12" => :build
-  depends_on macos: :catalina
+  uses_from_macos "python" => :build
 
   def install
     system "cmake", "-B", "build", *std_cmake_args
@@ -28,7 +27,7 @@ class AdaUrl < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "ada.h"
       #include <iostream>
 
@@ -38,7 +37,7 @@ class AdaUrl < Formula
         std::cout << url->get_protocol() << std::endl;
         return EXIT_SUCCESS;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-std=c++17",
            "-I#{include}", "-L#{lib}", "-lada", "-o", "test"

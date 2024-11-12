@@ -1,8 +1,8 @@
 class Flyway < Formula
   desc "Database version control to control migrations"
   homepage "https://flywaydb.org/"
-  url "https://search.maven.org/remotecontent?filepath=org/flywaydb/flyway-commandline/10.19.0/flyway-commandline-10.19.0.tar.gz"
-  sha256 "2c6a53ba8d198a635e309b1d53b421ac86e8d2ba8a91583cbf325668e6122775"
+  url "https://search.maven.org/remotecontent?filepath=org/flywaydb/flyway-commandline/10.21.0/flyway-commandline-10.21.0.tar.gz"
+  sha256 "2627c4f1cdd392beb6d16bc954e269f45369b64099d28246a87d9b9e449cb905"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class Flyway < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "fe97bb1f0d66f641b5e414d578f589ce2c6d604ff3af14f838532fb24d869565"
+    sha256 cellar: :any_skip_relocation, all: "57fef8124dc5fb273b841b4d3fe2bd24777ff26839366335e1d9bb388da88ba2"
   end
 
   depends_on "openjdk"

@@ -4,7 +4,7 @@ class NodeAT18 < Formula
   url "https://nodejs.org/dist/v18.20.4/node-v18.20.4.tar.xz"
   sha256 "a76c7ea1b96aeb6963a158806260c8094b6244d64a696529d020547b9a95ca2a"
   license "MIT"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://nodejs.org/dist/"
@@ -12,12 +12,12 @@ class NodeAT18 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "d380182d1f56e38f240355a650a2574dcf40de6be0c746a1955728df89815494"
-    sha256 arm64_sonoma:  "e7556ecd9d8553dee6736900e11bc3a65994e3ee6747332dd716daa0ab58d52b"
-    sha256 arm64_ventura: "7a8ae272cde099a2e3efa70f91bc315c67688cd602126dcd5d3d6861b62bf0fa"
-    sha256 sonoma:        "2c8a9eabf8f95ff26c0550665336f395574e50e9a5c441c62140fc2ecd2dbe12"
-    sha256 ventura:       "ea38619b3af837165fb11aa3038c5c11c47ae8eb5c5fd9b7d1b78f22dc78bf05"
-    sha256 x86_64_linux:  "766f4312b10705111eedd0ec8e08686f265ca4c72214977ed609515066928dd9"
+    sha256 arm64_sequoia: "1d2ce510cf574da66f4e5c5cf3a8a901b3a01e97698a14f8c01cec83023e0c5d"
+    sha256 arm64_sonoma:  "9aaf06ffb456a0771faee9b25b1c46a80480b0b477266bd5068ad884b857cee3"
+    sha256 arm64_ventura: "491354ee9860881f2a405278366ddd146509bddcd8962dd4424ccc0afd03c251"
+    sha256 sonoma:        "fde7c1f991598524bddeb6097f8ea88b589470fd20bdca34a464dd7f43f1f0f2"
+    sha256 ventura:       "1e1d2c42641ab1d6ccecc41d4022cec588edcdcba560ed211c41219ca2bce7a4"
+    sha256 x86_64_linux:  "5918442ca75b8961191a876348a16db2686e4668d457c8b7d9e5309d04d2fd02"
   end
 
   keg_only :versioned_formula
@@ -28,10 +28,10 @@ class NodeAT18 < Formula
 
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "brotli"
   depends_on "c-ares"
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "libnghttp2"
   depends_on "libuv"
   depends_on "openssl@3"
@@ -52,11 +52,20 @@ class NodeAT18 < Formula
 
   fails_with gcc: "5"
 
+  # Backport support for ICU 76+
+  patch do
+    url "https://github.com/nodejs/node/commit/81517faceac86497b3c8717837f491aa29a5e0f9.patch?full_index=1"
+    sha256 "79a5489617665c5c88651a7dc364b8967bebdea5bdf361b85572d041a4768662"
+  end
+
+  # py3.13 build patch
+  patch :DATA
+
   def install
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
 
     # make sure subprocesses spawned by make are using our Python 3
-    ENV["PYTHON"] = which("python3.12")
+    ENV["PYTHON"] = which("python3.13")
 
     args = %W[
       --prefix=#{prefix}
@@ -117,3 +126,26 @@ class NodeAT18 < Formula
     assert_match "< hello >", shell_output("#{bin}/npx --yes cowsay hello")
   end
 end
+
+__END__
+diff --git a/configure b/configure
+index 711a3014..29ebe882 100755
+--- a/configure
++++ b/configure
+@@ -4,6 +4,7 @@
+ # Note that the mix of single and double quotes is intentional,
+ # as is the fact that the ] goes on a new line.
+ _=[ 'exec' '/bin/sh' '-c' '''
++command -v python3.13 >/dev/null && exec python3.13 "$0" "$@"
+ command -v python3.12 >/dev/null && exec python3.12 "$0" "$@"
+ command -v python3.11 >/dev/null && exec python3.11 "$0" "$@"
+ command -v python3.10 >/dev/null && exec python3.10 "$0" "$@"
+@@ -24,7 +25,7 @@ except ImportError:
+   from distutils.spawn import find_executable as which
+ 
+ print('Node.js configure: Found Python {}.{}.{}...'.format(*sys.version_info))
+-acceptable_pythons = ((3, 12), (3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
++acceptable_pythons = ((3, 13), (3, 12), (3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
+ if sys.version_info[:2] in acceptable_pythons:
+   import configure
+ else:

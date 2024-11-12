@@ -21,7 +21,7 @@ class Surelog < Formula
   depends_on "cmake" => :build
   depends_on "nlohmann-json" => :build
   depends_on "openjdk" => :build
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "pkg-config" => :test
   depends_on "antlr4-cpp-runtime"
   depends_on "capnp"
@@ -37,7 +37,7 @@ class Surelog < Formula
                     "-DANTLR_JAR_LOCATION=#{antlr.opt_prefix}/antlr-#{antlr.version}-complete.jar",
                     "-DBUILD_SHARED_LIBS=ON",
                     "-DCMAKE_INSTALL_RPATH=#{rpath}",
-                    "-DPython3_EXECUTABLE=#{which("python3.12")}",
+                    "-DPython3_EXECUTABLE=#{which("python3.13")}",
                     "-DSURELOG_BUILD_TESTS=OFF",
                     "-DSURELOG_USE_HOST_ALL=ON",
                     "-DSURELOG_WITH_ZLIB=ON",
@@ -51,7 +51,7 @@ class Surelog < Formula
     system bin/"surelog", "--version"
 
     # ensure library is ok
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <Surelog/API/Surelog.h>
       #include <Surelog/CommandLine/CommandLineParser.h>
       #include <Surelog/Common/FileSystem.h>
@@ -103,7 +103,7 @@ class Surelog < Formula
         delete errors;
         return code;
       }
-    EOS
+    CPP
 
     flags = shell_output("pkg-config --cflags --libs Surelog").chomp.split
     system ENV.cxx, testpath/"test.cpp", "-o", "test",

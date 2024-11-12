@@ -1,23 +1,20 @@
 class SpotifyPlayer < Formula
   desc "Command driven spotify player"
   homepage "https://github.com/aome510/spotify-player"
-  url "https://github.com/aome510/spotify-player/archive/refs/tags/v0.19.1.tar.gz"
-  sha256 "bd516ed91cee0a96444797c2b99f3775efea84c252f79f7bc7de4cdb33dbd52c"
+  url "https://github.com/aome510/spotify-player/archive/refs/tags/v0.20.1.tar.gz"
+  sha256 "03f0f7a4bdec27f3bd3a068977a0a76051d57b18a715ef8b2966ddd0dbf2f8cb"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "76115237a91befd9ae3363ea43a25f202c4933c768d7655ae4befbdccee11e03"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3a7d1a7bc4ce2cff97a3b66e22f1ef665fed6e260e1b02478fa97844bcd0302b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1724139b95eccd702f51ef8ce7b49e35e2da55beb86b829ca09a9f44c5c27c27"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cff4ec347ded1f6687d1c0d7e5fed3f3e7db077b76bc59989b5396579f3843d0"
-    sha256 cellar: :any_skip_relocation, sonoma:         "72c392c4cb1436f2cc09728ee40199122f0b63f2f3d8b584dbe81bc9b6fed584"
-    sha256 cellar: :any_skip_relocation, ventura:        "d1774e20c830c57076b588ae3a9512161186625537bc84d1ea18952ea5e62d26"
-    sha256 cellar: :any_skip_relocation, monterey:       "17f864490ae02502a76644d364699005e27bd6d377975216b5385207c99f9f06"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d7cf9752b98b9011e5e10b10c31da73899d184f908c104c4409ad585314e95d7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4a04c0fd1574990c9aec97fd8277811cef910d600fc4d0944a286bcd8c28d6ca"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "04d0a8b1e7c4813d426c622b77f4cb4ad9b1aa259740e242b2f9cfcf7959fa90"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "71282260d1d8586979cb79ef8e09768cece764f263ea8490522f85e855cc895f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "eaa2747dde032e2bbc65e69ed4c1cb2782d12c14aea2e39ad1fc67f9f8a54cf4"
+    sha256 cellar: :any_skip_relocation, ventura:       "e71c64d912ccaf3cd32dc3386919b5a044606a7086068540d3b96c93fc1a1152"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c041601fc350ab56541baa4d78fec92cf02d302b298dd2eb4c3267beef2a14e3"
   end
 
   depends_on "rust" => :build
-  uses_from_macos "expect" => :test
 
   on_linux do
     depends_on "pkg-config" => :build
@@ -36,25 +33,9 @@ class SpotifyPlayer < Formula
   end
 
   test do
-    (testpath/"command.exp").write <<~EOS
-      spawn #{bin}/spotify_player -C #{testpath}/cache -c #{testpath}/config
-      expect {
-        "Username:" { send "username\n" }
-        default { exit 1 }
-      }
-      expect {
-        "Password for username:" { send "password\n" }
-        default { exit 1 }
-      }
-      expect {
-        "Failed to authenticate" { exit 0 }
-        default { exit 1 }
-      }
-      exit 1
-    EOS
-
-    system "expect", "-f", "command.exp"
-
+    cmd = "#{bin}/spotify_player -C #{testpath}/cache -c #{testpath}/config 2>&1"
+    _, stdout, = Open3.popen2(cmd)
+    assert_match "No cached credentials found", stdout.gets("\n")
     assert_match version.to_s, shell_output("#{bin}/spotify_player --version")
   end
 end

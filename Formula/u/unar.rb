@@ -4,18 +4,16 @@ class Unar < Formula
   url "https://github.com/MacPaw/XADMaster/archive/refs/tags/v1.10.8.tar.gz"
   sha256 "652953d7988b3c33f4f52b61c357afd1a7c2fc170e5e6e2219f4432b0c4cd39f"
   license "LGPL-2.1-or-later"
-  revision 2
+  revision 4
   head "https://github.com/MacPaw/XADMaster.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "48c1c1e8275ea52a2a50421d11ae0bed44735352053a9b3dca74c7c20cc71200"
-    sha256 cellar: :any,                 arm64_sonoma:   "4ff0ed25737fd69dffc7640a2185da60dd1be3c047ce7a2f32dcd2ee5de147af"
-    sha256 cellar: :any,                 arm64_ventura:  "fce2da0774b12aa7fc18741f7748002e40fa27bfa9325c7107531a88eabebee1"
-    sha256 cellar: :any,                 arm64_monterey: "c1f23406296141da895b5531199c4f093b265a75fa8db09139b7a74e7b56c367"
-    sha256 cellar: :any,                 sonoma:         "454a5e3f0fc4143b931eb1b03c9c8c9368eebe6e34918c60e4a1a86c837d6759"
-    sha256 cellar: :any,                 ventura:        "0ee3354104fa64d42e96c430eca72b4e29df3ccc3c96ec9b32a3156a91485b3a"
-    sha256 cellar: :any,                 monterey:       "e31763ef73cf0f606908700d15066e9a5375055c651cffa074bb6f1246d28100"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "afd209d4979e519ce8757b6e3223541907a8ac00e6d377302be151bc01dff5f8"
+    sha256 cellar: :any,                 arm64_sequoia: "fd858a235952d2155533a89449ae435c0a6f67853f5c0f729ba3586cb6fb3bdc"
+    sha256 cellar: :any,                 arm64_sonoma:  "a62cfd49e413c678551cf87b8a40f9ae1a45841e6cef0bae5672acdc7b87231e"
+    sha256 cellar: :any,                 arm64_ventura: "75504644bb166e35917edd1850d61f5ed209615a4892d3a444220532c1a29b9f"
+    sha256 cellar: :any,                 sonoma:        "7e6806c94ca6f3742b35a0dabc4233e5d3dc09363a1a5cc0e8c5c18a13e0ee15"
+    sha256 cellar: :any,                 ventura:       "b6f8500cb6592bf5c4f3d42f878cd59bb485349854f06293ff7f3d55418b106c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dc17e96d8712f07a59b54b930faad63ddc4f33a69d90c925ca0a7d07bbd79b15"
   end
 
   depends_on xcode: :build
@@ -26,7 +24,7 @@ class Unar < Formula
 
   on_linux do
     depends_on "gnustep-base"
-    depends_on "icu4c"
+    depends_on "icu4c@76"
     depends_on "libobjc2"
     depends_on "wavpack"
   end

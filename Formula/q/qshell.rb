@@ -1,20 +1,18 @@
 class Qshell < Formula
   desc "Shell Tools for Qiniu Cloud"
   homepage "https://github.com/qiniu/qshell"
-  url "https://github.com/qiniu/qshell/archive/refs/tags/v2.14.0.tar.gz"
-  sha256 "1bb1eb9c7c71c0af7714fa49b04b5e27c851e49a0f8fb0360254cb3c9f4ee472"
+  url "https://github.com/qiniu/qshell/archive/refs/tags/v2.16.0.tar.gz"
+  sha256 "84c37af331ba5e6893c3cfb3badd4dd6c04679cbe9017d74d869f2e0cfed8cce"
   license "MIT"
   head "https://github.com/qiniu/qshell.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "cba294b507ff250ed3a688cbeb20d6e52c14b78f39b092725daadd56c5669946"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6fa3a186562a263f6980f38a10decd812898833623b8904a17fb158c1bee4bd1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b56d1e101453ac0992e72ba41d6cb8099ff533f288c436532d345060e0e82286"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e5bcc911371e247f82f2912116b50ae9a8ba4e1c4a54c82df92313fad722955"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bb055ae85801b90f89fac758ce9df6cf8afc69dc225346bae6f8087a1d0185fa"
-    sha256 cellar: :any_skip_relocation, ventura:        "4f6b122851a0661bc2dc2b7ce834d2c755436b28d4046355fe2fdc4dd50d0027"
-    sha256 cellar: :any_skip_relocation, monterey:       "ca14664cb34be1b80cd2e542043b95b44d1a8f5c4930aa29fc7d6340f606e4cf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "daa3155554a6de7acf972805fbf4352bcabe27f8b930c07812f885f02740c57d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3272aa339d167a4b758a0638cf31d184ed5901cf19b7c7b052f4d22ce5e87f9e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3272aa339d167a4b758a0638cf31d184ed5901cf19b7c7b052f4d22ce5e87f9e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "3272aa339d167a4b758a0638cf31d184ed5901cf19b7c7b052f4d22ce5e87f9e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "906d69842f4899a0cfb7d117a899ddd95189e2e91ffe8e3d5f5371d904aa5720"
+    sha256 cellar: :any_skip_relocation, ventura:       "02fe2f9d6c98dc70c4ef117dde34f77a5d0087225b3750a0ea10e6fbe8b0f729"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c95fb59a6feb96e5d4ddb5f65f9f485a804da843c75de77951013a87ab8bd10f"
   end
 
   depends_on "go" => :build

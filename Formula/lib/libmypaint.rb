@@ -38,8 +38,6 @@ class Libmypaint < Formula
   end
 
   def install
-    ENV.prepend_path "PERL5LIB", Formula["perl-xml-parser"].libexec/"lib/perl5" if OS.linux?
-
     system "./configure", "--disable-introspection",
                           "--without-glib",
                           *std_configure_args
@@ -47,14 +45,14 @@ class Libmypaint < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <mypaint-brush.h>
       int main() {
         MyPaintBrush *brush = mypaint_brush_new();
         mypaint_brush_unref(brush);
         return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{include}/libmypaint", "-L#{lib}", "-lmypaint", "-o", "test"
     system "./test"

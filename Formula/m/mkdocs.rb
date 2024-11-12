@@ -8,18 +8,19 @@ class Mkdocs < Formula
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "7494aacadd5dda1ec9bca5e1c942b4210a603ef9e7e57840f39883a0a0fecd8e"
-    sha256 cellar: :any,                 arm64_sonoma:   "896eff3bd2aedfb686ea638938a04af7067a4d56b60ac0dae3fdf64c1b6407a7"
-    sha256 cellar: :any,                 arm64_ventura:  "386c421dce2b95f338f1ac34e524d4b60c8cedd13c630c63642d66c9b9fdb1c3"
-    sha256 cellar: :any,                 arm64_monterey: "a3c41f1ebf1fe10629823c2aa8417f6f468bd7eede7c6fc3354c41c0fc06f6e0"
-    sha256 cellar: :any,                 sonoma:         "c1d46443e9d2fc9230b020dc3f8745eb09913b936adb6f95a2c35a9f11ae00d0"
-    sha256 cellar: :any,                 ventura:        "886bea244a7f1bad87baaa494c86eeafb24eff08d8dc39e41f4c1178db5027dc"
-    sha256 cellar: :any,                 monterey:       "f52986fb2d4f7a5fff8fb4b865b557c5be71c2d0690d5b6783a0b5d93d6edf0b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "26c9652de2bfed6f667cbc041220547c9832e26d0302dc528c29b4f29b9bfcea"
+    rebuild 2
+    sha256 cellar: :any,                 arm64_sequoia: "8b2b49545b53cb349ef9864afaa774886eb26254b52c99b3eff83169cb8dce62"
+    sha256 cellar: :any,                 arm64_sonoma:  "29a06cb9f1989d83ce975d8a3551575125dd11ae080d560b72908aabf7d2943e"
+    sha256 cellar: :any,                 arm64_ventura: "9a17e6a005d2d7138de3839b3b67e4436f763507e6086bcbc23d860aa8f94bba"
+    sha256 cellar: :any,                 sonoma:        "a7fcff25b3681447d8f74dd9bb4a0f957cb2ea1a8f270b7e1cbec32385df5d55"
+    sha256 cellar: :any,                 ventura:       "a53e6ae8a4579334e21b94bfde481eb91567451a18eee818d0458cc40466b8b8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c7f37da2a340866e03811798a8ea02161ba513454a1d2400c8b754d7aeebad87"
   end
 
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
+
+  conflicts_with "mkdocs-material", because: "both install `mkdocs` binaries"
 
   resource "click" do
     url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
@@ -42,8 +43,8 @@ class Mkdocs < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+    url "https://files.pythonhosted.org/packages/b4/d2/38ff920762f2247c3af5cbbbbc40756f575d9692d381d7c520f45deb9b8f/markupsafe-3.0.1.tar.gz"
+    sha256 "3e683ee4f5d0fa2dde4db77ed8dd8a876686e3fc417655c2ece9a90576905344"
   end
 
   resource "mergedeep" do
@@ -67,8 +68,8 @@ class Mkdocs < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/f5/52/0763d1d976d5c262df53ddda8d8d4719eedf9594d046f117c25a27261a19/platformdirs-4.2.2.tar.gz"
-    sha256 "38b7b51f512eed9e84a22788b4bce1de17c0adb134d6becb09836e37d8654cd3"
+    url "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz"
+    sha256 "357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"
   end
 
   resource "python-dateutil" do
@@ -92,8 +93,8 @@ class Mkdocs < Formula
   end
 
   resource "watchdog" do
-    url "https://files.pythonhosted.org/packages/f2/b5/9943b585553bbda2a2795fb0db1d26267e8728f64cb15205dc640a5ecde0/watchdog-5.0.0.tar.gz"
-    sha256 "990aedb9e2f336b45a70aed9c014450e7c4a70fd99c5f5b1834d57e1453a177e"
+    url "https://files.pythonhosted.org/packages/a2/48/a86139aaeab2db0a2482676f64798d8ac4d2dbb457523f50ab37bf02ce2c/watchdog-5.0.3.tar.gz"
+    sha256 "108f42a7f0345042a854d4d0ad0834b741d421330d5f575b81cb27b883500176"
   end
 
   def install
@@ -103,18 +104,18 @@ class Mkdocs < Formula
 
   test do
     # build a very simple site that uses the "readthedocs" theme.
-    (testpath/"mkdocs.yml").write <<~EOS
+    (testpath/"mkdocs.yml").write <<~YAML
       site_name: MkLorum
       nav:
         - Home: index.md
       theme: readthedocs
-    EOS
+    YAML
     mkdir testpath/"docs"
-    (testpath/"docs/index.md").write <<~EOS
+    (testpath/"docs/index.md").write <<~MARKDOWN
       # A heading
 
       And some deeply meaningful prose.
-    EOS
+    MARKDOWN
     system bin/"mkdocs", "build", "--clean"
   end
 end

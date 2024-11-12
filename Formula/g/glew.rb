@@ -41,7 +41,7 @@ class Glew < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       project(test_glew)
 
       set(CMAKE_CXX_STANDARD 11)
@@ -51,16 +51,16 @@ class Glew < Formula
 
       add_executable(${PROJECT_NAME} main.cpp)
       target_link_libraries(${PROJECT_NAME} PUBLIC OpenGL::GL GLEW::GLEW)
-    EOS
+    CMAKE
 
-    (testpath/"main.cpp").write <<~EOS
+    (testpath/"main.cpp").write <<~CPP
       #include <GL/glew.h>
 
       int main()
       {
         return 0;
       }
-    EOS
+    CPP
 
     system "cmake", ".", "-Wno-dev"
     system "make"
@@ -70,7 +70,7 @@ class Glew < Formula
     else
       "GL"
     end
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <GL/glew.h>
       #include <#{glut}/glut.h>
 
@@ -83,7 +83,7 @@ class Glew < Formula
         }
         return 0;
       }
-    EOS
+    C
     flags = %W[-L#{lib} -lGLEW]
     if OS.mac?
       flags << "-framework" << "GLUT"

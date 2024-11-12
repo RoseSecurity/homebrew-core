@@ -1,8 +1,8 @@
 class Ki18n < Formula
   desc "KDE Gettext-based UI text internationalization"
   homepage "https://api.kde.org/frameworks/ki18n/html/index.html"
-  url "https://download.kde.org/stable/frameworks/6.6/ki18n-6.6.0.tar.xz"
-  sha256 "582b4c58bb69803412322d3db656fd4f5fde154eac1ac89b2c6bc905c5b61e6e"
+  url "https://download.kde.org/stable/frameworks/6.8/ki18n-6.8.0.tar.xz"
+  sha256 "71d73a058e5267897ad3fd820274e4c8ed770e3c2eeeecabc80b9be8d4f2868e"
   license all_of: [
     "BSD-3-Clause",
     "LGPL-2.0-or-later",
@@ -16,11 +16,11 @@ class Ki18n < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:  "e454feb1202c4de0227ae4fe5c6a17c775277f091f3d65d2a79375a26befe1cd"
-    sha256 arm64_ventura: "e8d89772ec435e0018ce753c4e083ae1b30f7e63d08cbf887e94302a9dfc5299"
-    sha256 sonoma:        "903196ed6e2e7203bb00220c4f95d57ed20b34ebb2609b1c9c9f5219a7e76997"
-    sha256 ventura:       "0b30e11ba6dcef13dd024549ec289684e75ff39d331d1cc0cdb40bf41c738461"
-    sha256 x86_64_linux:  "a44239505effe33e5fa2c869aa14b4f08e46e18bc19a3262c38d52be8ce58b3a"
+    sha256 arm64_sonoma:  "c86a6db98553223e856a88088b0d504d27a63cd81c41724fd538f437b861973e"
+    sha256 arm64_ventura: "73e546070327c6e52831d48738290eb82ca748d5df6da6bce11e9bf221943b61"
+    sha256 sonoma:        "8ab56e9129b57394c9822da36615e9d059b8ddf44f9d9d8275ee791c570f492e"
+    sha256 ventura:       "ab61854317486875176b2741475f61a95d7666d728a3095651f2f1c746da8260"
+    sha256 x86_64_linux:  "68ba52746400f98fe50b0c31a32003df3dbc144737670eebfd6ab90d1c005d18"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -54,11 +54,12 @@ class Ki18n < Formula
     qt = Formula["qt"]
     qt_major = qt.version.major
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       include(FeatureSummary)
       find_package(ECM #{version} NO_MODULE)
       set_package_properties(ECM PROPERTIES TYPE REQUIRED)
+      set(CMAKE_AUTOMOC ON)
       set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "#{pkgshare}/cmake")
       set(CMAKE_CXX_STANDARD 17)
       set(QT_MAJOR_VERSION #{qt_major})
@@ -70,7 +71,7 @@ class Ki18n < Formula
       find_package(LibIntl)
       set_package_properties(LibIntl PROPERTIES TYPE REQUIRED)
       add_subdirectory(autotests)
-    EOS
+    CMAKE
 
     cp_r (pkgshare/"autotests"), testpath
 

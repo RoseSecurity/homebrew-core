@@ -1,18 +1,18 @@
 class Folly < Formula
   desc "Collection of reusable C++ library artifacts developed at Facebook"
   homepage "https://github.com/facebook/folly"
-  url "https://github.com/facebook/folly/archive/refs/tags/v2024.10.07.00.tar.gz"
-  sha256 "eee6541c4103c5555e01158e31fe245aa038842177dc9fd8f9564587b41cc2fe"
+  url "https://github.com/facebook/folly/archive/refs/tags/v2024.11.11.00.tar.gz"
+  sha256 "31851a6fe10fff79c92191a7ac5946b1f7726c45dabeb59b1a02ffbb6a030ddb"
   license "Apache-2.0"
   head "https://github.com/facebook/folly.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9e95bf9cc27e46f5a7ed4975ff8cf3beea09a4b98ea17401780a5a344d193419"
-    sha256 cellar: :any,                 arm64_sonoma:  "118e938ec94f9e81865aabb0f4d9faadba38f35f9c61066e70266c032d9e8a1a"
-    sha256 cellar: :any,                 arm64_ventura: "3be3b00901bb693a701785ba42f65a69738eda5f79f3edd187e8a963adcabf27"
-    sha256 cellar: :any,                 sonoma:        "14953a6502abd6a0de87bb43ddd0736589a9004f0e24ec91911a27bf12ccd960"
-    sha256 cellar: :any,                 ventura:       "8eefd5ae5a075623b47bbba55290bbf098a7040c7eaa5ca22aec6eb46ba38449"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "73cb089ae29ed89ec492d0fb76020917fa0480fe8cdb2d013e606224410180d6"
+    sha256 cellar: :any,                 arm64_sequoia: "996e3fd1d5c16d74d7c04ad97b24641ce49c9e186c26f852ef83f22c3e0c229c"
+    sha256 cellar: :any,                 arm64_sonoma:  "a3da441d8bb58a8c3f468e0ba99fd8d67cfb3e07929c2b51a9776c081f8db27d"
+    sha256 cellar: :any,                 arm64_ventura: "4c69bf86f4725a0aa3ea558abcd68acd3989656463827a0ebf6422c9288f41c2"
+    sha256 cellar: :any,                 sonoma:        "67200f5063d6c22c6c3482a362cb817099d2ad6538aecc6760cf2bd4b8fb94a6"
+    sha256 cellar: :any,                 ventura:       "50678cc5c9dbcbf836f06fdaf2a5087b7e78457782bc772566beaad265102b15"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3f7363d809f5faf038248d149fff293878e39bdf9d15a7d43296139bdd7e86b9"
   end
 
   depends_on "cmake" => :build
@@ -75,7 +75,7 @@ class Folly < Formula
     # Force use of Clang rather than LLVM Clang
     ENV.clang if OS.mac?
 
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <folly/FBVector.h>
       int main() {
         folly::fbvector<int> numbers({0, 1, 2, 3});
@@ -86,7 +86,7 @@ class Folly < Formula
         assert(numbers[6] == 12);
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "test.cc", "-I#{include}", "-L#{lib}",
                     "-lfolly", "-o", "test"
     system "./test"

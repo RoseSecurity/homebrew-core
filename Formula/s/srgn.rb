@@ -1,18 +1,18 @@
 class Srgn < Formula
   desc "Code surgeon for precise text and code transplantation"
   homepage "https://github.com/alexpovel/srgn"
-  url "https://github.com/alexpovel/srgn/archive/refs/tags/srgn-v0.13.2.tar.gz"
-  sha256 "cf7fea4756104cd9d955feb4dc07f62f2636e1b23a287394eb55116d2ea5dbd0"
+  url "https://github.com/alexpovel/srgn/archive/refs/tags/srgn-v0.13.4.tar.gz"
+  sha256 "778766769b9c7845b6f24cb25c940f675c8634b3ba58bf1c552c717a12fe0ead"
   license "MIT"
   head "https://github.com/alexpovel/srgn.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8c682d3f95bf9b1cfa87e3c31593b458b4ab5721f94197dcbffc7b613e3de0b1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7f6e7afeaeb48ad63419c7e46f0d21ac243cdf8f2dc8f9318ee029d2a8d36927"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "09e34437888947b146d175aec0b2f17efe6a8bceaeff990d9b9528ab15f8a785"
-    sha256 cellar: :any_skip_relocation, sonoma:        "72102cc57ddd466d8ad7bafca0c6c91afdae10e6988c05815e42d11526a8ece6"
-    sha256 cellar: :any_skip_relocation, ventura:       "218bf094d83593e05a38216cd255d5ad9a6b79fc0e6175ca333eabaa2a2d7f8a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4cd8955c85ff0afcd3da960803a7a7d01f3c29036a4f17eaad5b4e93d05fdf9a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c964dda4b9a115fcd5364b25231dffff4f44cd385e847b812265fcce86848cd1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d712bc81f1e34eca3ae1162344648b74c436725cb1391ba2939256a80ebe939a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "767b0506c2c603913661c91d19a01e7d4ef04cd04c4df0151fa088a4cd4bb8c2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "99466f48efcfdcb949dba856d34750f47a8c7f5f130b1a502211971f70c46fe6"
+    sha256 cellar: :any_skip_relocation, ventura:       "d7dfcfbf8108f83cf6786d2db1d3a8064ff8e1d0351da81e0c5f23df7bb7e07e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4283e4beb5740f05691a8df912520d3b27ddd817d3206bce9019afda950b235c"
   end
 
   depends_on "rust" => :build

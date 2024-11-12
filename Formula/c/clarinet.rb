@@ -1,8 +1,8 @@
 class Clarinet < Formula
   desc "Command-line tool and runtime for the Clarity smart contract language"
   homepage "https://www.hiro.so/clarinet"
-  url "https://github.com/hirosystems/clarinet/archive/refs/tags/v2.9.0.tar.gz"
-  sha256 "477f0c71ad34152cecf284586055aa9273eff049b11d128857b399aa20f50790"
+  url "https://github.com/hirosystems/clarinet/archive/refs/tags/v2.11.2.tar.gz"
+  sha256 "e1bd51d80dec29b67c144761d1afbd99f1289a822a60bd86c1e8489147dcc404"
   license "GPL-3.0-only"
   head "https://github.com/hirosystems/clarinet.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Clarinet < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1058535c8a60c2326feb79839b60e22050a42c30a14de9c2f3cd85151720d67d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3a7ef3bcfda0ca29afca3259d8e076b3de6e8d4aad090f286b1fc7e34a1f65be"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f13870207362567ed0f3eada5e33e7cf3f98cb0f67b66659fbf5430a93485579"
-    sha256 cellar: :any_skip_relocation, sonoma:        "be0a7aac22ec0916d208e5250acd3333a22603e6fdc0fd1268d2daf37be9d6d5"
-    sha256 cellar: :any_skip_relocation, ventura:       "8209e5d749203360c7763107710ebcad9e41c00571ae996fcf314162fc124189"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c3b101c0cead48b48629719fa187df7654e419eefab9c8d4f167be273c1d4db0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2a3c79e89409ff0022f5839aeb8353699a99d30d147670c021e8065ebe63f2d8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "575448cc006e65fe36e6344ac6c7b73c68127b595cb5b5c22fbc372c0cf0d624"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2f74491e32e150828e35841184bce68c3389c8dce18daa18e91dd4a59e82170a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c15fe3d0138789be0bd529d21d2b32d1c6407f40a35a9f9bd1b2024deb416014"
+    sha256 cellar: :any_skip_relocation, ventura:       "06a889b767424c97b100e57890fcd0229f6be7450bf7ac8e760d12a960cb0116"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bf62976b0fd58db62e452f689bbc377a1d9a7ce42eb5369d02f053677f1db986"
   end
 
   depends_on "rust" => :build

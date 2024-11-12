@@ -1,18 +1,18 @@
 class Jql < Formula
   desc "JSON query language CLI tool"
   homepage "https://github.com/yamafaktory/jql"
-  url "https://github.com/yamafaktory/jql/archive/refs/tags/jql-v7.2.0.tar.gz"
-  sha256 "c190bfa3bd3f655a695598d9fd0281116260d1273b1b180d6cfa7b8f35020523"
+  url "https://github.com/yamafaktory/jql/archive/refs/tags/jql-v8.0.1.tar.gz"
+  sha256 "6c1a52d39dc0fcbf183b34f4e4d404c9ccfe6d6180ef45acc82c3746690f1ce6"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/yamafaktory/jql.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9235890567bf72cc10b3fa749f57479531df7f3476380119907e6aafa4c3ca5b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7ff0e7b89673c1cf08de212d06ffadf0c7008a348fc76063ef877e293b14d318"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "653bd281f1650cc1b3fe754bfb9498b5adbdf8a5efec5a813fede1ab7775f3b4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "dc50effe5415d7e1b0f073b87ffe80e08d4ae995bb3a21a6724bb6173d41cc58"
-    sha256 cellar: :any_skip_relocation, ventura:       "c90ce978e53ef5c4fcaa4f5a33fa3649ac55e3679f87278a97d10a5d3b2f68cb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "446c2d2b60fd826e1d205bbb3a339e4855e9d5c7edce35613296255ae4e13b41"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c8ff39d736b1bbb5975c56f6a378d73ace0f32ac0a2d3880597cfe8aefbd1791"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cb11fcac45f91837ad9cd9a322df80d523447553a39772491bdf9b1b8766b688"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cda7dd1546ebb128d0283bfd3fdc05e16226f3b11527cc90f9d521a515710f4a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9cfc99841e4ea273bd2cf4278cd10e0486b9b7df440a580ad78c89ef56e67e6b"
+    sha256 cellar: :any_skip_relocation, ventura:       "70b6fa6bbb9bd97f0aee96d98795e833d832276bbd0a84a61b5e47fda874784f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9ace2db77a87b479137a165fb039461bf8b6b069c09548fa4fa8a95c83fb5fda"
   end
 
   depends_on "rust" => :build
@@ -22,11 +22,11 @@ class Jql < Formula
   end
 
   test do
-    (testpath/"example.json").write <<~EOS
+    (testpath/"example.json").write <<~JSON
       {
         "cats": [{ "first": "Pixie" }, { "second": "Kitkat" }, { "third": "Misty" }]
       }
-    EOS
+    JSON
     output = shell_output("#{bin}/jql --inline --raw-string '\"cats\" [2:1] [0]' example.json")
     assert_equal '{"third":"Misty"}', output.chomp
   end

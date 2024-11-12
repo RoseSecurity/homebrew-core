@@ -20,7 +20,7 @@ class Arb < Formula
   end
 
   # See upstream discussion, https://github.com/fredrik-johansson/arb/issues/453
-  disable! date: "2024-03-19", because: "arb has been merged into flint 3.0.0"
+  disable! date: "2024-03-19", because: "has been merged into flint 3.0.0"
 
   depends_on "cmake" => :build
   depends_on "flint"
@@ -33,7 +33,7 @@ class Arb < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <arb.h>
 
       int main()
@@ -58,7 +58,7 @@ class Arb < Formula
           arb_clear(x); arb_clear(y);
           flint_cleanup();
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{include}", "-I#{Formula["flint"].opt_include}",
            "-L#{lib}", "-L#{Formula["flint"].opt_lib}",

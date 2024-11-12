@@ -1,12 +1,12 @@
 class Crun < Formula
   desc "Fast and lightweight fully featured OCI runtime and C library"
   homepage "https://github.com/containers/crun"
-  url "https://github.com/containers/crun/releases/download/1.17/crun-1.17.tar.zst"
-  sha256 "e1e6dedb8a86d74552f99ff2ae7e9ff67108898e9e71c28589431fb836f9cc23"
+  url "https://github.com/containers/crun/releases/download/1.18.2/crun-1.18.2.tar.zst"
+  sha256 "c0e90ff05908705bc17559c1f3faab7b5068a3d6e302f1f337a203a67dadd401"
   license any_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "11e21f4a64b8fa5e9bef1a1b2df66ef2ab88e723ceada5a5a0d8a96d7d7825a1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "7f37989c7a12a82d29063449d8d5a86db876c57c50bd17a63c3446c6ea00ccee"
   end
 
   depends_on "autoconf" => :build
@@ -14,7 +14,7 @@ class Crun < Formula
   depends_on "go-md2man" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
 
   depends_on "libcap"
   depends_on "libseccomp"

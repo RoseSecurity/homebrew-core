@@ -4,32 +4,22 @@ class Innotop < Formula
   url "https://github.com/innotop/innotop/archive/refs/tags/v1.13.0.tar.gz"
   sha256 "6ec91568e32bda3126661523d9917c7fbbd4b9f85db79224c01b2a740727a65c"
   license any_of: ["GPL-2.0-only", "Artistic-1.0-Perl"]
-  revision 9
-  head "https://github.com/innotop/innotop.git"
+  revision 10
+  head "https://github.com/innotop/innotop.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "e071814f6161dc4eaa06cf898fa9862706a1343b9bec56c90e579c181d5428b8"
-    sha256 cellar: :any,                 arm64_sonoma:   "85d95a6535f9faee3b036381c8bbc025c00a3bcc11e2c347ba192bab5234c8b6"
-    sha256 cellar: :any,                 arm64_ventura:  "4bf05ccc4fe1ac5987fb1168a42305582784f511649a8bc75d757b0eb5aaf6c1"
-    sha256 cellar: :any,                 arm64_monterey: "b35348e6b4f2b95fb7f5ff02ca5fb36bacb2eddfd85e84109563c25d1769c743"
-    sha256 cellar: :any,                 sonoma:         "7a66b736dd4226d3ad4f98627a1b7fb79cfeaa1f2cafa6826cea701ed3697b30"
-    sha256 cellar: :any,                 ventura:        "d948152a68a84aa2e82d18d8b8b182bf206d161d0b5f9ff1482c2082fcf48a0d"
-    sha256 cellar: :any,                 monterey:       "c5e9dfe2530c6c898db115ab583987749cd60f4a8d82726b6028c71076533e00"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8198b82e42c0544d11edc1e668830ec0c84af94efc06694c9390b901f49c15bf"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "2cf3437f299eb15b2f9d8ece6b1c1b1374e4cc8eda2fe88c47a0e11369613a9d"
+    sha256 cellar: :any,                 arm64_sonoma:  "390ca18492dc10b16ce2ec36c8a60d65379fa9016788e53031adac8473af4a27"
+    sha256 cellar: :any,                 arm64_ventura: "8aa57cd530906c93f6bf1b53cdfccbca76a6eae059fb999e5126e704fbbd2e79"
+    sha256 cellar: :any,                 sonoma:        "0e4b35966c92c4e9fe82c91240aab1b285bbb63b48916326797becb2ce4b4e2b"
+    sha256 cellar: :any,                 ventura:       "1644adc048383f4e30f415cdf1fdaf048153d9586ddcd919467b768b7b4b4e52"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4297dcd2edc58800032abfba5b2a89c1983a9ce79b8ca00679343c7b3c34afc4"
   end
 
   depends_on "mysql-client"
-  depends_on "openssl@3"
 
   uses_from_macos "perl"
-
-  on_macos do
-    on_intel do
-      depends_on "zstd"
-    end
-
-    depends_on "zlib"
-  end
 
   resource "Devel::CheckLib" do
     url "https://cpan.metacpan.org/authors/id/M/MA/MATTN/Devel-CheckLib-1.16.tar.gz"
@@ -37,13 +27,15 @@ class Innotop < Formula
   end
 
   resource "DBI" do
-    url "https://cpan.metacpan.org/authors/id/T/TI/TIMB/DBI-1.643.tar.gz"
-    sha256 "8a2b993db560a2c373c174ee976a51027dd780ec766ae17620c20393d2e836fa"
+    on_linux do
+      url "https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/DBI-1.645.tgz"
+      sha256 "e38b7a5efee129decda12383cf894963da971ffac303f54cc1b93e40e3cf9921"
+    end
   end
 
   resource "DBD::mysql" do
-    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.008.tar.gz"
-    sha256 "a2324566883b6538823c263ec8d7849b326414482a108e7650edc0bed55bcd89"
+    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.009.tar.gz"
+    sha256 "8552d90dfddee9ef36e7a696da126ee1b42a1a00fbf2c6f3ce43ca2c63a5b952"
   end
 
   resource "Term::ReadKey" do
@@ -54,22 +46,36 @@ class Innotop < Formula
   end
 
   def install
+    ENV.prepend_create_path "PERL5LIB", buildpath/"build_deps/lib/perl5"
     ENV.prepend_create_path "PERL5LIB", libexec/"lib/perl5"
+
     resources.each do |r|
       r.stage do
-        system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}"
-        system "make", "install"
+        install_base = (r.name == "Devel::CheckLib") ? buildpath/"build_deps" : libexec
+
+        # Skip installing man pages for libexec perl modules to reduce disk usage
+        system "perl", "Makefile.PL", "INSTALL_BASE=#{install_base}", "INSTALLMAN1DIR=none", "INSTALLMAN3DIR=none"
+
+        make_args = []
+        if OS.mac? && r.name == "DBD::mysql"
+          # Reduce overlinking on macOS
+          make_args << "OTHERLDFLAGS=-Wl,-dead_strip_dylibs"
+          # Work around macOS DBI generating broken Makefile
+          inreplace "Makefile" do |s|
+            old_dbi_instarch_dir = s.get_make_var("DBI_INSTARCH_DIR")
+            new_dbi_instarch_dir = "#{MacOS.sdk_path_if_needed}#{old_dbi_instarch_dir}"
+            s.change_make_var! "DBI_INSTARCH_DIR", new_dbi_instarch_dir
+            s.gsub! " #{old_dbi_instarch_dir}/Driver_xst.h", " #{new_dbi_instarch_dir}/Driver_xst.h"
+          end
+        end
+
+        system "make", "install", *make_args
       end
     end
 
-    # Disable dynamic selection of perl which may cause segfault when an
-    # incompatible perl is picked up.
-    inreplace "innotop", "#!/usr/bin/env perl", "#!/usr/bin/perl"
-
-    system "perl", "Makefile.PL", "INSTALL_BASE=#{prefix}"
+    system "perl", "Makefile.PL", "INSTALL_BASE=#{prefix}", "INSTALLSITEMAN1DIR=#{man1}"
     system "make", "install"
-    share.install prefix/"man"
-    bin.env_script_all_files(libexec/"bin", PERL5LIB: ENV["PERL5LIB"])
+    bin.env_script_all_files(libexec/"bin", PERL5LIB: libexec/"lib/perl5")
   end
 
   test do

@@ -1,19 +1,17 @@
 class Kubecfg < Formula
   desc "Manage complex enterprise Kubernetes environments as code"
   homepage "https://github.com/kubecfg/kubecfg"
-  url "https://github.com/kubecfg/kubecfg/archive/refs/tags/v0.34.3.tar.gz"
-  sha256 "863b8872a848a1938c471e1690efe9f3e59d8be6e4a407504dc1f8c4b9e96e81"
+  url "https://github.com/kubecfg/kubecfg/archive/refs/tags/v0.35.1.tar.gz"
+  sha256 "b155823bdfb5d48d0ee93c395fa6f1c777fa1e91cf9f87c5d518c432debafa73"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b38a32176d56dcc2f0c79382f3283b476bd81d087c79e12096978afe84683a4c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b7058cb919bab4944210d6699b907de011e40274b1b092068453c529ceca4e4d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7a000e2f42efe132d04532db749a35e0bf7efa027e0e1743b4b5c86eeaadcc41"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7f9af259c5cc137b202e12b68dfd63cfc257f3b37a4d1c2af99db3ebfd4cf66f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0775e6e70b9c540f12e42ad181716b666372ce71dfd6243b9be20477dae84e4f"
-    sha256 cellar: :any_skip_relocation, ventura:        "4c428fb6513105d868ce2ae68ccd6fc2eb060409e5f7ccec721cba9eb1f60985"
-    sha256 cellar: :any_skip_relocation, monterey:       "db3e0fcb93a1fc514f00626e8b0ca5b350ae6ccadae85e0155153c32fe081e81"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f339d39f1b8c81c4dffaeaa19080b59159269140ef5b7f379ae20514bc09ca22"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "988de00eb91dede0a3fc2f92e8c7f730ecb6d3082d53f83bab530319d33a73d8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "631492ce440899bca234188252babb2b8cd810075f24baf09378d2380a9a66fc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "281d9f50dcdfe23192fcbaa1d2dac49fc7b7a7e5afacb5ebba2cae5149efecf9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "da919317db2dfd838c28518d223a815c32f6b1b2c7043b2d0f4c9b74d2a31802"
+    sha256 cellar: :any_skip_relocation, ventura:       "2ae1628aa64f9a19e6768b87e09c89ae1804b4a4c2913111de764d1d71890d5f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b9267205d670d6b283418680015fbcd3886dab38b6d2804b67a17ac0aaf5a954"
   end
 
   depends_on "go" => :build

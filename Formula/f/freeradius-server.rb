@@ -2,6 +2,7 @@ class FreeradiusServer < Formula
   desc "High-performance and highly configurable RADIUS server"
   homepage "https://freeradius.org/"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
+  revision 2
   head "https://github.com/FreeRADIUS/freeradius-server.git", branch: "master"
 
   stable do
@@ -21,20 +22,18 @@ class FreeradiusServer < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "b57698488a0307b2f51fe141e52c4da6126901ce43516cc0bbf66bff100907d1"
-    sha256 arm64_sonoma:   "03ac0c2ee9d93ae9bc4b7f28b35d67eeba3b699078eaa782155a5c7355424dc4"
-    sha256 arm64_ventura:  "42af2bf53bd21966d2a2048881f5b6773c935d1db77227f2d42d96c074b93734"
-    sha256 arm64_monterey: "baf53a6faa43f12e55bdd0ad39ad7b1bd00e90db782bab615c261c165ea764f9"
-    sha256 sonoma:         "1c647250256f77554efdd419b2757e959ad0123ca8ac7ca342f26384c70ae88e"
-    sha256 ventura:        "da61e1b705d1af4903ce70f2d94e85b7abcc34ca4db039eaccdde4d0ba72e7d8"
-    sha256 monterey:       "677823159554422189b154388db1ac27c4300a911220e6135a8e9eb06b9571c5"
-    sha256 x86_64_linux:   "b2a0d3866dfdb56a732021856ce0dd4250f32adf595dc0353905eab037143877"
+    sha256 arm64_sequoia: "d8273c1e4724a8889b45df7127dc8bc0f9e2311d521d4c37d88d0b60e4268f45"
+    sha256 arm64_sonoma:  "550ad29d70fda795a136f5a68a4985a39457608daaed3e8793095bbc239037d3"
+    sha256 arm64_ventura: "ea53fcee6f0448a54b68658d3251b7bd47654dbca51b5994464749b50db13ae9"
+    sha256 sonoma:        "86e0e4e80f9ca6e4b01fa22c6886a6063acb626305976425508196130e39c8cf"
+    sha256 ventura:       "631343eab2dd4aa02175a17c3593a2effcf441e9df705f78562c83eb8565459e"
+    sha256 x86_64_linux:  "54af2578552e86f51d43f76f2892e387c71e07297f77083c01178a3ba54ca90e"
   end
 
   depends_on "collectd"
   depends_on "json-c"
   depends_on "openssl@3"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "talloc"
 
   uses_from_macos "krb5"

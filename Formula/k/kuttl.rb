@@ -17,8 +17,7 @@ class Kuttl < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "f2729e0a0231afa10e0413ead3ecd05b16767a902aeed4a2549559d15c7e30a3"
   end
 
-  # use "go" againg after https://github.com/kudobuilder/kuttl/issues/546 is fixed and released
-  depends_on "go@1.22" => :build
+  depends_on "go" => :build
   depends_on "kubernetes-cli" => :test
 
   def install
@@ -42,13 +41,13 @@ class Kuttl < Formula
     kubectl = Formula["kubernetes-cli"].opt_bin / "kubectl"
     assert_equal shell_output("#{kubectl} kuttl version"), version_output
 
-    (testpath / "kuttl-test.yaml").write <<~EOS
+    (testpath / "kuttl-test.yaml").write <<~YAML
       apiVersion: kuttl.dev/v1beta1
       kind: TestSuite
       testDirs:
       - #{testpath}
       parallel: 1
-    EOS
+    YAML
 
     output = shell_output("#{kubectl} kuttl test --config #{testpath}/kuttl-test.yaml", 1)
     assert_match "running tests using configured kubeconfig", output

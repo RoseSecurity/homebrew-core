@@ -30,19 +30,19 @@ class Bam < Formula
   end
 
   test do
-    (testpath/"hello.c").write <<~EOS
+    (testpath/"hello.c").write <<~C
       #include <stdio.h>
       int main() {
         printf("hello\\n");
         return 0;
       }
-    EOS
+    C
 
-    (testpath/"bam.lua").write <<~EOS
+    (testpath/"bam.lua").write <<~LUA
       settings = NewSettings()
       objs = Compile(settings, Collect("*.c"))
       exe = Link(settings, "hello", objs)
-    EOS
+    LUA
 
     system bin/"bam", "-v"
     assert_equal "hello", shell_output("./hello").chomp

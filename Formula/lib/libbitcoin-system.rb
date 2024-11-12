@@ -20,7 +20,7 @@ class LibbitcoinSystem < Formula
 
   # About 2 years since request for release with support for recent `boost`.
   # Ref: https://github.com/libbitcoin/libbitcoin-system/issues/1234
-  deprecate! date: "2023-12-14", because: "uses deprecated `boost@1.76`"
+  disable! date: "2024-12-14", because: "uses deprecated `boost@1.76`"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -58,7 +58,7 @@ class LibbitcoinSystem < Formula
 
   test do
     boost = Formula["boost@1.76"]
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <bitcoin/system.hpp>
       int main() {
         const auto block = bc::chain::block::genesis_mainnet();
@@ -69,7 +69,7 @@ class LibbitcoinSystem < Formula
         std::cout << message << std::endl;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++11", "test.cpp",
                     "-I#{boost.include}",
                     "-L#{lib}", "-lbitcoin-system",

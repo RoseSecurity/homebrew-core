@@ -4,7 +4,7 @@ class PostgresqlAT17 < Formula
   url "https://ftp.postgresql.org/pub/source/v17.0/postgresql-17.0.tar.bz2"
   sha256 "7e276131c0fdd6b62588dbad9b3bb24b8c3498d5009328dba59af16e819109de"
   license "PostgreSQL"
-  revision 1
+  revision 3
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -12,12 +12,12 @@ class PostgresqlAT17 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "ff4c595a664500c23a550c1ea283480c675238f50480a634ff9e235752865e6e"
-    sha256 arm64_sonoma:  "c88488c5475166a5c1825c7b4f0c483e29ddd5a5f283bab6c803e8b11a46949c"
-    sha256 arm64_ventura: "ec4b61a8c60394bd94d43c4d341538f39a9a9d080b3003ea7f35af882a6e38ce"
-    sha256 sonoma:        "ef87eee95dd9d573c7d3222289e636f036b6afb34cba1bea27d7f1aff56b5669"
-    sha256 ventura:       "e4d3338ef060f75c60d47dc3ed7654b7cbe74fb8694c2f67769c89be47375f99"
-    sha256 x86_64_linux:  "5ae14a14cf228b18fbd4985a73a0732cc2a15580f9e27da5fd611e0eab6623d3"
+    sha256 arm64_sequoia: "a46df15a994c5c0c1fa0432ecd6f54a2914ebf5e6494895b915daac2fffde3c6"
+    sha256 arm64_sonoma:  "0044d8a79cc334623caa4e20e649dd750ce3959cd920c68b4bc6f4e2b14ecf22"
+    sha256 arm64_ventura: "03ab3fe640c2963e1204a1539c4769b9609689f3875b045724f48d72ed232740"
+    sha256 sonoma:        "50e3c87e64a4f68708ecd03df550787525f51c4a7321355c205479b826b5782b"
+    sha256 ventura:       "ad7dde0af3578ec67b0e7529a0d84bbff09e70ff3f0c60267a4e003ccd564b7f"
+    sha256 x86_64_linux:  "f7abfb95bd2e0876f9e5900bae7763d0c5e7fc321e3027d703e408eeb6cc173e"
   end
 
   keg_only :versioned_formula
@@ -29,7 +29,7 @@ class PostgresqlAT17 < Formula
   depends_on "docbook-xsl" => :build
   depends_on "gettext" => :build
   depends_on "pkg-config" => :build
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   # GSSAPI provided by Kerberos.framework crashes when forked.
   # See https://github.com/Homebrew/homebrew-core/issues/47494.
   depends_on "krb5"
@@ -162,8 +162,9 @@ class PostgresqlAT17 < Formula
     <<~EOS
       This formula has created a default database cluster with:
         initdb --locale=C -E UTF-8 #{postgresql_datadir}
-      For more details, read:
-        https://www.postgresql.org/docs/#{version.major}/app-initdb.html
+
+      When uninstalling, some dead symlinks are left behind so you may want to run:
+        brew cleanup --prune-prefix
     EOS
   end
 

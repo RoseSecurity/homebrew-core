@@ -3,8 +3,8 @@ class Snapcraft < Formula
 
   desc "Package any app for every Linux desktop, server, cloud or device"
   homepage "https://snapcraft.io/"
-  url "https://github.com/canonical/snapcraft/archive/refs/tags/8.4.2.tar.gz"
-  sha256 "ac5c48f23a7d22615d7e4fb41f4f8f976ed9aac98d9de97fbf8da6f10d1e4001"
+  url "https://github.com/canonical/snapcraft/archive/refs/tags/8.4.4.tar.gz"
+  sha256 "87440533883c8c76a46fe5b1ca74d7b57492a0f3e9ba2d873262a7749dd5d4de"
   license "GPL-3.0-only"
   head "https://github.com/canonical/snapcraft.git", branch: "main"
 
@@ -14,12 +14,12 @@ class Snapcraft < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "002fd043f7b801f5365cb993c55acc82baf6938c53995b1b685a3aa98677a9ca"
-    sha256 cellar: :any,                 arm64_sonoma:  "db2abd9cf947a55c8b33f3eda46c4efa731174e6ec348a92893ea4ebb235e2bc"
-    sha256 cellar: :any,                 arm64_ventura: "352903c2b054995a5d246a6391ea0678c940f7f8ccb4bae0cc7b870f7da14136"
-    sha256 cellar: :any,                 sonoma:        "1d1966616431819bd713a1d1246d1fd81c377cd34dd8e4541ef40477822792d3"
-    sha256 cellar: :any,                 ventura:       "c357b7c0253fd00d14ceca07829528c4b7d0ebe46a13ebea738c187dccfd958a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "450662bfda1635a282fefda34c946ace485168cf6d88048cb7a9365051dbce26"
+    sha256 cellar: :any,                 arm64_sequoia: "f1ef2da4d04dc90984b33764a701f9ebb7994a15baed3515d0aed03517a1bd71"
+    sha256 cellar: :any,                 arm64_sonoma:  "a5cfe407b5ffe01ee36e352bbe0b1a71b5da6452baf541ce616240628f2d8510"
+    sha256 cellar: :any,                 arm64_ventura: "4773d6938d8e3928f2eb8b98085d9d3f46c9138ba09e6bad3e2cabe93f04b2d6"
+    sha256 cellar: :any,                 sonoma:        "2e412d0141e047caa0c18f2d2a3794779d525f1e010da03a1be313f09f594c32"
+    sha256 cellar: :any,                 ventura:       "3ab1b64f870a087402a82bf20d1463ec673f2ae1203c69d3ec654d97efe55543"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9e92d118a0e63a237634b576541d35d7ce7ea7ea93a86756f2ca14b51f7e2041"
   end
 
   depends_on "rust" => :build # for pydantic_core
@@ -27,7 +27,7 @@ class Snapcraft < Formula
   depends_on "libsodium"
   depends_on "libyaml"
   depends_on "lxc"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "snap"
   depends_on "xdelta"
 

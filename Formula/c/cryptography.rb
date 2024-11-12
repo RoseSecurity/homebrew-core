@@ -1,44 +1,28 @@
 class Cryptography < Formula
   desc "Cryptographic recipes and primitives for Python"
   homepage "https://cryptography.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/de/ba/0664727028b37e249e73879348cc46d45c5c1a2a2e81e8166462953c5755/cryptography-43.0.1.tar.gz"
-  sha256 "203e92a75716d8cfb491dc47c79e17d0d9207ccffcbcb35f598fbe463ae3444d"
+  url "https://files.pythonhosted.org/packages/0d/05/07b55d1fa21ac18c3a8c79f764e2514e6f6a9698f1be44994f5adf0d29db/cryptography-43.0.3.tar.gz"
+  sha256 "315b9001266a492a6ff443b61238f956b214dbec9910a081ba5b6646a055a805"
   license any_of: ["Apache-2.0", "BSD-3-Clause"]
-  revision 1
   head "https://github.com/pyca/cryptography.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "ae96ccba63bdbe1eff0b7ea6e0b078f25fe5096f984c21438544637f7529aa41"
-    sha256 cellar: :any,                 arm64_sonoma:  "118a0fa32bf78f22a2f7608a60b74b0973c3843c9b784aba9163c030d3125c37"
-    sha256 cellar: :any,                 arm64_ventura: "00b9970c80945b39299d5277711ecfa86581d011712bbb57af8ab658ba04f2d5"
-    sha256 cellar: :any,                 sonoma:        "9dbcef69a8eaeb9c03c6ad42dd0dcd9ce4a3eaf16305956a1b197417ce78f4b6"
-    sha256 cellar: :any,                 ventura:       "7225b21872c1e684420016b3fcf16d576044debc04a80fb96f579015b5d275c9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9f617322ca036b4c6390bc7fa4b84128382eaf59b6853ebe57b8f2c29b56f2dc"
+    sha256 cellar: :any,                 arm64_sequoia: "d732628afbbcc5bbecc5ed544f06f5b14d5ac6cc0a4c8b1f701c174358a4b847"
+    sha256 cellar: :any,                 arm64_sonoma:  "0265f0b12dfa59e1d6a3536fd9bac94a2821008ec7bbafbd67942abf74461f46"
+    sha256 cellar: :any,                 arm64_ventura: "9056aaceeb056bdc38281fa26cc8a489cda9bde496ed7abb2b010cdba3789f6d"
+    sha256 cellar: :any,                 sonoma:        "df405e9244b4dcd5ad2851b9c1ec22002564ad54faa33527278edf2b6aacdb13"
+    sha256 cellar: :any,                 ventura:       "c26185f2ba0fc8d47ce9ce50692d0f262c749268909fdee9f82753930185f850"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e930f8ae8dc0cfcb56100239bb6dc2c34c07f7a4d17487546ce646aafe227d68"
   end
 
   depends_on "maturin" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => [:build, :test]
+  depends_on "python-setuptools" => :build
   depends_on "python@3.12" => [:build, :test]
   depends_on "python@3.13" => [:build, :test]
   depends_on "rust" => :build
   depends_on "cffi"
   depends_on "openssl@3"
-
-  resource "semantic-version" do
-    url "https://files.pythonhosted.org/packages/7d/31/f2289ce78b9b473d582568c234e104d2a342fd658cc288a7553d83bb8595/semantic_version-2.10.0.tar.gz"
-    sha256 "bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c"
-  end
-
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/cb/e754933c1ca726b0d99980612dc9da2886e76c83968c246cfb50f491a96b/setuptools-74.1.1.tar.gz"
-    sha256 "2353af060c06388be1cecbf5953dcdb1f38362f87a2356c480b6b4d5fcfc8847"
-  end
-
-  resource "setuptools-rust" do
-    url "https://files.pythonhosted.org/packages/b8/86/4f34594f21f529623b8650fe729548e3a2ad6c9ad81583391f03f74dd11a/setuptools_rust-1.10.1.tar.gz"
-    sha256 "d79035fc54cdf9342e9edf4b009491ecab06c3a652b37c3c137c7ba85547d3e6"
-  end
 
   def pythons
     deps.map(&:to_formula)
@@ -47,34 +31,20 @@ class Cryptography < Formula
   end
 
   def install
-    ENV.append_path "PATH", buildpath/"bin"
-    # Resources need to be installed in a particular order, so we can't use `resources.each`.
-    resources_in_install_order = %w[setuptools setuptools-rust semantic-version]
-
+    # TODO: Avoid building multiple times as binaries are already built in limited API mode
     pythons.each do |python3|
-      buildpath_site_packages = buildpath/Language::Python.site_packages(python3)
-      ENV.append_path "PYTHONPATH", buildpath_site_packages
-
-      resources_in_install_order.each do |r|
-        resource(r).stage do
-          system python3, "-m", "pip", "install", *std_pip_args(prefix: buildpath), "."
-        end
-      end
-
       system python3, "-m", "pip", "install", *std_pip_args, "."
-
-      ENV.remove "PYTHONPATH", buildpath_site_packages
     end
   end
 
   test do
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       from cryptography.fernet import Fernet
       key = Fernet.generate_key()
       f = Fernet(key)
       token = f.encrypt(b"homebrew")
       print(f.decrypt(token))
-    EOS
+    PYTHON
 
     pythons.each do |python3|
       assert_match "b'homebrew'", shell_output("#{python3} test.py")

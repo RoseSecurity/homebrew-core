@@ -1,17 +1,17 @@
 class Bittwist < Formula
   desc "Libcap-based Ethernet packet generator"
   homepage "https://bittwist.sourceforge.io"
-  url "https://downloads.sourceforge.net/project/bittwist/macOS/Bit-Twist%204.1/bittwist-macos-4.1.tar.gz"
-  sha256 "834854b003eb12e7db67c66ec14f897991bbc5c5d3f8432987acedfb709e79a3"
+  url "https://downloads.sourceforge.net/project/bittwist/macOS/Bit-Twist%204.7/bittwist-macos-4.7.tar.gz"
+  sha256 "2ff00070d57221672af5198268088ffee8ed6b5ade33d6f26be5b3b4125b48f1"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7e91ed44e0a346ad953441a88d6f532e2d947391b2fa4da2dcbe878025be1850"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d4305454b62f5e0cb9e73c30343fabd7258546574ba05f1d7d7db9f2479a6c47"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "1ca035c609c0c94c639404d1bb63470686fea04874057f72d852e46cc4f07374"
-    sha256 cellar: :any_skip_relocation, sonoma:        "91c123e37af504975aad59f7c47debfcfe226d590440a679bb947ec549bb79f4"
-    sha256 cellar: :any_skip_relocation, ventura:       "f99ce4712f984c50541d3a08fc2d65fc2823df205c5e9a1c7646a363dc37a96e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "65af4e1f81a00b608e07e4ab4a3d7f81279e7f55ff77eabe90c136cc9e673f3b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8e8c5033fb2ebd8dc27832f1b4252d3f1b4cfadee39831d6af68028f28f9e8e5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "364a968f6b30db2db01a77f6b2c55c609d3c8165607c40e0f2b4b1ea011c81c0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5f5fe1bc269cc3195450240348b9b808f60b19c88b1362a533ef7f615d6b7c40"
+    sha256 cellar: :any_skip_relocation, sonoma:        "523fc5af61f3f3815d23cfbc1089548d86b072a301c5424923cdac4028a61d95"
+    sha256 cellar: :any_skip_relocation, ventura:       "3df91f28e930a032ea31108f1ceb250b14d0a02b5026060924027457426183b8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f85b61e9d72e5d329a7b3a01813b01f2c72e81dc451bf144e8860b0cd868472d"
   end
 
   uses_from_macos "libpcap"

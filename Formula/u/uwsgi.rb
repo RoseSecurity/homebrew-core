@@ -1,24 +1,24 @@
 class Uwsgi < Formula
   desc "Full stack for building hosting services"
   homepage "https://uwsgi-docs.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/e1/46/fb08706bc5d922584a5aaed1f73e7a17313310aa34615c74406112ea04a6/uwsgi-2.0.27.tar.gz"
-  sha256 "3ee5bfb7e6e9c93478c22aa8183eef35b95a2d5b14cca16172e67f135565c458"
+  url "https://files.pythonhosted.org/packages/24/c2/d58480aadc9a1f420dd96fc43cf0dcd8cb5ededb95cab53743529c23b6cd/uwsgi-2.0.28.tar.gz"
+  sha256 "79ca1891ef2df14508ab0471ee8c0eb94bd2d51d03f32f90c4bbe557ab1e99d0"
   license "GPL-2.0-or-later"
   head "https://github.com/unbit/uwsgi.git", branch: "master"
 
   bottle do
-    sha256 arm64_sequoia: "406f6148141cf2dc39642509f9824f1194f45594671c403e22021f387d31a3c4"
-    sha256 arm64_sonoma:  "7046ea7b89717b42bc3bad1ade91da787dd75ef1cb3b3125dd6f3f6995838f88"
-    sha256 arm64_ventura: "aaf2ae027abd418337f7d61e86217392debf3cef30405c2efd4d064836ef6236"
-    sha256 sonoma:        "a081e3ca5de740c4ac25d8f8f26bf109f190e752470b9de8bc78bee743c1a0d2"
-    sha256 ventura:       "0204e8b97e173f10d0119f81d54017543bdea15af77fed0b58ab1ac9f83dd52d"
-    sha256 x86_64_linux:  "f5cd1e574fd5317bf912c6bef2c352401f3c5fda30c9c76f1503659722129e47"
+    sha256 arm64_sequoia: "f57a1a48e3c6a9e34a580a47448ef9b4f7859b307871efcacc7fb30ac80269ff"
+    sha256 arm64_sonoma:  "9a19faaa101548dc4a49f8c9cc187cd7ada753a8752867073af55f1bc1fcbd59"
+    sha256 arm64_ventura: "3ddd8691d4daf943cc326623d205ae7b4b7a751d1199e4119474becc166e6b0d"
+    sha256 sonoma:        "91ac6f68d094cfb448ff535b849ce94461e7f84331d5c53d6de313a93c330648"
+    sha256 ventura:       "8ff239f69cbc9fbb85c9ba4296f4805b96d9b146237b481c11ee82cfb411e2fe"
+    sha256 x86_64_linux:  "837e3580174d833939e92f51d97664d092d0cd4e4f1ad167429f743aaeed865b"
   end
 
   depends_on "pkg-config" => :build
   depends_on "openssl@3"
   depends_on "pcre2"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "sqlite"
   depends_on "yajl"
 
@@ -30,6 +30,10 @@ class Uwsgi < Formula
 
   on_linux do
     depends_on "linux-pam"
+  end
+
+  def python3
+    "python3.13"
   end
 
   def install
@@ -48,7 +52,6 @@ class Uwsgi < Formula
       embedded_plugins = null
     EOS
 
-    python3 = "python3.12"
     system python3, "uwsgiconfig.py", "--verbose", "--build", "brew"
 
     plugins = %w[airbrake alarm_curl asyncio cache
@@ -88,18 +91,18 @@ class Uwsgi < Formula
   end
 
   test do
-    (testpath/"helloworld.py").write <<~EOS
+    (testpath/"helloworld.py").write <<~PYTHON
       def application(env, start_response):
         start_response('200 OK', [('Content-Type','text/html')])
         return [b"Hello World"]
-    EOS
+    PYTHON
 
     port = free_port
 
     pid = fork do
       exec "#{bin}/uwsgi --http-socket 127.0.0.1:#{port} --protocol=http --plugin python3 -w helloworld"
     end
-    sleep 2
+    sleep 4
 
     begin
       assert_match "Hello World", shell_output("curl localhost:#{port}")

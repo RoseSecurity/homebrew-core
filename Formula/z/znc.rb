@@ -4,7 +4,7 @@ class Znc < Formula
   url "https://znc.in/releases/znc-1.9.1.tar.gz"
   sha256 "e8a7cf80e19aad510b4e282eaf61b56bc30df88ea2e0f64fadcdd303c4894f3c"
   license "Apache-2.0"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://znc.in/releases/"
@@ -12,25 +12,25 @@ class Znc < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "9fce3b5382b0380bd66254957e18fb3267cb018171b9036d310e66e87eb4024a"
-    sha256 arm64_sonoma:  "ca7e81f997a2088cf8be05e8d91fa58cf1624c10a380af761183cf4e56874e3d"
-    sha256 arm64_ventura: "32335d86196df89e0b2cf68b111267f04b14f258c0393fe0eaf86add7c1950e8"
-    sha256 sonoma:        "fd03a0c2c63620847014975e8a4ee5e9c182a5a60e936b3b1970545d4fbfb816"
-    sha256 ventura:       "f92a3827ecaf2aac78a5ff213cc1aef5bb11b11e8dd185ff60b933497659f916"
-    sha256 x86_64_linux:  "8410bceeaa10743e520ba2cb0e9e160a0a689d9096a6a2134ff0f58873326f2b"
+    sha256 arm64_sequoia: "47a4377429c552b85f0f0d01c4bd626c16b870b25e5c236b3638d7d364b8515f"
+    sha256 arm64_sonoma:  "cd03c571acd62e9278b6a4a516e8eb62e4b6094c3207130b6bae9aa8e15e022b"
+    sha256 arm64_ventura: "8d500898246859202ec756125592c33b07419d7d42e19ec739d3cdb7a87d6339"
+    sha256 sonoma:        "f7d4596fc318adca1268a55c3e0d065999e69dedc7b55f84b89a72cb8fb1ae51"
+    sha256 ventura:       "ab19a326ac21a984ff8e0594239d567d8bbe9c793566040d54d283eefd8c37b4"
+    sha256 x86_64_linux:  "0da654df490b1c2eb22af53ec756b181d5116006b24ecb78451a325812929a14"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "boost"
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "openssl@3"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "zlib"
 
   def install
-    python3 = "python3.12"
+    python3 = "python3.13"
     xy = Language::Python.major_minor_version python3
 
     # Fixes: CMake Error: Problem with archive_write_header(): Can't create 'swigpyrun.h'

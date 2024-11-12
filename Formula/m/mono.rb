@@ -12,14 +12,13 @@ class Mono < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "9fee41ae69ff582e63f5f7aadbcafd151e904739f9402d12f9b774a5fae87eb0"
-    sha256 arm64_ventura:  "ee4c4db59ad92b5414af6ddb44e21f46b32be19245dba35c184f15adef6d589a"
-    sha256 arm64_monterey: "788b47ba1b9b6f5ed463913fe0aebedf944004c114a7d29a3b7f779de366998a"
-    sha256 sonoma:         "c245b5d70a6e0b5176c6dc35058797ca1945900a1c9b791dadb01a6df1020744"
-    sha256 ventura:        "1b11efe11ce0f4d943f58dfe23a966941c46639520d0f07257c2f1142098846d"
-    sha256 monterey:       "bd04c2a52a00ad941de846f0f30e979a374460e0c850c63f7585cfb8c89d1657"
-    sha256 x86_64_linux:   "d5a14ba095473a74d4105976fbe1bca5054cc4ae3e1324b879e63f05ab4dcd99"
+    rebuild 2
+    sha256 arm64_sequoia: "ed25bcec51134d7a3c6cf04635d1b378fdb06f7127dd4705e3bf525373700c8c"
+    sha256 arm64_sonoma:  "e69f64033ac83adbf465fdc284e5d145f18b0759b0c866177fd65975ccaf58f7"
+    sha256 arm64_ventura: "e1b8fc0bfbdc638a220abed1d2fa5b48a7790a5b1668bafb3252b8539b14965d"
+    sha256 sonoma:        "bb0d701d0120bffedba03081a169a5cd6b679c5d437163daec0e2d2bf6e61652"
+    sha256 ventura:       "749ada5c5fb3013cae9ba9e862655ca2cd397f0c558be85b7f65ebeb9191598e"
+    sha256 x86_64_linux:  "7aea7983b72286cf2ce2e6438d2b846908359e6b577d76ad36ce32f8ac9691d7"
   end
 
   depends_on "autoconf" => :build
@@ -28,11 +27,25 @@ class Mono < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "unzip" => :build
   uses_from_macos "krb5"
   uses_from_macos "zlib"
+
+  on_macos do
+    if DevelopmentTools.clang_build_version == 1600
+      depends_on "llvm" => :build
+
+      fails_with :clang do
+        cause <<~EOS
+          Got a segv while executing native code. This usually indicates
+          a fatal error in the mono runtime or one of the native libraries
+          used by your application.
+        EOS
+      end
+    end
+  end
 
   on_linux do
     depends_on "ca-certificates"
@@ -52,6 +65,8 @@ class Mono < Formula
   link_overwrite "lib/cli"
 
   def install
+    ENV.llvm_clang if DevelopmentTools.clang_build_version == 1600
+
     # Replace hardcoded /usr/share directory. Paths like /usr/share/.mono,
     # /usr/share/.isolatedstorage, and /usr/share/template are referenced in code.
     inreplace_files = %w[

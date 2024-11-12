@@ -1,8 +1,8 @@
 class Threadweaver < Formula
   desc "Helper for multithreaded programming"
   homepage "https://api.kde.org/frameworks/threadweaver/html/index.html"
-  url "https://download.kde.org/stable/frameworks/6.6/threadweaver-6.6.0.tar.xz"
-  sha256 "19555488abf05a9d5a1641f165a67d347e23ab7d14c6f9464ffcf8db2370317a"
+  url "https://download.kde.org/stable/frameworks/6.8/threadweaver-6.8.0.tar.xz"
+  sha256 "8864dd30b7a55f751c1ba81abda789a3934964be18ba1c8e694e2bc48768bfde"
   license "LGPL-2.0-or-later"
   head "https://invent.kde.org/frameworks/threadweaver.git", branch: "master"
 
@@ -12,11 +12,11 @@ class Threadweaver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "61be8c1a345cacc41e7f1c1ca87646ef7db488c38dce76258ef1709b39454f10"
-    sha256 cellar: :any,                 arm64_ventura: "0445f7a5ea6110d484498a6ff9adba4a73088daba17ec0ca558e59d05ffdc846"
-    sha256 cellar: :any,                 sonoma:        "3c7827ce581a092c0119023135a535640653c603057c81f9fb4123c25fd5ad66"
-    sha256 cellar: :any,                 ventura:       "4fa921e81a293f0980bf0c2adbd3616271f10d627b5ed8dda26001e79209847f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec1abc9d34f3498ae5ba5ad93559513bec88752082247fa18dac10e3bb0bbbfe"
+    sha256 cellar: :any,                 arm64_sonoma:  "7ee4a0d056bec3460ed6fbf9a39eb8d8f2822327c68c54c81381d33481020ce4"
+    sha256 cellar: :any,                 arm64_ventura: "43b6eb937fe080013c14f7384c78fd05ed3227c20beffe1b9f249c54d60dffe1"
+    sha256 cellar: :any,                 sonoma:        "aed5a5ab81699c18587a78cf6234ee61d18d1f6874de8b175886f31c807d5912"
+    sha256 cellar: :any,                 ventura:       "849828f864bb17e7d31615fc37414b471fead9ad0c31345b0ea13e066b9c46e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3af781797bba2b148c644ea5eb45667039b6b47e0a06caa3a6d06f3f1a1dd0b1"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -39,14 +39,14 @@ class Threadweaver < Formula
 
     kf = "KF#{version.major}"
     (testpath/"CMakeLists.txt").unlink
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(HelloWorld LANGUAGES CXX)
       find_package(ECM REQUIRED NO_MODULE)
       find_package(#{kf}ThreadWeaver REQUIRED NO_MODULE)
       add_executable(ThreadWeaver_HelloWorld HelloWorld.cpp)
       target_link_libraries(ThreadWeaver_HelloWorld #{kf}::ThreadWeaver)
-    EOS
+    CMAKE
 
     system "cmake", "-S", ".", "-B", ".", *std_cmake_args
     system "cmake", "--build", "."

@@ -1,18 +1,18 @@
 class Bazelisk < Formula
   desc "User-friendly launcher for Bazel"
   homepage "https://github.com/bazelbuild/bazelisk/"
-  url "https://github.com/bazelbuild/bazelisk/archive/refs/tags/v1.22.0.tar.gz"
-  sha256 "4e136f6f1212f28d5c6fdd4cfa3f016d7443831fc98ce8b7ee3caee81ef956fa"
+  url "https://github.com/bazelbuild/bazelisk/archive/refs/tags/v1.23.0.tar.gz"
+  sha256 "8a2803184e77bdcb9116943d33ab82e00411b440ada2384e2ace783f7047a804"
   license "Apache-2.0"
   head "https://github.com/bazelbuild/bazelisk.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3cb08dd73eb1ef938f6921e5f25b3832d7aaf6c9befdcccba3b4f713a62a043d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3cb08dd73eb1ef938f6921e5f25b3832d7aaf6c9befdcccba3b4f713a62a043d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "3cb08dd73eb1ef938f6921e5f25b3832d7aaf6c9befdcccba3b4f713a62a043d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d14bd1ef15d2fca1381839670a7c3562750d295712e1cb0f2d8927e9358c56f1"
-    sha256 cellar: :any_skip_relocation, ventura:       "d14bd1ef15d2fca1381839670a7c3562750d295712e1cb0f2d8927e9358c56f1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa334b48d146e264c5321f317b3e9c6fba01405ee5d80d0d4f75f576a1071d46"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b82619536ef86dd93e6ae714d8f9b51c4c915d48b72b52e98acf616cc7ec30e9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b82619536ef86dd93e6ae714d8f9b51c4c915d48b72b52e98acf616cc7ec30e9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "b82619536ef86dd93e6ae714d8f9b51c4c915d48b72b52e98acf616cc7ec30e9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "caafad29de5806e10bf5877d7749287546683d3d3186f8627dde4393333ddfc1"
+    sha256 cellar: :any_skip_relocation, ventura:       "caafad29de5806e10bf5877d7749287546683d3d3186f8627dde4393333ddfc1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a04db6db3c673008db022207f3bd446befef65ed328de10ce83e857189fac288"
   end
 
   depends_on "go" => :build

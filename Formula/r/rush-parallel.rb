@@ -1,19 +1,17 @@
 class RushParallel < Formula
   desc "Cross-platform command-line tool for executing jobs in parallel"
   homepage "https://github.com/shenwei356/rush"
-  url "https://github.com/shenwei356/rush/archive/refs/tags/v0.5.6.tar.gz"
-  sha256 "57450967bd222964f4865d7884b358d391e30d6eee8951b149f34f8642a32958"
+  url "https://github.com/shenwei356/rush/archive/refs/tags/v0.6.0.tar.gz"
+  sha256 "58f1998c7d03daa30aea7a29c57893c87399d1d722dc5d2349ad3b4f7dc599bc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "dec8fcf099e7d8f5a089ea85cc14ce075a941dda2977a2922ba93db6fa313663"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dc134bdeb1f45da45415da9afd754faedda3216c381a40e4ad276fdf0a4f0d5d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "84527df6822a3c96fbe1f3bd5f64842dacd941ad635353a8492be7544d75ce99"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9a7ccbfe97e582202faab7204fafef37033cd0ee5d7c9b32ee352e9435f140d7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f72c193f784b9daa4842fd6142587e35ae4d0af1910a9c024e7a03db339d837e"
-    sha256 cellar: :any_skip_relocation, ventura:        "c1b6bcab40fb133dcbb72d87cb9adc6b1e1dbcfaabd1165585fef689533150c8"
-    sha256 cellar: :any_skip_relocation, monterey:       "9fc430bf28d8d0575cbc824582cb143027ea0995eaeb430a64bf4e342783fd74"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b750c49b1316b191f32c638041be3bf67dfbbd33991ecf67a14a96cff91bd9b3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "60d17b7ba77afa1f69547b491b183921e93087bf00f5b67d3545ec1045649ac8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "98d1a7b2392afe59e044a22f802a4756921d791bb7c19add7ff4cfd0410c9328"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "565b9c748fb390ad26d643667a39d367ccef0283fe2efc254851435fe809eda4"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ec9f2329e80810f6af6392316219255902ec8823ef74ea08a3b6767e54a7aeed"
+    sha256 cellar: :any_skip_relocation, ventura:       "bb3d19ddf3ca86e90d1e4142634486a32bdc5f87a3ae7ccd793a4159f9093ca6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "10167861f53542b5aeb2c07fc73a484886f7fa28ac3d3cce108f2d813ae38a44"
   end
 
   depends_on "go" => :build
