@@ -14,13 +14,13 @@ class Kuzco < Formula
   end
 
   test do
-    resource("terraform") do
-      url "https://github.com/hashicorp/terraform/archive/refs/tags/v1.5.7.tar.gz"
-      sha256 "6742fc87cba5e064455393cda12f0e0241c85a7cb2a3558d13289380bb5f26f5"
+    resource("opentofu") do
+      url "https://github.com/opentofu/opentofu/archive/refs/tags/v1.8.5.tar.gz"
+      sha256 "07613c3b7d6c0a7c3ede29da6a4f33d764420326c07a1c41e52e215428858ef4"
     end
 
-    resource("terraform").stage do
-      system "go", "build", *std_go_args(ldflags: "-s -w", output: testpath/"terraform")
+    resource("opentofu").stage do
+      system "go", "build", *std_go_args(ldflags: "-s -w", output: testpath/"opentofu")
     end
 
     ENV.prepend_path "PATH", testpath
@@ -38,7 +38,7 @@ class Kuzco < Formula
       }
     EOS
 
-    output = shell_output("#{bin}/kuzco recommend -f #{testpath} --dry-run")
+    output = shell_output("#{bin}/kuzco recommend -t opentofu -f #{testpath} --dry-run")
     assert_match "version block", output
     assert_match version.to_s, shell_output("#{bin}/kuzco version")
   end
